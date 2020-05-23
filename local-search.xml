@@ -4,19 +4,6 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2020/05/23/hello-world/"/>
-    <url>/2020/05/23/hello-world/</url>
-    
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
-    
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>通过可逆运算交换变量的值</title>
     <link href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/"/>
     <url>/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/</url>
@@ -42,11 +29,542 @@
   
   
   <entry>
+    <title>Hello World</title>
+    <link href="/2020/05/23/hello-world/"/>
+    <url>/2020/05/23/hello-world/</url>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="hljs bash">$ hexo new <span class="hljs-string">"My New Post"</span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre><code class="hljs bash">$ hexo server</code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre><code class="hljs bash">$ hexo generate</code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre><code class="hljs bash">$ hexo deploy</code></pre><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Template类模板</title>
+    <link href="/2020/05/21/Template%E7%B1%BB%E6%A8%A1%E6%9D%BF/"/>
+    <url>/2020/05/21/Template%E7%B1%BB%E6%A8%A1%E6%9D%BF/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Template"><a href="#Template" class="headerlink" title="Template"></a>Template</h1><h2 id="1-函数模板"><a href="#1-函数模板" class="headerlink" title="1.函数模板"></a>1.函数模板</h2><p>编译期间编译器自动分析参数类型，<code>template</code>函数模板是支持默认参数的，<code>T1 、T2</code> 顺序在默认情况下是可以任意的，不用严格按照从右到左的顺序，例如：<code>template &lt;typename T1 ,typename T2 = int&gt;</code></p><pre><code class="hljs cpp"><span class="hljs-comment">//函数模板化    </span><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;<span class="hljs-function">T <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">const</span> T lval,<span class="hljs-keyword">const</span> T rval)</span></span><span class="hljs-function"></span>&#123;    T ans = lval + rval;    <span class="hljs-keyword">return</span> ans; &#125;</code></pre><pre><code class="hljs cpp"><span class="hljs-built_in">cout</span> &lt;&lt; add(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-built_in">cout</span> &lt;&lt; add(<span class="hljs-number">2.1</span>, <span class="hljs-number">1.2</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-comment">//add(2, 1.2)会报错,因为变成了add(int,double)</span>输出：    <span class="hljs-number">3</span>    <span class="hljs-number">3.3</span></code></pre><h2 id="2-类模板"><a href="#2-类模板" class="headerlink" title="2.类模板"></a>2.类模板</h2><p>将模板思想应用于类,类模板也支持默认参数，但是类模板必须严格从右往左默认化。</p><pre><code class="hljs cpp"><span class="hljs-comment">//类模板</span><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">Myclass</span></span><span class="hljs-class">&#123;</span>    T a;    <span class="hljs-keyword">public</span>:        <span class="hljs-function">T <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">const</span> T lval, <span class="hljs-keyword">const</span> T rval)</span></span>;&#125;;<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class"><span class="hljs-title">T</span> <span class="hljs-title">Myclass</span> &lt;T&gt;:</span>:add(<span class="hljs-keyword">const</span> T lval, <span class="hljs-keyword">const</span> T rval)&#123;    a = lval + rval;    <span class="hljs-keyword">return</span> a;&#125;</code></pre><pre><code class="hljs cpp">Myclass&lt;<span class="hljs-keyword">double</span>&gt; myclass;<span class="hljs-built_in">cout</span> &lt;&lt; myclass.add(<span class="hljs-number">1.2</span>, <span class="hljs-number">3.3</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;输出：    <span class="hljs-number">4.5</span></code></pre><h2 id="3-成员模板"><a href="#3-成员模板" class="headerlink" title="3.成员模板"></a>3.成员模板</h2><p>在模板类内使用模板函数。</p><pre><code class="hljs cpp"><span class="hljs-comment">//成员模板</span><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">Mylove</span></span><span class="hljs-class">&#123;</span>    <span class="hljs-keyword">public</span>:        T a;        <span class="hljs-keyword">template</span> &lt;<span class="hljs-keyword">typename</span> type_1, <span class="hljs-keyword">typename</span> type_2&gt;        <span class="hljs-function">type_1 <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">const</span> type_1 lval, <span class="hljs-keyword">const</span> type_2 rval)</span></span>;&#125;;<span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class"><span class="hljs-title">template</span> &lt;typename type_1, typename type_2&gt;</span><span class="hljs-class"><span class="hljs-title">type_1</span> <span class="hljs-title">Mylove</span>&lt;T&gt;:</span>:add(<span class="hljs-keyword">const</span> type_1 lval, <span class="hljs-keyword">const</span> type_2 rval)&#123;    a = lval + rval;    <span class="hljs-keyword">return</span> a;&#125;</code></pre><pre><code class="hljs cpp">Mylove&lt;<span class="hljs-keyword">double</span>&gt; mylove;<span class="hljs-built_in">cout</span> &lt;&lt; mylove.add(<span class="hljs-number">0</span>, <span class="hljs-number">20.2</span>) &lt;&lt; <span class="hljs-built_in">endl</span>; <span class="hljs-comment">//答案为20，因为该函数返回为第一个参数相同,该过程为int+double=double,但最终返回int</span>输出:<span class="hljs-number">20</span></code></pre><h2 id="4-嵌套类模板"><a href="#4-嵌套类模板" class="headerlink" title="4.嵌套类模板"></a>4.嵌套类模板</h2><p>模板类内嵌套模板类。</p><pre><code class="hljs cpp"><span class="hljs-comment">//嵌套类模板</span><span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class"><span class="hljs-title">class</span> <span class="hljs-title">Mylife</span></span><span class="hljs-class">&#123;</span>    <span class="hljs-keyword">public</span>:        T a;        <span class="hljs-keyword">template</span> &lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">type_3</span>&gt;</span><span class="hljs-class">        <span class="hljs-title">class</span> <span class="hljs-title">Mystory</span>;</span><span class="hljs-comment">//先声明，在外部定义</span>        Mystory&lt;T&gt; mystory;<span class="hljs-comment">//用T实例化</span>&#125;;<span class="hljs-keyword">template</span>&lt;<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">T</span>&gt;</span><span class="hljs-class">    <span class="hljs-title">template</span>&lt;class type_3&gt;</span><span class="hljs-class">        <span class="hljs-title">class</span> <span class="hljs-title">Mylife</span>&lt;T&gt;:</span>:Mystory        &#123;            <span class="hljs-keyword">public</span>:                type_3 c;                <span class="hljs-function">type_3 <span class="hljs-title">add</span><span class="hljs-params">(<span class="hljs-keyword">const</span> type_3 lval, <span class="hljs-keyword">const</span> type_3 rval)</span> </span><span class="hljs-function">                </span>&#123;                    c = lval + rval;                    <span class="hljs-keyword">return</span> c;                &#125;;        &#125;;</code></pre><pre><code class="hljs cpp">Mylife&lt;<span class="hljs-keyword">double</span>&gt; mylife;<span class="hljs-built_in">cout</span> &lt;&lt; mylife.mystory.add(<span class="hljs-number">1</span>, <span class="hljs-number">1.1</span>) &lt;&lt; <span class="hljs-built_in">endl</span>;输出：    <span class="hljs-number">2.1</span></code></pre><h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5.总结"></a>5.总结</h2><p>使用<code>template</code>,以不变应万变，平常使用的STL正是基于此。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>C++</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity下计步器Pedometer算法的实现</title>
+    <link href="/2020/05/15/Unity%E4%B8%8B%E8%AE%A1%E6%AD%A5%E5%99%A8Pedometer%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
+    <url>/2020/05/15/Unity%E4%B8%8B%E8%AE%A1%E6%AD%A5%E5%99%A8Pedometer%E7%AE%97%E6%B3%95%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Unity下计步器Pedometer的实现"><a href="#Unity下计步器Pedometer的实现" class="headerlink" title="Unity下计步器Pedometer的实现"></a>Unity下计步器Pedometer的实现</h2><p><strong>1.环境</strong><br>unity2018,Android(小米5)<br><strong>2.原理</strong><br><a href="https://blog.csdn.net/qq_36490364/article/details/104522980" target="_blank" rel="noopener">加速度传感器的计步算法Pedometer</a><br><strong>3.实现</strong><br>注释写的很清楚了应该<br><pre><code class="hljs c#">using UnityEngine;using UnityEngine.Networking;using UnityEngine.UI;#pragma warning disable CS0618public class pedometer : MonoBehaviour&#123;    public Text statusText,stepsText;    public float lowLimit &#x3D; 0.005f; &#x2F;&#x2F;平缓    public float highLimit &#x3D; 0.1f; &#x2F;&#x2F; 走路时的波峰波谷    public float vertHighLimit &#x3D; 0.25f;&#x2F;&#x2F;跳跃时的波峰波谷    private bool isHigh &#x3D; false; &#x2F;&#x2F; 状态    private float filterCurrent &#x3D; 10.0f; &#x2F;&#x2F; 滤波参数 得到拟合值    private float filterAverage &#x3D; 0.1f; &#x2F;&#x2F;   滤波参数  得到均值    private float accelerationCurrent &#x3D; 0f; &#x2F;&#x2F;拟合值    private float accelerationAverage &#x3D; 0f;&#x2F;&#x2F;均值    private int steps &#x3D; 0; &#x2F;&#x2F; 步数    private int oldSteps;    private float deltaTime &#x3D; 0f;&#x2F;&#x2F;计时器    private int jumpCount &#x3D; 0;&#x2F;&#x2F;跳跃数    private int oldjumpCount &#x3D; 0;        private bool startTimer &#x3D; false;&#x2F;&#x2F;开始计时    private bool isWalking &#x3D; false;    private bool isJumping &#x3D; false;    void Awake()    &#123;        accelerationAverage &#x3D; Input.acceleration.magnitude;         oldSteps &#x3D; steps;        oldjumpCount &#x3D;jumpCount ;    &#125;    void Update()    &#123;        checkWalkingAndJumping(); &#x2F;&#x2F; 检测是否行走        if (isWalking)        &#123;            statusText.text &#x3D; (&quot;状态:行走&quot;);                    &#125;        else if (!isWalking)        &#123;            statusText.text &#x3D; (&quot;状态:不动&quot;);        &#125;        if (isJumping)        &#123;            statusText.text &#x3D; (&quot;状态:跳跃&quot;);        &#125;    &#125;    void FixedUpdate()    &#123;        &#x2F;&#x2F;通过Lerp对Input.acceleration.magnitude(加速度标量和)滤波        &#x2F;&#x2F;这里使用线性插值的公式正好为EMA一次指数滤波 y[i]&#x3D;y[i-1]+(x[i]-y[i])*k&#x3D;(1-k)*y[i]+kx[i]        accelerationCurrent &#x3D; Mathf.Lerp(accelerationCurrent, Input.acceleration.magnitude, Time.deltaTime * filterCurrent);        accelerationAverage &#x3D; Mathf.Lerp(accelerationAverage, Input.acceleration.magnitude, Time.deltaTime * filterAverage);        float delta &#x3D; accelerationCurrent - accelerationAverage; &#x2F;&#x2F; 获取差值，即坡度        if (!isHigh)        &#123;               if (delta &gt; highLimit)&#x2F;&#x2F;往高            &#123;                isHigh &#x3D; true;                steps++;                stepsText.text &#x3D; &quot;步数: &quot; + steps+&quot;\n跳跃数：&quot;+jumpCount;            &#125;            if(delta&gt;vertHighLimit)            &#123;                isHigh &#x3D; true;                jumpCount++;                stepsText.text &#x3D; &quot;步数: &quot; + steps + &quot;\n跳跃数：&quot; + jumpCount;            &#125;        &#125;        else        &#123;            if (delta &lt; lowLimit)&#x2F;&#x2F;往低            &#123;                                isHigh &#x3D; false;            &#125;        &#125;    &#125;       private void checkWalkingAndJumping()    &#123;        if ((steps !&#x3D; oldSteps)||(oldjumpCount !&#x3D; jumpCount))        &#123;            startTimer &#x3D; true;            deltaTime &#x3D; 0f;        &#125;        if (startTimer)&#x2F;&#x2F;计时器，让更新UI的慢一点，因为你不可能走路只用一帧的时间QAQ        &#123;            deltaTime +&#x3D; Time.deltaTime;            if (deltaTime !&#x3D; 0)           &#123;                if (oldjumpCount !&#x3D; jumpCount)&#x2F;&#x2F;检测是否是跳跃                    isJumping &#x3D; true;                else                    isWalking &#x3D; true;                      &#125;            if (deltaTime &gt; 2)           &#123;                deltaTime &#x3D; 0F;                startTimer &#x3D; false;           &#125;        &#125;        else if (!startTimer)        &#123;            isWalking &#x3D; false;            isJumping &#x3D; false;        &#125;        oldSteps &#x3D; steps;        oldjumpCount &#x3D; jumpCount;    &#125;&#125;</code></pre></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>加速度传感器的计步算法Pedometer</title>
+    <link href="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/"/>
+    <url>/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/</url>
+    
+    <content type="html"><![CDATA[<h2 id="加速度传感器的计步算法Pedometer"><a href="#加速度传感器的计步算法Pedometer" class="headerlink" title="加速度传感器的计步算法Pedometer"></a>加速度传感器的计步算法Pedometer</h2><p><strong>1.前言</strong><br>&emsp;&emsp;最近要使用到计步，查了很多资料，以下是一个简易的计步算法，也能检测跳跃</p><p><strong>2.工具</strong><br>&emsp;&emsp;<a href="https://download.csdn.net/download/qq_36490364/12193880" target="_blank" rel="noopener">一个实时绘制Android加速度的APP</a></p><p><strong>3.内容</strong></p><ol><li><p>Android的加速传感器的介绍</p><p>&emsp;&emsp;Android上的加速度传感器的方向如下所示（当你面朝手机屏幕观察），这是一个右手坐标系。因此加速度是由三个正交的向量组成的，例如当你平放手机在桌子上屏幕朝上，此时应为（0，0，9.6左右）<img src="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/image-20200524015251937.png" srcset="/img/loading.gif" class="" title="image-20200524015251937"></p></li></ol><ol><li>使用g-sensor对数据进行分析<br> &emsp;&emsp;打开这个工具后进行走路和跳跃，然后导出数据，以时间为横轴画出折线图<img src="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/20200226221501436-1590254598388.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br> 我们多实验几组实验后会发现，当手机以不同的姿态放入口袋然后进行运动时，xyz三轴的数据是不确定的，但是三者矢量和的模却是有规律的（其实真正的加速度被正交分解了），因此我们接下来应该分析的是它们的模|V|<br> <img src="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/202002262042493.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">&emsp;&emsp;上图中可以知道，每次走路都会产生一个波峰和波谷，而跳跃的振幅相对大一些。因此判断行走只需判断波峰波谷就行</li></ol><ol><li>数据处理<br>&emsp;&emsp;不妨记第$i$个时间单位获取到的加速度的三个矢量和的模大小为$x_i$，为了使数据更加平滑，分别使用两次的指数滤波(EMA)<script type="math/tex; mode=display">\left\{\begin{aligned}a_{i}&=（1-p_1）a_{i-1}+p_{1}x_{i}\\b_{i}&=（1-p_2）b_{i-1}+p_{2}x_{i}\\a_{0}&=b_{0}=x_{0}\\p_{1}&>p_{2}\\\end{aligned}\right.</script></li></ol><p>&emsp;&emsp;其中$a_i$是拟合曲线，$b_i$均值，因此${\Delta{h}=a_i-b_i}$即波峰波谷的高度差,得到${\Delta{h}}$后再跟设置好的${k_1,k_2,k_3}$比较（其中${k_1&gt;k_2&gt;k_3}$)。判别结果如下,</p><script type="math/tex; mode=display">\left\{\begin{aligned}&jump,\Delta{h}>k_1\\&walking,\Delta{h}>k_2\\&standing,\Delta{h}<k_3\\\end{aligned}\right.</script><p>&emsp;&emsp;需要注意的是.一旦检测到跳跃或者行走,就得有计时器计时,当经过$\Delta t$后再进行判别,因为人走路和跳跃是需要时间的!!!<br>&emsp;&emsp;其中${p<em>{1},p</em>{2},k_1,k_2,k_3,\Delta t}$都是需要我们设置的参数，下面分享一组<strong>手调</strong>测出来的参数QAQ，不一定最优但能行。。。</p><script type="math/tex; mode=display">\left\{\begin{aligned}p_1&=0.2\\p_2&=0.002\\k_1&=0.25\\k_2&=0.13\\k_3&=0.008\\\Delta t&=2s\end{aligned}\right.</script><img src="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/20200227144604718.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>&emsp;&emsp;上图是带入这些参数得到的曲线，我们可以看到经过$p<em>1$参数的滤波得到的曲线(红色)，已经大致拟合原数据(蓝色)，而经过$p_2$参数得到的曲线(绿色)大致为均值,要说一下的是其实绿线的值大致在9.8附近,就是重力加速度,为什么不直接采用9.8的原因是实际会有误差。<br>&emsp;&emsp;至于为什么会选EMA，简单有效！我们其实可以发现其公式可以用线性插值函数快速实现,虽然没人说，但我觉得在很多时候我们平滑移动物体和相机用到这个插值基于的原理就是这个，在每帧不断迭代才产生了平滑。<br>$a_i$=Mathf.Lerp($a</em>{i-1}$,$x<em>i$,$p_1$)=$a</em>{i-1}+(1-p<em>1)x_i=(1-p_1)a</em>{i-1}+p_1x_i$</p><p><strong>3.实现</strong><br><a href="https://blog.csdn.net/qq_36490364/article/details/104515912" target="_blank" rel="noopener">Unity下的实现</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>求解最长回文子串</title>
+    <link href="/2020/03/11/%E6%B1%82%E8%A7%A3%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/"/>
+    <url>/2020/03/11/%E6%B1%82%E8%A7%A3%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</url>
+    
+    <content type="html"><![CDATA[<p><strong>描述</strong><br>&emsp;&emsp;给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p><pre><code class="hljs c++">输入: <span class="hljs-string">"babad"</span>输出: <span class="hljs-string">"bab"</span>(注意: <span class="hljs-string">"aba"</span> 也是一个有效答案。)输入: <span class="hljs-string">"cbbd"</span>输出: <span class="hljs-string">"bb"</span></code></pre><p>&emsp;&emsp;dp,除此之外还有一些很炫的解法，这里只讲dp这是一道很好的入门题。<br>&emsp;&emsp;我一向认为dp第一步不是写状态转移方程，而是把状态设对。涉及到字符串的子串起码应该想到二维数组$dp<em>{ij}$,至于这个代表什么，就是手感了，设的好方程<del>推</del> （猜）的轻松，否则基本gg；<br>&emsp;&emsp;这里直接给答案，$dp</em>{ij}$表示以$s<em>i开头至以s_j$结尾的串.如果$s_i…s_j$为回文串，那么$s</em>{i-1}…s<em>{j+1}$为回文串的条件就是$s</em>{i-1}==s_{j+1}$。</p><pre><code class="hljs c++">初始状态：dp[i][i]==<span class="hljs-literal">true</span>;           i∈<span class="hljs-number">1.</span>..ndp[i][j]=dp[i+<span class="hljs-number">1</span>]d[j<span class="hljs-number">-1</span>]&amp;&amp;(s[i]==s[j])</code></pre><p>画表理解一下，以babad为例，填的顺序是斜着填的<br>| 1    | 0    | 1    | 0    | 0    |<br>| —— | —— | —— | —— | —— |<br>|      | 1    | 0    | 1    | 0    |<br>|      |      | 1    | 0    | 0    |<br>|      |      |      | 1    | 0    |<br>|      |      |      |      | 1    |</p><img src="/2020/03/11/%E6%B1%82%E8%A7%A3%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/20200311204401984.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">上代码<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;        <span class="hljs-keyword">int</span> len=s.length();        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; <span class="hljs-title">d</span><span class="hljs-params">(len, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(len))</span></span>;        <span class="hljs-keyword">int</span> <span class="hljs-built_in">max</span>=<span class="hljs-number">1</span>,p=<span class="hljs-number">0</span>,flag=<span class="hljs-number">1</span>;        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<span class="hljs-comment">//初始化</span>            d[i][i]=<span class="hljs-literal">true</span>;        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;len;j++)        &#123;            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len-j;i++)            &#123;                <span class="hljs-keyword">if</span>(j==<span class="hljs-number">1</span>)<span class="hljs-comment">//长度为2的串</span>                &#123;                    d[i][j+i]=(s[i]==s[i+<span class="hljs-number">1</span>]);                    <span class="hljs-keyword">if</span>(d[i][i+<span class="hljs-number">1</span>]&amp;&amp;flag)<span class="hljs-comment">//flag用于只记录第一个长度为2的回文串，不用也没关系</span>                    &#123;                        <span class="hljs-built_in">max</span>=<span class="hljs-number">2</span>;                        p=i;                        flag=<span class="hljs-number">0</span>;                    &#125;                &#125;                <span class="hljs-keyword">else</span><span class="hljs-comment">//长度大与2的串</span>                &#123;                    d[i][j+i]=d[i+<span class="hljs-number">1</span>][i+j<span class="hljs-number">-1</span>]&amp;&amp;(s[i]==s[i+j]);<span class="hljs-comment">//转移方程</span>                    <span class="hljs-keyword">if</span>(d[i][j+i]&amp;&amp;j+<span class="hljs-number">1</span>&gt;<span class="hljs-built_in">max</span>)                    &#123;                        <span class="hljs-built_in">max</span>=j+<span class="hljs-number">1</span>;                        p=i;                    &#125;                &#125;            &#125;        &#125;        <span class="hljs-keyword">return</span> s.substr(p, <span class="hljs-built_in">max</span>);<span class="hljs-comment">//从p开始切割max位</span>    &#125;&#125;;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>习题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>习题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity Mega Fiers导入PC2文件失败</title>
+    <link href="/2020/03/07/Unity-Mega-Fiers%E5%AF%BC%E5%85%A5PC2%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/"/>
+    <url>/2020/03/07/Unity-Mega-Fiers%E5%AF%BC%E5%85%A5PC2%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/</url>
+    
+    <content type="html"><![CDATA[<p><strong>1.前言</strong><br>&emsp;&emsp;如何导入看这篇文章，<a href="https://blog.csdn.net/woerxi/article/details/64922563?depth_1-utm_source=distribute.pc_relevant.none-task&amp;utm_source=distribute.pc_relevant.none-task" target="_blank" rel="noopener">链接</a>，讲的很清楚了<br><strong>2.问题及解决</strong><br>&emsp;&emsp;出现mapping of XXX failed,查了好多资料，最后还是好不容易翻墙找到了<a href="http://www.west-racing.com/mf/?page_id=1335" target="_blank" rel="noopener">官网</a>才知道，这个也太偏僻了</p><pre><code class="hljs plain">Make sure you are using local space point cache files, so for exampleif you are using Max make sure you use the Object Space Point Cache Modifier as opposed to the World Space version and in other packages be sure to click the local space option box in the exporters.Also if you have Mapping Failures check to see if the Optimize Meshoption is turned off in the Unity FBX import settings.</code></pre><p>第一种是坐标问题，我是第二种情况，这个勾去掉就ok</p><img src="/2020/03/07/Unity-Mega-Fiers%E5%AF%BC%E5%85%A5PC2%E6%96%87%E4%BB%B6%E5%A4%B1%E8%B4%A5/20200307193324247.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>还有，我补充一句，添加point cache组件的object一定是max里用点缓存的，也就是说，该是哪个物体就给哪个物体，这个不要给了父物体</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity使用导入FBX的自带动画产生位移</title>
+    <link href="/2020/03/06/Unity%E4%BD%BF%E7%94%A8%E5%AF%BC%E5%85%A5FBX%E7%9A%84%E8%87%AA%E5%B8%A6%E5%8A%A8%E7%94%BB%E4%BA%A7%E7%94%9F%E4%BD%8D%E7%A7%BB/"/>
+    <url>/2020/03/06/Unity%E4%BD%BF%E7%94%A8%E5%AF%BC%E5%85%A5FBX%E7%9A%84%E8%87%AA%E5%B8%A6%E5%8A%A8%E7%94%BB%E4%BA%A7%E7%94%9F%E4%BD%8D%E7%A7%BB/</url>
+    
+    <content type="html"><![CDATA[<p><strong>1.描述</strong><br>&emsp;&emsp;在使用3dsMax导出模型带的动画时，再导入Unity，模型会一直移动到一个固定点。<br><strong>2.解决</strong><br>&emsp;&emsp;导出动画时不要选bake烘培，因为这个似乎是带着坐标信息的，我测试了好几次，把这个去掉就ok了。但是不选这个的画如果模型有做一些绑定物品，比如手中握着的东西在导入到unity时会产生一些小偏差，不过可以再重新绑定。</p><img src="/2020/03/06/Unity%E4%BD%BF%E7%94%A8%E5%AF%BC%E5%85%A5FBX%E7%9A%84%E8%87%AA%E5%B8%A6%E5%8A%A8%E7%94%BB%E4%BA%A7%E7%94%9F%E4%BD%8D%E7%A7%BB/20200306141331820.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息</title>
+    <link href="/2020/02/26/Unity%E4%BD%BF%E7%94%A8NetworkServer%E4%B8%8ENetWorkClient%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BC%A0%E9%80%92%E6%B6%88%E6%81%AF/"/>
+    <url>/2020/02/26/Unity%E4%BD%BF%E7%94%A8NetworkServer%E4%B8%8ENetWorkClient%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E4%B8%8E%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BC%A0%E9%80%92%E6%B6%88%E6%81%AF/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"><a href="#Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息" class="headerlink" title="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"></a>Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息</h2><p><strong>1.环境</strong><br>&emsp;&emsp;Unity2018<br><strong>2.前述</strong><br>&emsp;&emsp;第一个想到的方法是使用Socket,也实现了功能,但是我想Unity应该有自带的API用来实现,可是查阅了好多资料,发现大多是使用NetWorkManager,鉴于我的项目对网络的要求十分微小,因此我选择了较为低级NetworkServer和NetWorkClient类<br><strong>3.实现</strong><br>&emsp;&emsp;create一个Emty GameOjbect,挂载以下脚本,注意一下开启客户端方法setClient需要绑定在一个button上,服务端发送信息sendMessage也要绑定在一个button上。<br>&emsp;&emsp;注意，这是从我项目中直接拷贝过来稍微改了一下，可能并不能直接使用，但是应该可以很好的帮助理解这两个类的大致用法,下面是两个文档，好像需要翻墙<br><a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkServer.html" target="_blank" rel="noopener">NetworkServer文档</a><br><a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkClient.html" target="_blank" rel="noopener">NetworkClient文档</a></p><p>服务端与客户端的实现<br><pre><code class="hljs c#">using System.Net;using System.Net.Sockets;using UnityEngine;using UnityEngine.Networking;using UnityEngine.UI;public class MyNetWork : MonoBehaviour&#123;    public Text ipText;    private NetworkClient myClient;    void Start()    &#123;        getIp();          &#125;    void Update()    &#123;            &#125;    public void getIp()&#x2F;&#x2F;获取本机IP    &#123;        try        &#123;            IPHostEntry IpEntry &#x3D; Dns.GetHostEntry(Dns.GetHostName());            foreach (IPAddress item in IpEntry.AddressList)            &#123;                &#x2F;&#x2F;AddressFamily.InterNetwork  ipv4                if (item.AddressFamily &#x3D;&#x3D; AddressFamily.InterNetwork)                &#123;                    ipText.text &#x3D; &quot;IP:&quot; + item.ToString();                    MyMessage.ipAddress &#x3D; item.ToString();                    &#x2F;&#x2F;开启服务端                    if(NetworkServer.active)                    &#123;                        NetworkServer.Shutdown();                    &#125;                    else                    &#123;                        starServer();                    &#125;                    return;                &#125;            &#125;            return ;        &#125;        catch &#123; return; &#125;    &#125;    private void starServer()&#x2F;&#x2F;开启服务器    &#123;        NetworkServer.Listen(MyMessage.ipAddress, MyMessage.serverPort);&#x2F;&#x2F;参数为IP和Port        Debug.Log(NetworkServer.active);        &#125;  public void sendMessage()&#x2F;&#x2F;服务端发送消息    &#123;        if(NetworkServer.connections.Count&gt;0)        NetworkServer.SendToAll(MyMessage.msgTypeSend, new MessageInfo(isWalking, steps));    &#125;    public void setClient()&#x2F;&#x2F;开启客户端    &#123;        myClient &#x3D; new NetworkClient();        myClient.RegisterHandler(503, receiveMessage);&#x2F;&#x2F;注册回调函数,参数1为消息类型,数字可以自定义,用于识别回调函数,参数2为回调函数        myClient.Connect(MyMessage.ipAddress, MyMessage.serverPort);&#x2F;&#x2F;连接服务端,参数分别为IP和Port    &#125;    private void receiveMessage(NetworkMessage netMsg)&#x2F;&#x2F;客户端接收信息的回调函数的实现    &#123;        MessageInfo hostMessage &#x3D; netMsg.ReadMessage&lt;MessageInfo&gt;();        bool isWalking&#x3D; hostMessage.isWalking;        long steps  &#x3D; hostMessage.stepCount;        &#x2F;&#x2F;Output the Player name and comment        Debug.Log(&quot;isWalking: &quot; + isWalking);        Debug.Log(&quot;steps  : &quot; + steps);    &#125;&#125;</code></pre><br>MessgafeInfo类是封装的用来发送信息的自定义实体类,继承MessageBase<br><pre><code class="hljs c#">using UnityEngine.Networking;public class MessageInfo : MessageBase&#123;    public bool isWalking;    public long stepCount;    public MessageInfo() &#123; &#125;    public MessageInfo(bool iswalk,long stepcount)    &#123;        this.isWalking &#x3D; iswalk;        this.stepCount &#x3D; stepcount;    &#125;&#125;</code></pre></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity Android真机测试</title>
+    <link href="/2020/02/22/Unity-Android%E7%9C%9F%E6%9C%BA%E6%B5%8B%E8%AF%95/"/>
+    <url>/2020/02/22/Unity-Android%E7%9C%9F%E6%9C%BA%E6%B5%8B%E8%AF%95/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Unity-Android真机测试"><a href="#Unity-Android真机测试" class="headerlink" title="Unity Android真机测试"></a>Unity Android真机测试</h2><p>两种方法,首先在你需要debug的代码位置用Debug.log(“你想要的信息”)</p><h2 id="一-wifi"><a href="#一-wifi" class="headerlink" title="一.wifi"></a>一.wifi</h2><p>1.手机连数据线,要求电脑,手机同一网段,手机调试模式<br>2.adb tcpip 5555 //port<br>3.adb connect <ip><br>4.adb devices //检查是否连接<br>5.unity中build and run<br>6.unity中edit-&gt;preferences 找到sdk路径 复制 在我的电脑中打开 找到tools文件夹下的monitor打开，搜索栏输入：tag:Unity 观察</p><h2 id="二-usb"><a href="#二-usb" class="headerlink" title="二.usb"></a>二.usb</h2><p>1.手机连数据线,手机调试模式,允许usb 安装 (发现有些手机要有sim卡才能开启usb安装)<br>2.unity中build and run<br>3.unity中edit-&gt;preferences 找到sdk路径 复制 在我的电脑中打开 找到tools文件夹下的monitor打开，搜索栏输入：tag:Unity 观察<br>ps:其中第2步可用以下2步代替<br>①.unity打包出apk<br>②.cmd中adb -s &lt;设备号&gt; install -r <apk路径> //设备号可用adb devices 查看</p><p><strong>Montitor的界面</strong><br><img src="/2020/02/22/Unity-Android%E7%9C%9F%E6%9C%BA%E6%B5%8B%E8%AF%95/20200222155222186.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">下面是通法,不仅仅适用于unity,可以测试任何apk,这是以前开发安卓时用到的,上面两种其实是特例罢了,<br>1.连数据线,手机调试模式,允许usb 安装<br>2.用android studio(或者其他IDE)打包出apk<br>3.adb -s &lt;设备号&gt; install -r <apk路径> //设备号可用adb devices 查看<br>4.找到sdk路径 复制 在我的电脑中打开 找到tools文件夹下的monitor打开，搜索栏输入：tag:<xxx> 观察,也可以是pid:<xxx>,app:<xxx>,text:<xxx></p><p>ps:以上所有&lt;&gt; 在输入的时候都不同打出来,我只为为了表示这里填的是一个值;<br>用wifi的方法我没试过,因为以前都是用usb连接的习惯了,如果第一种方法有失效请告知</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity打包apk后雾效果消失</title>
+    <link href="/2020/02/22/Unity%E6%89%93%E5%8C%85apk%E5%90%8E%E9%9B%BE%E6%95%88%E6%9E%9C%E6%B6%88%E5%A4%B1/"/>
+    <url>/2020/02/22/Unity%E6%89%93%E5%8C%85apk%E5%90%8E%E9%9B%BE%E6%95%88%E6%9E%9C%E6%B6%88%E5%A4%B1/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Unity打包apk后雾效果消失"><a href="#Unity打包apk后雾效果消失" class="headerlink" title="Unity打包apk后雾效果消失"></a>Unity打包apk后雾效果消失</h2><p>&emsp;&emsp;今天测试一个雾的效果时，发现在电脑上play有用，等打包到apk时就失效了。讲一下避免以下坑吧。</p><p> <strong>1.环境</strong><br>unity2018</p><p><strong>2.解决方法</strong><br>Edit-&gt;Project Settings-&gt;Graphics 找到Shader Stripping 中fog mode设置为custom（原来是Automatic）,然后选中你想要的模式，最后重新打包就ok</p><img src="/2020/02/22/Unity%E6%89%93%E5%8C%85apk%E5%90%8E%E9%9B%BE%E6%95%88%E6%9E%9C%E6%B6%88%E5%A4%B1/20200222150033160.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>这三种模式的介绍请看另一篇吧<br><a href="https://blog.csdn.net/qq_36490364/article/details/104444197" target="_blank" rel="noopener">unity fog雾的三种模式</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Bug</tag>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Unity fog雾的三种模式</title>
+    <link href="/2020/02/22/Unity-fog%E9%9B%BE%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/"/>
+    <url>/2020/02/22/Unity-fog%E9%9B%BE%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<h2 id="unity-fog雾的三种模式"><a href="#unity-fog雾的三种模式" class="headerlink" title="unity fog雾的三种模式"></a>unity fog雾的三种模式</h2><p><strong>1.Linear</strong><br>线性模式，有fogStartDistance和fogEndDistance两个参数，雾从Start开始到End越来越浓，End之后也为最大浓度，计算方法为$\frac{end-|z|}{end-start}$，z为相机距离<br><strong>2.Exponential</strong><br>指数模式，有参数fogDensity（取值范围0-1），表示雾的浓度，浓度越大雾越大，计算方法为$e^{-d|z|}$,其中d为浓度，z为相机距离<br><strong>3.Exponential Squared</strong><br>指数平方，有参数fogDensity，越大表示雾越浓，计算方法为$e^{-(dz)^2}$</p><p>ps:fogDensity参数只适用于2，3，fogStartDistance和fogEndDistance只适用于1</p><p>下面是使用代码开启雾气的效果</p><pre><code class="hljs c#">RenderSettings.fog &#x3D; true;&#x2F;&#x2F;开启RenderSettings.fogMode &#x3D; FogMode.ExponentialSquared;&#x2F;&#x2F;模式RenderSettings.fogColor &#x3D; Color.red;&#x2F;&#x2F;颜色RenderSettings.fogDensity &#x3D; 0.04f;&#x2F;&#x2F;浓度</code></pre><p><a href="https://blog.csdn.net/qq_36490364/article/details/104443965" target="_blank" rel="noopener">关于打包apk后雾效果消失的解决方法</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Unity</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Unity</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>HDU1728逃离迷宫DFS</title>
+    <link href="/2019/09/03/HDU1728%E9%80%83%E7%A6%BB%E8%BF%B7%E5%AE%ABDFS/"/>
+    <url>/2019/09/03/HDU1728%E9%80%83%E7%A6%BB%E8%BF%B7%E5%AE%ABDFS/</url>
+    
+    <content type="html"><![CDATA[<h2 id="逃离迷宫"><a href="#逃离迷宫" class="headerlink" title="逃离迷宫"></a>逃离迷宫</h2><p>Problem Description</p><p>　　给定一个m × n (m行, n列)的迷宫，迷宫中有两个位置，gloria想从迷宫的一个位置走到另外一个位置，当然迷宫中有些地方是空地，gloria可以穿越，有些地方是障碍，她必须绕行，从迷宫的一个位置，只能走到与它相邻的4个位置中,当然在行走过程中，gloria不能走到迷宫外面去。令人头痛的是，gloria是个没什么方向感的人，因此，她在行走过程中，不能转太多弯了，否则她会晕倒的。我们假定给定的两个位置都是空地，初始时，gloria所面向的方向未定，她可以选择4个方向的任何一个出发，而不算成一次转弯。gloria能从一个位置走到另外一个位置吗？</p><p>Input</p><p>　　第1行为一个整数t (1 ≤ t ≤ 100),表示测试数据的个数，接下来为t组测试数据，每组测试数据中，<br>　　第1行为两个整数m, n (1 ≤ m, n ≤ 100),分别表示迷宫的行数和列数，接下来m行，每行包括n个字符，其中字符’.’表示该位置为空地，字符’*’表示该位置为障碍，输入数据中只有这两种字符，每组测试数据的最后一行为5个整数k, x1, y1, x2, y2 (1 ≤ k ≤ 10, 1 ≤ x1, x2 ≤ n, 1 ≤ y1, y2 ≤ m),其中k表示gloria最多能转的弯数，(x1, y1), (x2, y2)表示两个位置，其中x1，x2对应列，y1, y2对应行。</p><p>Output</p><p>　　每组测试数据对应为一行，若gloria能从一个位置走到另外一个位置，输出“yes”，否则输出“no”。</p><p>Sample Input<br><pre><code class="hljs c++"><span class="hljs-number">2</span><span class="hljs-number">5</span> <span class="hljs-number">5</span>...***.**...........*....<span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span><span class="hljs-number">5</span> <span class="hljs-number">5</span>...***.**...........*....<span class="hljs-number">2</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">1</span> <span class="hljs-number">3</span></code></pre></p><p>Sample Output<br><pre><code class="hljs plain">noyes</code></pre></p><p><strong>思路:dfs,并且用一个辅助二维数组记录当前坐标的最小转向次数,每次转向path+1,同时每次向四周走的时候用turn记录当前方向,此题的坑在输入的x代表列，y代表行。</strong></p><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-keyword">char</span> <span class="hljs-built_in">map</span>[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];<span class="hljs-keyword">int</span> tt[<span class="hljs-number">100</span>][<span class="hljs-number">100</span>];<span class="hljs-comment">//记录最小转向次数 </span><span class="hljs-keyword">int</span> n, m;<span class="hljs-keyword">int</span> k, x1, yy1, x2, y2;<span class="hljs-keyword">int</span> ans;<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x, <span class="hljs-keyword">int</span> y, <span class="hljs-keyword">int</span> path, <span class="hljs-keyword">int</span> <span class="hljs-built_in">turn</span>)</span><span class="hljs-comment">//x,y 坐标,path 转向次数, turn 方向分别为2468，下左右上,参考街机 </span></span><span class="hljs-function"></span>&#123;<span class="hljs-keyword">if</span> (x == y2 - <span class="hljs-number">1</span> &amp;&amp; y == x2 - <span class="hljs-number">1</span> &amp;&amp; tt[y2 - <span class="hljs-number">1</span>][x2 - <span class="hljs-number">1</span>] &lt;= k)<span class="hljs-comment">//出口 </span><span class="hljs-keyword">return</span>;<span class="hljs-keyword">if</span> (x&lt;<span class="hljs-number">0</span> || x&gt;n - <span class="hljs-number">1</span> || y&lt;<span class="hljs-number">0</span> || y&gt;m - <span class="hljs-number">1</span> || <span class="hljs-built_in">map</span>[x][y] == <span class="hljs-string">'*'</span> || tt[x][y] &gt; k)<span class="hljs-comment">//不符合 </span><span class="hljs-keyword">return</span>;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>[x + <span class="hljs-number">1</span>][y] == <span class="hljs-string">'.'</span>)<span class="hljs-comment">//向左 </span>&#123;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">turn</span> == <span class="hljs-number">2</span> || <span class="hljs-built_in">turn</span> == <span class="hljs-number">0</span>)<span class="hljs-comment">//检查当前方向是否为左或初始点 </span>&#123;<span class="hljs-keyword">if</span> (path&lt;=tt[x + <span class="hljs-number">1</span>][y])<span class="hljs-comment">//转向次数是否比tt数组记录中的小或等于,这边一定要用小于等于, 因为可能有不同路径 </span>&#123;tt[x + <span class="hljs-number">1</span>][y] = path;dfs(x + <span class="hljs-number">1</span>, y, path, <span class="hljs-number">2</span>);&#125;&#125;<span class="hljs-keyword">else</span><span class="hljs-comment">//方向不同要转向 path+1,并调整方向 </span>&#123;<span class="hljs-keyword">if</span> (path + <span class="hljs-number">1</span>&lt;=tt[x + <span class="hljs-number">1</span>][y])&#123;tt[x + <span class="hljs-number">1</span>][y] = path + <span class="hljs-number">1</span>;dfs(x + <span class="hljs-number">1</span>, y, path + <span class="hljs-number">1</span>, <span class="hljs-number">2</span>);&#125;&#125;&#125;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>[x - <span class="hljs-number">1</span>][y] == <span class="hljs-string">'.'</span>)&#123;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">turn</span> == <span class="hljs-number">8</span> || <span class="hljs-built_in">turn</span> == <span class="hljs-number">0</span>)&#123;<span class="hljs-keyword">if</span> (path&lt;=tt[x - <span class="hljs-number">1</span>][y])&#123;tt[x - <span class="hljs-number">1</span>][y] = path;dfs(x - <span class="hljs-number">1</span>, y, path, <span class="hljs-number">8</span>);&#125;&#125;<span class="hljs-keyword">else</span>&#123;<span class="hljs-keyword">if</span> (path + <span class="hljs-number">1</span>&lt;=tt[x - <span class="hljs-number">1</span>][y])&#123;tt[x - <span class="hljs-number">1</span>][y] = path + <span class="hljs-number">1</span>;dfs(x - <span class="hljs-number">1</span>, y, path + <span class="hljs-number">1</span>, <span class="hljs-number">8</span>);&#125;&#125;&#125;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>[x][y + <span class="hljs-number">1</span>] == <span class="hljs-string">'.'</span>)&#123;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">turn</span> == <span class="hljs-number">6</span> || <span class="hljs-built_in">turn</span> == <span class="hljs-number">0</span>)&#123;<span class="hljs-keyword">if</span> (path&lt;=tt[x][y + <span class="hljs-number">1</span>])&#123;tt[x][y + <span class="hljs-number">1</span>] = path;dfs(x, y + <span class="hljs-number">1</span>, path, <span class="hljs-number">6</span>);&#125;&#125;<span class="hljs-keyword">else</span>&#123;<span class="hljs-keyword">if</span> (path + <span class="hljs-number">1</span>&lt;=tt[x][y + <span class="hljs-number">1</span>])&#123;tt[x][y + <span class="hljs-number">1</span>] = path + <span class="hljs-number">1</span>;dfs(x, y + <span class="hljs-number">1</span>, path + <span class="hljs-number">1</span>, <span class="hljs-number">6</span>);&#125;&#125;&#125;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">map</span>[x][y - <span class="hljs-number">1</span>] == <span class="hljs-string">'.'</span>)&#123;<span class="hljs-keyword">if</span> (<span class="hljs-built_in">turn</span> == <span class="hljs-number">4</span> || <span class="hljs-built_in">turn</span> == <span class="hljs-number">0</span>)&#123;<span class="hljs-keyword">if</span> (path&lt;=tt[x][y - <span class="hljs-number">1</span>])&#123;tt[x][y - <span class="hljs-number">1</span>] = path;dfs(x, y - <span class="hljs-number">1</span>, path, <span class="hljs-number">4</span>);&#125;&#125;<span class="hljs-keyword">else</span>&#123;<span class="hljs-keyword">if</span> (path + <span class="hljs-number">1</span>&lt;=tt[x][y - <span class="hljs-number">1</span>])&#123;tt[x][y - <span class="hljs-number">1</span>] = path + <span class="hljs-number">1</span>;dfs(x, y - <span class="hljs-number">1</span>, path + <span class="hljs-number">1</span>, <span class="hljs-number">4</span>);&#125;&#125;&#125;&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><span class="hljs-function"></span>&#123;<span class="hljs-keyword">int</span> t;<span class="hljs-built_in">cin</span> &gt;&gt; t;<span class="hljs-keyword">while</span> (t--)&#123;<span class="hljs-built_in">cin</span> &gt;&gt; n &gt;&gt; m;<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i&lt;n; i++)<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j&lt;m; j++)&#123;<span class="hljs-built_in">cin</span> &gt;&gt; <span class="hljs-built_in">map</span>[i][j];tt[i][j] = <span class="hljs-number">10000</span>;&#125;<span class="hljs-built_in">cin</span> &gt;&gt; k &gt;&gt; x1 &gt;&gt; yy1 &gt;&gt; x2 &gt;&gt; y2;tt[yy1 - <span class="hljs-number">1</span>][x1 - <span class="hljs-number">1</span>] = <span class="hljs-number">0</span>;ans = <span class="hljs-number">0</span>;dfs(yy1 - <span class="hljs-number">1</span>, x1 - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);<span class="hljs-keyword">if</span> (tt[y2 - <span class="hljs-number">1</span>][x2 - <span class="hljs-number">1</span>]&lt;=k)<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"yes"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;<span class="hljs-keyword">else</span><span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"no"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;&#125;<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>习题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>习题</tag>
+      
+      <tag>DFS</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>AOE网</title>
+    <link href="/2019/05/20/AOE%E7%BD%91/"/>
+    <url>/2019/05/20/AOE%E7%BD%91/</url>
+    
+    <content type="html"><![CDATA[<h2 id="AOE网"><a href="#AOE网" class="headerlink" title="AOE网"></a>AOE网</h2><p><strong>1.介绍</strong><br>定义：在带权有向图中，以顶点表示事件，有向边表示活动，边上的权值表示完成该活动的开销，则称这种有向图为用边表示活动的网络，简称为AOE网（Activity On Edge Network）</p><p>性质：</p><ul><li>只有在某顶点所代表的事件发生后，从该顶点出发的各有向边所代表的活动才能开始</li><li>只有在进入某一顶点的各有向边所代表的活动都已经结束时，该顶点所代表的事件才发生</li></ul><p><strong>2.几个词的解释</strong><br>ps:事件是点，活动是边！！！</p><p>关键路径：<br>从源点到汇点的所有路径中，具有最长路径长度的路径，该路径上的活动成为<code>关键活动（后面有用先记着）</code></p><p>事件<code>V[k]</code>的最早发生时间<code>ve[k]</code>:<br>从开始顶点V到V[k]的最长路径长度。</p><p>事件<code>V[k]</code>的最迟发生时间<code>vl[k]</code>:<br>不推迟整个工程完成的前提下，即保证它所指向的事件Vi在ve(i)时刻能够发生时，改事件最迟必须发生的事件。</p><p>活动<code>a[i]</code>的最早开始时间<code>e[i]</code>:       活动a[i]用边<code>(V[k],V[j])</code>表示</p><pre><code class="hljs c++">e[i]=ve[k]</code></pre><p>活动<code>a[i]</code>的最迟开始时间<code>l[i]</code>:</p><pre><code class="hljs c++">l[i]=vl[j]-Weight(V[k],V[j])</code></pre><p>一个活动a[i]的松弛时间：<br><code>d[i]=l[i]-e[i]</code>或者<code>d[i]=关键路径长度-包含a[i]活动的最长路径</code></p><p><strong>3.计算</strong><br><img src="/2019/05/20/AOE%E7%BD%91/20190519214237921.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p><p><strong>3.1 计算事件的最早和最迟发生时间</strong></p><p>ve的计算方法为从前往后计算，取最大值，例如对于F,<code>ve(F)=max{ve(B)+a5,ve(E)+a7,ve(G)+a8}</code> ,只有一个的话就只取一个，多个的话，多个中取最大值</p><p>vl的计算方法为从后往前计算，首先另终点J的vl值为其ve，即vl(J)=ve(J)=18，然后多个中取最小值，例如对于B,<code>vl(B)=min{vl(C)-a2,vl(F)-a5,vl(D)-a3}=2</code>;若只有一个，例如对于H,<code>vl(H)=vl(J)-a12=14</code></p><p>最终算出各个顶点的最早和最迟发生时间如下<br>|V|ve（事件最早发生时间）| vl（事件最迟发生事件）|<br>|—|—|—|<br>|  A| 0 |0|<br>|  B| 2 |2|<br>| C| 5 |5|<br>|  D|  4|4|<br>| E| 10 |10|<br>|  F|13 |13|<br>| G| 7 |7|<br>|  H| 12 |14|<br>|  I| 13 |16|<br>|  J|18  |18|</p><p>有以上可以得出ve==vl的点即为关键路径上的事件，即A,B,C,D,E,F,G,J，则有以上点连接的边所代表的活动a1,a2,a3,a4,a6,a7,a8,a10疑似为关键活动<br>注意：<br>关键路径可能不只有一条，计算到这里只能得出关键路径上的事件，具体怎么走还等计算活动的最早和最迟开始时间，如果仅仅需要计算出关键路径，则只需计算几个疑似关键活动的最早和最迟发生时间，为了清楚，我们这里就把全部活动的都计算出来</p><p><strong>3.2活动的最早和最迟开始时间</strong><br>活动最早开始时间：  例如a1,为边（A,B），则<code>a1=ve(A)=0</code>;例如a2,为边（B,C），则a2=ve(B)=2</p><p>活动最晚开始时间：例如对于a1,为边（A,B）,则<code>a1=vl(B)-weight(a1)=2-2=0</code>；例如a12,为边（H,J）,则<code>a12=vl(J)-weight(a12)=18-4=14</code></p><p>最终结果如下</p><div class="table-container"><table><thead><tr><th>a</th><th>e（活动最早开始时间）</th><th>l（活动最迟开始事件）</th></tr></thead><tbody><tr><td>a1</td><td>0</td><td>0</td></tr><tr><td>a2</td><td>2</td><td>2</td></tr><tr><td>a3</td><td>2</td><td>2</td></tr><tr><td>a4</td><td>5</td><td>5</td></tr><tr><td>a5</td><td>2</td><td>9</td></tr><tr><td>a6</td><td>4</td><td>4</td></tr><tr><td>a7</td><td>10</td><td>10</td></tr><tr><td>a8</td><td>7</td><td>7</td></tr><tr><td>a9</td><td>10</td><td>12</td></tr><tr><td>a10</td><td>13</td><td>13</td></tr><tr><td>a11</td><td>7</td><td>10</td></tr><tr><td>a12</td><td>12</td><td>14</td></tr><tr><td>a13</td><td>13</td><td>16</td></tr></tbody></table></div><p>找出e==l的活动ai,这里为a1,a2,a3,,a4,a6,a7,a8,a10;经观察可发现这里有两条关键路径，分别为a1,a2,a4,a7,a10和a1,a3,a6,a8,a10</p><p>又比如问一个活动的松弛时间，即活动ai在不拖延总工程时间的情况下，该活动可以拖延的时间，有两种解法，比如问BF的松弛时间：<br>解1：BF=a5,所以松弛时间=l(a5)-e(a5)=7<br>解2：包含BF活动的最长路径为ABFJ,其长度为11，又因为关键路径长度为18，所以松弛时间为18-11=7</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>数据结构</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>快排C++&amp;Python</title>
+    <link href="/2019/03/31/%E5%BF%AB%E6%8E%92C++&amp;Python/"/>
+    <url>/2019/03/31/%E5%BF%AB%E6%8E%92C++&amp;Python/</url>
+    
+    <content type="html"><![CDATA[<h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><p>1．i =left; j =right; 找一个基准数（随意，这里不妨找a[left]=a[i]），将其挖出。<br>2．j—由后向前找比它小的数，找到后挖出此数填前一个坑a[i]中。<br>3．i++由前向后找比它大的数，找到后也挖出此数填到前一个坑a[j]中。<br>4．重复2，3步，直到i==j，将基准数填入a[i]中。</p><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quick</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[],<span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> right)</span></span><span class="hljs-function"></span>&#123;<span class="hljs-keyword">if</span>(left&gt;=right)<span class="hljs-keyword">return</span>;<span class="hljs-keyword">int</span> i=left,j=right,key=a[left];<span class="hljs-keyword">while</span>(i&lt;j)&#123;<span class="hljs-keyword">while</span>((i&lt;j)&amp;&amp;a[j]&gt;=key)j--;<span class="hljs-keyword">if</span>(i&lt;j)a[i++]=a[j];<span class="hljs-keyword">while</span>((i&lt;j)&amp;&amp;a[i]&lt;key)i++;<span class="hljs-keyword">if</span>(i&lt;j)a[j--]=a[i];&#125;a[i]=key;quick(a,left,j<span class="hljs-number">-1</span>);quick(a,j+<span class="hljs-number">1</span>,right);&#125;<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><span class="hljs-function"></span>&#123;<span class="hljs-keyword">int</span> a[]=&#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-9</span>,<span class="hljs-number">4</span>,<span class="hljs-number">66</span>,<span class="hljs-number">123</span>,<span class="hljs-number">452</span>,<span class="hljs-number">665</span>,<span class="hljs-number">1</span>,<span class="hljs-number">34</span>&#125;;<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> len=<span class="hljs-keyword">sizeof</span>(a)/<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>);<span class="hljs-comment">//不用static len会变</span><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">" "</span>;<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;quick(a,<span class="hljs-number">0</span>,len<span class="hljs-number">-1</span>);<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">" "</span>;<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;system(<span class="hljs-string">"pause"</span>);<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;&#125;</code></pre><h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>1.记位于列表中间的数为mid<br>2.大于mid的放入greater列表<br>3.小于mid的放入less列表<br>4.递归greater和less列表<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quick</span><span class="hljs-params">(arr)</span>:</span>    <span class="hljs-keyword">if</span>(len(arr)&lt;<span class="hljs-number">2</span>):        <span class="hljs-keyword">return</span> arr    mid=arr[len(arr)//<span class="hljs-number">2</span>]    less,greater=[],[]    arr.remove(mid)    <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> arr:        <span class="hljs-keyword">if</span>(num&gt;mid):            greater.append(num)        <span class="hljs-keyword">else</span>:            less.append(num)    <span class="hljs-keyword">return</span> quick(less)+[mid]+quick(greater)    arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">31</span>,<span class="hljs-number">4</span>]arr=quick(arr)print(<span class="hljs-string">' '</span>.join([str(i)<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr]))</code></pre></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>习题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>java.awt.Robot的mouseMove(x,y)效果不起作用</title>
+    <link href="/2019/03/29/java.awt.Robot%E7%9A%84mouseMove(x,y)%E6%95%88%E6%9E%9C%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/"/>
+    <url>/2019/03/29/java.awt.Robot%E7%9A%84mouseMove(x,y)%E6%95%88%E6%9E%9C%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<p><code>mouseMove(x,y)</code>，此函数是使鼠标移动到<code>（x,y）</code>位置<br>测试发现它是一个逐渐逼近的过程，所以外面套个循环，就能移动到想要的位置了<br>原因未知，不知是不是win10的锅</p><pre><code class="hljs java"><span class="hljs-keyword">import</span> java.awt.Robot;Robot robot=<span class="hljs-keyword">new</span> Robot();<span class="hljs-keyword">int</span> k=<span class="hljs-number">10</span>;<span class="hljs-keyword">int</span> x=<span class="hljs-number">666</span>;<span class="hljs-keyword">int</span> y=<span class="hljs-number">666</span>;<span class="hljs-keyword">while</span>((--k)&gt;<span class="hljs-number">0</span>)&#123;robot.mouseMove(x,y);&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Java</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Bug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Mysql Err1055 ONLY_FULL_GROUP_BY 存储过程</title>
+    <link href="/2019/01/21/Mysql-Err1055-ONLY_FULL_GROUP_BY-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"/>
+    <url>/2019/01/21/Mysql-Err1055-ONLY_FULL_GROUP_BY-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Ubuntu16.04<br>Mysql5.7<br><strong>1.背景</strong><br>Err 1055 报错 sql_moede为ONLY_FULL_GROUP_BY,具体错误原因不介绍了.按提示改变sql_mode后存储过程中仍报改错.<br><strong>2.解决方法</strong><br>修改/etc/mysql/my.cnf 可以在最后加上如下<br><pre><code class="hljs mysql">[mysqld]sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</code></pre><br>然后 service mysql restart 重启服务<br>还有一些其他的设置sql_mode的方法,可自行了解<br>但是按照上面方法做完后在查询中不会再报1055,但是使用存储过程仍旧有问题,解决方法就是<br>…<br>…<br>…<br>复制,删除,新建,粘贴!!!<br>新建一个存储过程就OK,具体原因不了解,总之是个大坑</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据库</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+      <tag>Bug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>python numpy的数组切片和其中None的意思</title>
+    <link href="/2018/11/02/python-numpy%E7%9A%84%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87%E5%92%8C%E5%85%B6%E4%B8%ADNone%E7%9A%84%E6%84%8F%E6%80%9D/"/>
+    <url>/2018/11/02/python-numpy%E7%9A%84%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87%E5%92%8C%E5%85%B6%E4%B8%ADNone%E7%9A%84%E6%84%8F%E6%80%9D/</url>
+    
+    <content type="html"><![CDATA[<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>python 3.6<br>numpy<br><strong>1.背景</strong><br>    今天有人问我numpy中[1:3,None]是啥意思,一开始讲得云里雾里,后来终于理清了，我们逐步深入研究♂(滑稽)<br><strong>2.一维情况</strong></p><pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> npa=np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>])print(a[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>:<span class="hljs-number">2</span>])</code></pre><p>输出</p><pre><code class="hljs python">[<span class="hljs-number">1</span> <span class="hljs-number">3</span>]</code></pre><p>一维应该都知道吧 跟list差不多 [Start:End:Step] 注意是不包含End<br><strong>2.二维情况</strong><br>{% asset_img 20181101011506918.png 在这里插入图片描述 %}</p><pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> npa=np.array([[<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>],[<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>],[<span class="hljs-number">31</span>,<span class="hljs-number">32</span>,<span class="hljs-number">33</span>,<span class="hljs-number">34</span>],[<span class="hljs-number">41</span>,<span class="hljs-number">42</span>,<span class="hljs-number">43</span>,<span class="hljs-number">44</span>]])print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>])</code></pre><p>输出</p><pre><code class="hljs python">[[<span class="hljs-number">11</span> <span class="hljs-number">13</span>] [<span class="hljs-number">31</span> <span class="hljs-number">33</span>]]</code></pre><p>所以第0维取0到4步长为2 ，第1维也取0到4步长为2 ，所以意思是[第0维,第1维]，然后多维类推嘛，应该能理解了吧<br><strong>3.关于None</strong><br>再说说一开始的[:,None]</p><font color=red size=5>emmmm简单说就是说它增加了一个维度</font>但还是有些不同的，看例子<pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> npa=np.array([[<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>],[<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>],[<span class="hljs-number">31</span>,<span class="hljs-number">32</span>,<span class="hljs-number">33</span>,<span class="hljs-number">34</span>],[<span class="hljs-number">41</span>,<span class="hljs-number">42</span>,<span class="hljs-number">43</span>,<span class="hljs-number">44</span>]])print(<span class="hljs-string">'0维为None:'</span>)print(a[<span class="hljs-literal">None</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>])print(<span class="hljs-string">'1维为None:'</span>)print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>,<span class="hljs-literal">None</span>])</code></pre>输出<pre><code class="hljs python"><span class="hljs-number">0</span>维为<span class="hljs-literal">None</span>:[[[<span class="hljs-number">11</span> <span class="hljs-number">12</span> <span class="hljs-number">13</span> <span class="hljs-number">14</span>]  [<span class="hljs-number">21</span> <span class="hljs-number">22</span> <span class="hljs-number">23</span> <span class="hljs-number">24</span>]  [<span class="hljs-number">31</span> <span class="hljs-number">32</span> <span class="hljs-number">33</span> <span class="hljs-number">34</span>]  [<span class="hljs-number">41</span> <span class="hljs-number">42</span> <span class="hljs-number">43</span> <span class="hljs-number">44</span>]]]<span class="hljs-number">1</span>维为<span class="hljs-literal">None</span>:[[[<span class="hljs-number">11</span> <span class="hljs-number">12</span> <span class="hljs-number">13</span> <span class="hljs-number">14</span>]] [[<span class="hljs-number">21</span> <span class="hljs-number">22</span> <span class="hljs-number">23</span> <span class="hljs-number">24</span>]] [[<span class="hljs-number">31</span> <span class="hljs-number">32</span> <span class="hljs-number">33</span> <span class="hljs-number">34</span>]] [[<span class="hljs-number">41</span> <span class="hljs-number">42</span> <span class="hljs-number">43</span> <span class="hljs-number">44</span>]]]</code></pre>看下官方文档,[链接](https://www.numpy.org/devdocs/reference/arrays.indexing.html)<pre><code class="hljs python">Note:Remember that a slicing tuple can always be constructed <span class="hljs-keyword">as</span> obj <span class="hljs-keyword">and</span> used <span class="hljs-keyword">in</span> the x[obj] notation. Slice objects can be used <span class="hljs-keyword">in</span> the construction <span class="hljs-keyword">in</span> place of the [start:stop:step] notation.For example, x[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>:<span class="hljs-number">5</span>,::<span class="hljs-number">-1</span>] can also be implemented <span class="hljs-keyword">as</span> obj = (slice(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">5</span>), slice(<span class="hljs-literal">None</span>,<span class="hljs-literal">None</span>,<span class="hljs-number">-1</span>)); x[obj].This can be useful <span class="hljs-keyword">for</span> constructing generic code that works on arrays of arbitrary dimension.</code></pre><pre><code class="hljs python">numpy.newaxisThe newaxis object can be used <span class="hljs-keyword">in</span> all slicing operations to create an axis of length one.newaxis <span class="hljs-keyword">is</span> an alias <span class="hljs-keyword">for</span> ‘<span class="hljs-literal">None</span>’, <span class="hljs-keyword">and</span> ‘<span class="hljs-literal">None</span>’ can be used <span class="hljs-keyword">in</span> place of this <span class="hljs-keyword">with</span> the same result.</code></pre>它巴拉巴拉的意思就是<font color=red size=5>numpy.newaxis效果和None是一样的，None是它的别名</font><pre><code class="hljs python">print(<span class="hljs-literal">None</span> <span class="hljs-keyword">is</span> np.newaxis)<span class="hljs-literal">True</span></code></pre><p>(话说为了少打点字（len(None)&lt;len(numpy.newaxis)）,可能就会让初学者看不懂- -，但是告诉他们答案我想他们肯定想暴打写代码的人♂（呼应前文滑稽）)<br>想更详细的知道numpy.newaxis的可以自己去搜搜啦</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>numpy</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Python 凯撒加密</title>
+    <link href="/2018/10/21/Python-%E5%87%AF%E6%92%92%E5%8A%A0%E5%AF%86/"/>
+    <url>/2018/10/21/Python-%E5%87%AF%E6%92%92%E5%8A%A0%E5%AF%86/</url>
+    
+    <content type="html"><![CDATA[<p>在密码学中，恺撒密码是一种最简单且最广为人知的加密技术。它是一种替换加密的技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。</p><pre><code class="hljs python">n=input(<span class="hljs-string">"请输入移位："</span>)n=int(n)str_mi=input(<span class="hljs-string">"请输入需要加密的字符串："</span>)<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">jiami</span><span class="hljs-params">(str_1,n)</span>:</span>    ans=list(str_1)    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,len(ans)):        <span class="hljs-keyword">if</span> ans[i].islower():            num = ord(ans[i])            ans[i] = chr((num - <span class="hljs-number">97</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">97</span>)        <span class="hljs-keyword">if</span> ans[i].isupper():            num = ord(ans[i])            ans[i] = chr((num - <span class="hljs-number">65</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">65</span>)    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>.join(ans)<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">jiemi</span><span class="hljs-params">(str_1)</span>:</span>    print(str_1+<span class="hljs-string">"的可能的明文为:"</span>)    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,<span class="hljs-number">25</span>):        print(jiami(str_1,i))print(<span class="hljs-string">"加密后为："</span>+jiami(str_mi,n))jiemi(jiami(str_mi,n))</code></pre><img src="/2018/10/21/Python-%E5%87%AF%E6%92%92%E5%8A%A0%E5%AF%86/20181021154702527.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>习题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>爬取微博热搜榜单存入mysql并部署在云服务器上</title>
+    <link href="/2018/10/19/%E7%88%AC%E5%8F%96%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E6%A6%9C%E5%8D%95%E5%AD%98%E5%85%A5mysql%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
+    <url>/2018/10/19/%E7%88%AC%E5%8F%96%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E6%A6%9C%E5%8D%95%E5%AD%98%E5%85%A5mysql%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</url>
+    
+    <content type="html"><![CDATA[<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.5.2<br><strong>涉及的库:</strong><br>requests<br>bs4<br>pymysql<br><strong>服务器:</strong><br>Ubuntu16.04<br><strong>1.代码</strong></p><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<span class="hljs-keyword">import</span> datetime<span class="hljs-keyword">import</span> time<span class="hljs-keyword">import</span> pymysql<span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup<span class="hljs-keyword">import</span> randomhottime=<span class="hljs-string">''</span><span class="hljs-comment">#时间</span>sql = <span class="hljs-string">"insert into hottop(time,top)values(%s,%s)"</span>db = pymysql.connect(<span class="hljs-string">"数据库的ip"</span>,<span class="hljs-string">"数据库用户名"</span>,<span class="hljs-string">"密码"</span>,<span class="hljs-string">"weibohot"</span>)cursor = db.cursor()<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Gethot</span><span class="hljs-params">()</span>:</span>    url = <span class="hljs-string">'https://s.weibo.com/top/summary?cate=realtimehot'</span>    <span class="hljs-comment">#这里为了稳定,可以添加一个user-Agent的池,然后每次用的时候随机一个,也可以添加ip池</span>    header=&#123;        <span class="hljs-string">'User-Agent'</span>:<span class="hljs-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'</span>    &#125;    <span class="hljs-keyword">try</span>:        <span class="hljs-comment"># global 声明接下来用的hottime是全局变量,</span>        <span class="hljs-comment"># 如果不加这个,它会变成局部变量,即使你在函数外声明了一个hottime</span>        <span class="hljs-keyword">global</span> hottime        hottime = datetime.datetime.now().strftime(<span class="hljs-string">"%Y-%m-%d %H:%M:%S"</span>)        hotweb = requests.get(url, headers=header, timeout=<span class="hljs-number">10</span>)    <span class="hljs-keyword">except</span>:        print(hottime+<span class="hljs-string">':http Error'</span>)    <span class="hljs-keyword">else</span>:        soup = BeautifulSoup(hotweb.text, <span class="hljs-string">"html.parser"</span>)        ans = soup.find_all(<span class="hljs-string">'td'</span>)        top = <span class="hljs-string">''</span>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> ans:            a = i.find(<span class="hljs-string">'a'</span>)  <span class="hljs-comment"># a标签内容，即热搜内容</span>            span = i.find(<span class="hljs-string">'span'</span>)  <span class="hljs-comment"># span标签内的的热度</span>            <span class="hljs-keyword">if</span> (a != <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> span != <span class="hljs-literal">None</span>):                top += a.get_text() + <span class="hljs-string">'__'</span> + span.get_text() + <span class="hljs-string">'\n'</span>        <span class="hljs-keyword">return</span> toperrorcount=<span class="hljs-number">0</span><span class="hljs-comment">#5次错误跳出循环</span><span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:    <span class="hljs-keyword">try</span>:        top = Gethot()        cursor.execute(sql,(hottime,top))    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:        errorcount+=<span class="hljs-number">1</span>        db.rollback()        print(hottime+<span class="hljs-string">":执行MySQL: %s 时出错：%s"</span> % (sql, e))        <span class="hljs-keyword">if</span>(errorcount==<span class="hljs-number">5</span>):            <span class="hljs-keyword">break</span>        <span class="hljs-keyword">else</span>:            time.sleep(<span class="hljs-number">10</span>)            <span class="hljs-keyword">continue</span>    <span class="hljs-keyword">else</span>:        db.commit()        time.sleep(random.randint(<span class="hljs-number">450</span>,<span class="hljs-number">550</span>))<span class="hljs-comment">#每次sleep随机450-550秒</span></code></pre><p><strong>2.数据表</strong></p><div class="table-container"><table><thead><tr><th>time</th><th>top</th></tr></thead><tbody><tr><td>datetime</td><td>varchar(2000)</td></tr></tbody></table></div><p>DDL语句:(不设置utf-8可能会出错- -)<br><pre><code class="hljs mysql">CREATE TABLE &#96;hottop&#96; (  &#96;time&#96; datetime NOT NULL,  &#96;top&#96; varchar(2000) NOT NULL)DEFAULT CHARSET&#x3D;utf8;</code></pre><br><strong>3.部署到服务器</strong><br>如果你是在本地写的代码,先把文件上传到服务器(可以通过ftp啥的,方法多多),<br>关于运行,weibohot.py是代码文件, log.file是通过print输出的日志文件(可以不必先创建,运行下面命令它自己也会创建)</p><pre><code class="hljs shell">nohup python3 -u weibohot.py &gt; log.file 2&gt;&amp;1 &amp;</code></pre><p>nohup命令可以看<a href="https://blog.csdn.net/liuyanfeier/article/details/62422742" target="_blank" rel="noopener">这篇文章</a>,我觉得介绍的很精简明要,现在市面上的云服务基本都给你装好了python2和3环境,直接用python命令的话一开始都应该默认为2,-u参数是不启用缓冲(否则你print出来的东西可能不会马上输出到log.file日志中)<br>其实仅仅如此还是不够的,它在运行中可能还会遇到各种问题之类的,因此想要更好的可以写个shell脚本,断线邮件提醒啊,重连啊…<br><strong>4.结果</strong><br><img src="/2018/10/19/%E7%88%AC%E5%8F%96%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E6%A6%9C%E5%8D%95%E5%AD%98%E5%85%A5mysql%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/20181019001055507.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>爬虫</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>使用阿里云ECS安装mysql及远程登录的一些小问题</title>
+    <link href="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/"/>
+    <url>/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p><strong>1.Unable to locate package xxx</strong> </p><img src="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/20181015222129131.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>解决方法:</p><pre><code>sudo apt-get update</code></pre><p><strong>2.远程登录</strong><br>        选择创建一个用于远程登录的用户:</p><pre><code class="hljs shell">GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;</code></pre><p>生效:</p><pre><code class="hljs shell">flush privileges;</code></pre><p>​        接下来一步,看了网上许多说的,都是vim /etc/mysql/my.cnf 将里面的bind-address = 127.0.0.1改为0.0.0.0,我试了下 然后进行重启服务(/etc/init.d/mysql restart),最后遇到报错:<br>mysql.serviceJob for mysql.service failed because the control process exited with error code. See “systemctl status mysql.service” and “journalctl -xe” for details.failed!</p><img src="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/20181015222017843.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>???<br><img src="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/20181015222342177.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>回去 仔细看/etc/mysql/my.cnf<br>我去!!!<br><img src="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/20181015222729516.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>emm他的意思是说配置文件在那俩目录下…果然在操作的时候还是要仔细看下的- -<br>两个我都进去看了下 结果是在</p><pre><code class="hljs shell">vim  /etc/mysql/mysql.conf.d/mysqld.cnf</code></pre><p>找到bind-address改为0.0.0.0(任意ip可访问),也可以设成自己的,在第一次那个文件里我还好奇咋没有bind-address,虎得我直接加了一行上去…</p><img src="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/20181015223338455.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>重启服务  /etc/init.d/mysql restart  ,ok<br>Navicat连接测试成功</p><p><img src="使用阿里云ECS安装mysql及远程登录的一些小问题/20181015224839569.png" srcset="/img/loading.gif" alt="在这里插入图片描述" style="zoom:50%;" /></p><p><strong>重要</strong><br>netstat -anp|grep 3306<br>查看3306端口有没有开启,没有的话去阿里云那添加安全规则,不细写了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>数据库</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Mysql</tag>
+      
+      <tag>Bug</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>requests模拟登录（基础向）以及打印成pdf时使用pdfkit时出现的一些问题</title>
+    <link href="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/"/>
+    <url>/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<p>需求时这样的：学校有一个判题网，当期末的时候要把提交的结果一页一页的打印成pdf交给老师<br>因为是内网，模拟登录十分简单我就简单写一下，但是我在使用pdfkit时出现了一些问题（强迫症问题），最终也没找到很好的解决方法，如果有dalao有想法恳请告诉 - -！</p><h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>pdfkit<br>re<br><strong>1.模拟登录</strong><br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013013638153.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>登录的url如上 我们关注hearder里最后几个就行，先构造出来header</p><pre><code class="hljs plain">header&#x3D;&#123;&#39;uer-aGent&#39;:&#39;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko&#x2F;20100101 Firefox&#x2F;61.0&#39;,&#39;Referer&#39;:&#39;http:&#x2F;&#x2F;**.***.***.***&#x2F;&#39;,&#39;Host&#39;:&#39;**.***.***.***&#39;&#125;</code></pre><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013014502706.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><p>这是需要post的参数，第一个参数csrfmid…啥的我们发现就是cookie中的一个</p><p>接下来我们来讲讲如何获取cookie，因为是学生自己用的，验证很low，我们先通过requests.Session（）获得一个session（这里不懂的强烈建议先去搞懂Session和Cookie），我们先通过session.get（）先尝试登录一下，因为我们没有提交任何表单数据，毫无疑问是失败的，但是我们却因此获得了cookie，具体看代码，十分简单<br><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<span class="hljs-keyword">import</span> re<span class="hljs-keyword">import</span> time<span class="hljs-keyword">import</span> pdfkitpostdata=&#123;<span class="hljs-string">'password'</span>:<span class="hljs-string">'******'</span>,<span class="hljs-string">'username'</span>:<span class="hljs-string">'*******'</span>&#125;session = requests.Session()<span class="hljs-comment">#登录</span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Getcookiesandlogin</span><span class="hljs-params">()</span>:</span>    posturl = <span class="hljs-string">'http://**.***.***.***/user/logincheck/'</span>    session.get(<span class="hljs-string">'http://**.***.***.***/'</span>,headers=header)<span class="hljs-comment">#通过这次来获取cookie</span>    postdata[<span class="hljs-string">'csrfmiddlewaretoken'</span>]=session.cookies.get_dict()[<span class="hljs-string">'csrftoken'</span>]<span class="hljs-comment">#把cookie加入表单参数中</span>    session.post(posturl, data=postdata,headers=header)</code></pre><br><strong>2.pdfkit</strong><br>pdfkit依赖于<a href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener">wkhtmltopdf</a>，链接为下载地址，我下的是windos的MXE (MinGW-w64)，直接解压就行，使用的时候设置一下路径参数就ok<br><pre><code class="hljs python">path=<span class="hljs-string">'E:/wkhtmltopdf/wkhtmltox/bin/wkhtmltopdf.exe'</span><span class="hljs-comment">#你解压后的路径</span>config = pdfkit.configuration(wkhtmltopdf=path)</code></pre></p><p>先说最后都没有解决的问题吧，看两幅图片的对比<br>1.<br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013021751279.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>2.<img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013015556342.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>emmm，就是空白（红框圈出），打印pdf的时候会出现空白，而且这些空白是有些pdf有，有些pdf没有的，而这些空白也不仅仅是出现在页与页的分隔之间。。。<br><em>只截取关于pdfkit的一段代码吧（这是最后的）</em></p><pre><code class="hljs python">text=session.get(url)css=[<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shCore.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shThemeDefault.css'</span>,     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\global.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\group.css'</span>,     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\printstyle.css'</span>]name=re.findall(<span class="hljs-string">r'&lt;title&gt;(.*) &lt;/title&gt;'</span>,text.text)[<span class="hljs-number">0</span>].replace(<span class="hljs-string">' '</span>,<span class="hljs-string">''</span>)name=name.replace(<span class="hljs-string">':'</span>,<span class="hljs-string">'_'</span>)path=<span class="hljs-string">'E:/Pycharm/MyProjects/monidenglupanti/'</span>+name+<span class="hljs-string">'.pdf'</span>h=text.text.replace(<span class="hljs-string">'/js/media/js/scripts/'</span>,<span class="hljs-string">'js/'</span>)h = text.text.replace(<span class="hljs-string">'/js/media/js/'</span>, <span class="hljs-string">'js/'</span>)<span class="hljs-comment">#这里外链的路径变成‘C:\Users\76083\AppData\Local\Temp\’，改成其他路径失效，没解决- -！</span>pdfkit.from_string(h,output_path=path,configuration=config,css=css)</code></pre><p>苦逼历程：<br>1.一开始，发现打印的pdf没有样式，好，把网页的样式下载下来，添加进去，<br>后来发现，打印出来的pdf还是有些小地方不一样，想破脑袋，此处省略万字。。。<br>2.突然想到有些应该是javascript动态生成的！好，咱再把他也全部下载下来<br>（下载方法：Internet选项-常规-先点删除-选择临时文件(全清了也ok就当清理垃圾了)-删除后刷新一下你要下载的网页-再点设置-再点查看文件，好，里面就全是这个网站的css和js文件了）。<br>3.然后加载javascritpt，把网页中js的相对路径改成我需要的觉得路径，发现又发现设置其他盘无用（它还是会ignore）只能设置在‘C:\Users\76083\AppData\Local\Temp\’？？？算了，屈服<br>4.满心欢心运行效果，样式啥的全对了，看到空白，强迫症卒</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>python</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>爬虫</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>12306余票及票价查询</title>
     <link href="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/"/>
     <url>/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/</url>
     
-    <content type="html"><![CDATA[<p>还原整个思路，遇到的一些问题也会写出来，纯新手向，因为打包在了一个类里，所以单独拷贝一个函数可能会有些问题,后面有完整代码地址，如有错误可以指正- -有问题也可以留言，后面写的有些赶，可以去完整源代码中看看<br>截至2018/10/9   0:15代码还是有效的</p><h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>json<br>prettytable<br>re<br>pprint<br><strong>1.url分析</strong><br>    先打开<a href="https://kyfw.12306.cn/otn/leftTicket/init" target="_blank" rel="noopener">12306的余票查询</a>，我用的是火狐浏览器，按F12打开调试工具选择network（网络）选项，选择出发地，目的地，日期，点击查询<br>    <img src="https://img-blog.csdn.net/20181008211309564?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>（小白问题：调试窗口里啥也没有是因为 你一番操作猛如虎，结果完事后想起：哎？调试窗口没打开！）<br>右上角有一排选项，咱选js，xhr 然后从这一条条里找出我们需要的链接（点的时候在右边选择响应，可以看到这条请求返回啥）哇塞！你找到一串data，里面还有各种车票的信息，好了，就是你了：<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br><img src="https://img-blog.csdn.net/20181008212636116?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br><strong>PS</strong>：找json链接这种活就看经验了，老手可能马上就能找到，新手可能就要一条条点（汗~~）我这给一个快速的方法：进入余票查询界面，选择好出发地和目的地及日期，点击查询，好！然后再打开F12调试界面在点查询！哇塞只有1条而且就是我们需要的！（深入原因的话就是在你打开了调试界面后你只进行了这一条查询的post请求，而返回的当然就是你要的了）<br><img src="https://img-blog.csdn.net/20181008213803841?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>好,继续正题,我们来观察这条json的链接,很容易明白那些参数吧,如下:<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br>leftTicketDTO.train_date=日期<br>leftTicketDTO.from_station=出发点的地点码<br>leftTicketDTO.to_station=目的地的地点码<br>purpose_codes=票的种类<br><strong>2.获取车站对照字典</strong><br>上文链接中有两个参数是地点码,即一个地名对应一个值,一开始我是直接下载了网上(baidu喽)的一个字典,然后最后写完.不对!我靠!而且调试半天定位到字典错了!(这么多的地名偏偏被窝测试到错误的也是没谁了…）<br><img src="https://img-blog.csdn.net/20181008220408892?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>好!自己动手!</p><pre><code class="hljs plain">import requestsimport re#生成字典 运行一次后抛弃之~~~def new_dictionary():    url&#x3D;&quot;https:&#x2F;&#x2F;kyfw.12306.cn&#x2F;otn&#x2F;resources&#x2F;js&#x2F;framework&#x2F;station_name.js?station_version&#x3D;1.9069&quot;    station_namesweb&#x3D;requests.get(url)    stationdic &#x3D; re.findall(r&#39;([\u4e00-\u9fa5]+)\|([a-zA-Z]+)&#39;, station_namesweb.text)    stationdic&#x3D;dict(stationdic)    print(stationdic)new_dictionary()</code></pre><p>requests请求,json打包,正则提取,over!<br>打印出一个字典复制然后在一个文件里就ok了(上面代码中的url其实也是一样找的,可以试试手去找找看)哈哈,其实这也是今天整个工程的浓缩版吧,思路也是差不多的<br><strong>3.输入出发点,目的地,时间,获得需要的查询链接</strong><br>废多看码!!!<br><pre><code class="hljs plain">def getUrl(self):    startflag &#x3D; False    endflag &#x3D; False    while startflag &#x3D;&#x3D; False:        start &#x3D; input(&quot;请输入始发地：\n&quot;)        startflag &#x3D; stations.__contains__(start)        if startflag &#x3D;&#x3D; False:            print(&#39;始发地输入错误！&#39;)    while endflag &#x3D;&#x3D; False:        end &#x3D; input(&quot;请输入目的地：\n&quot;)        endflag &#x3D; stations.__contains__(end)        if endflag &#x3D;&#x3D; False:            print(&#39;目的地输入错误！&#39;)    self.date &#x3D; input(&quot;请输入日期(格式为xxxx-xx-xx)：\n&quot;)    url &#x3D; &#39;https:&#x2F;&#x2F;kyfw.12306.cn&#x2F;otn&#x2F;leftTicket&#x2F;queryA?leftTicketDTO.train_date&#x3D;&#39; \          + self.date + &#39;&amp;leftTicketDTO.from_station&#x3D;&#39; \          + stations[start] + &#39;&amp;leftTicketDTO.to_station&#x3D;&#39; \          + stations[end] + &#39;&amp;purpose_codes&#x3D;ADULT&#39;    return url</code></pre><br><strong>4.获取车辆信息</strong><br>因为12306在这里没做啥验证所以可以直接请求,不妨直接在浏览器里看一下,emmm是不是头都大了!!!!<br><img src="https://img-blog.csdn.net/20181008233255654?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>车辆的信息都在这里了,用|分隔开,我们要做的就是从里面提取出我们想要的信息,emmm其实我花的时间最多的是在这里,因为要一一对应知道每个信息代表什么,而我又找不到那么一辆每个信息都齐全的车来让我对照…只能用好几辆的信息来对比喽（还不一定是对的，眼力有限）…我的眼睛!!!<br><img src="https://img-blog.csdn.net/20181008234420942?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"></p><blockquote><p>乱码|预订|030000K5540E|K551|MDB|RZH|HZH|RZH|02:31|10:50|08:19|Y|乱码|20181021|3|B2|44|52|0|0||||无|||无||有|10|||||10401030|1413|0</p><p>上代码:<br><pre><code class="hljs plain">def getData(self,url):    dataweb &#x3D; requests.get(url)    datajson &#x3D; json.loads(dataweb.text)    datatrains &#x3D; datajson[&#39;data&#39;][&#39;result&#39;]    restations&#x3D;datajson[&#39;data&#39;][&#39;map&#39;]#地点缩写：地点全称的字典    dataans &#x3D; []    for train in datatrains:        per &#x3D; &#123;            &#39;train_no&#39;: &#39;&#39;,            &#39;from_station_no&#39;: &#39;&#39;,            &#39;to_station_no&#39;: &#39;&#39;,            &#39;seat_types&#39;: &#39;&#39;,            &#39;chufazhan&#39;:&#39;&#39;,            &#39;dadaozhan&#39;:&#39;&#39;,            &#39;checi&#39;: &#39;&#39;,            &#39;chufasj&#39;: &#39;&#39;,            &#39;didasj&#39;: &#39;&#39;,            &#39;lishi&#39;: &#39;&#39;,            &#39;erdeng&#39;: &#39;&#39;,            &#39;yideng&#39;: &#39;&#39;,            &#39;shangwu&#39;: &#39;&#39;,            &#39;wuzuo&#39;:&#39;&#39;        &#125;        train &#x3D; train.split(&#39;|&#39;)        per[&#39;train_no&#39;] &#x3D; train[2]        per[&#39;from_station_no&#39;] &#x3D; train[16]        per[&#39;to_station_no&#39;] &#x3D; train[17]        per[&#39;seat_types&#39;] &#x3D; train[35]        per[&#39;chufazhan&#39;]&#x3D;train[6]        per[&#39;dadaozhan&#39;]&#x3D;train[7]        #将得到站点名字由缩写转换全称        per[&#39;chufazhan&#39;]&#x3D;restations[per[&#39;chufazhan&#39;]]        per[&#39;dadaozhan&#39;]&#x3D;restations[per[&#39;dadaozhan&#39;]]        per[&#39;checi&#39;] &#x3D; train[3]        per[&#39;chufasj&#39;] &#x3D; train[8]        per[&#39;didasj&#39;] &#x3D; train[9]        per[&#39;lishi&#39;] &#x3D; train[10]        per[&#39;erdeng&#39;] &#x3D; train[30]        per[&#39;yideng&#39;] &#x3D; train[31]        per[&#39;shangwu&#39;] &#x3D; train[32]        per[&#39;wuzuo&#39;]&#x3D;train[26]        for value in per:            if (per[value] &#x3D;&#x3D; &#39;&#39;):                per[value] &#x3D; &#39;-&#39;        dataans.append(per)    return dataans</code></pre><br>PS：这里有个问题要说明下：比如我朋友温州-金华，而金华有两个站，他只要其中一个站的，所以我们得显示出出发站和抵达站到底是哪个，但是在信息中我们获得地点是一个码而不是一个站的名字，而我们的字典中是 {名字：码}，一开始我想要不干脆再做个反转的字典，后来往上翻的时候发现：原来上面已经给我们了！解决！计划通~<br><img src="https://img-blog.csdn.net/20181009004354618?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br><strong>5.获取票价信息</strong><br>票价的url是另外一条了,获取方式同上上,老方法请求,解析,打包<br><pre><code class="hljs plain">def GetPrice(self,train_no,from_station_no,to_station_no,seat_types,date,price):    url &#x3D; &#39;https:&#x2F;&#x2F;kyfw.12306.cn&#x2F;otn&#x2F;leftTicket&#x2F;queryTicketPrice?train_no&#x3D;&#39; \          + train_no + &#39;&amp;from_station_no&#x3D;&#39; \          + from_station_no + &#39;&amp;to_station_no&#x3D;&#39; \          + to_station_no + &#39;&amp;seat_types&#x3D;&#39; \          + seat_types + &#39;&amp;train_date&#x3D;&#39; + date    priceweb&#x3D;requests.get(url)    pricejson&#x3D;json.loads(priceweb.text)    pricedata&#x3D;pricejson[&#39;data&#39;]    shangwu&#x3D;pricedata.__contains__(&#39;A9&#39;)#商务    yideng&#x3D;pricedata.__contains__(&#39;M&#39;)#一等    erdeng&#x3D;pricedata.__contains__(&#39;O&#39;)#二等    wuzuo&#x3D;pricedata.__contains__(&#39;WZ&#39;)#无座    if shangwu:        price[&#39;shangwu&#39;]&#x3D;pricedata[&#39;A9&#39;]    else :        price[&#39;shangwu&#39;]&#x3D;&#39;&#39;    if yideng:        price[&#39;yideng&#39;]&#x3D;pricedata[&#39;M&#39;]    else :        price[&#39;yideng&#39;]&#x3D;&#39;&#39;    if erdeng:        price[&#39;erdeng&#39;]&#x3D;pricedata[&#39;O&#39;]    else :        price[&#39;erdeng&#39;]&#x3D;&#39;&#39;    if wuzuo:        price[&#39;wuzuo&#39;]&#x3D;pricedata[&#39;WZ&#39;]    else :        price[&#39;wuzuo&#39;]&#x3D;&#39;&#39;    return price</code></pre><br><strong>6.输出</strong><br>用了prettytable库输出表格<br><pre><code class="hljs plain">def Print(self):    price&#x3D;&#123;        &#39;shangwu&#39;:&#39;&#39;,        &#39;yideng&#39;:&#39;&#39;,        &#39;erdeng&#39;:&#39;&#39;,        &#39;wuzuo&#39;:&#39;&#39;,    &#125;    table &#x3D; prettytable.PrettyTable()    table.field_names &#x3D; [&quot;车次&quot;,&quot;出发站&quot;,&quot;达到站&quot; ,&quot;出发时间&quot;, &quot;抵达时间&quot;, &quot;历时&quot;, &quot;二等座&quot;, &quot;一等座&quot;, &quot;商务座&quot;,&quot;无座&quot;]    for per in self.data:        price&#x3D;self.GetPrice(per[&#39;train_no&#39;],per[&#39;from_station_no&#39;],per[&#39;to_station_no&#39;],per[&#39;seat_types&#39;],self.date,price)        table.add_row([per[&#39;checi&#39;],per[&#39;chufazhan&#39;],per[&#39;dadaozhan&#39;], per[&#39;chufasj&#39;], per[&#39;didasj&#39;], per[&#39;lishi&#39;], per[&#39;erdeng&#39;]+&#39;\n&#39;+price[&#39;erdeng&#39;], per[&#39;yideng&#39;]+&#39;\n&#39;+price[&#39;yideng&#39;],                       per[&#39;shangwu&#39;]+&#39;\n&#39;+price[&#39;shangwu&#39;],per[&#39;wuzuo&#39;]+&#39;\n&#39;+price[&#39;wuzuo&#39;]])    print(table)</code></pre><br><strong>7.演示</strong><br><img src="https://img-blog.csdn.net/20181008235639135?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NDkwMzY0/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" srcset="/img/loading.gif" alt="在这里插入图片描述"><br>8.完整代码<br><a href="https://github.com/senjay/12306tickets_and_price_search" target="_blank" rel="noopener">https://github.com/senjay/12306tickets_and_price_search</a></p></blockquote>]]></content>
+    <content type="html"><![CDATA[<p>还原整个思路，遇到的一些问题也会写出来，纯新手向，因为打包在了一个类里，所以单独拷贝一个函数可能会有些问题,后面有完整代码地址，如有错误可以指正- -有问题也可以留言，后面写的有些赶，可以去完整源代码中看看<br>截至2018/10/9   0:15代码还是有效的</p><h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>json<br>prettytable<br>re<br>pprint<br><strong>1.url分析</strong><br>    先打开<a href="https://kyfw.12306.cn/otn/leftTicket/init" target="_blank" rel="noopener">12306的余票查询</a>，我用的是火狐浏览器，按F12打开调试工具选择network（网络）选项，选择出发地，目的地，日期，点击查询<br>    <img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008211309564.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>（小白问题：调试窗口里啥也没有是因为 你一番操作猛如虎，结果完事后想起：哎？调试窗口没打开！）<br>右上角有一排选项，咱选js，xhr 然后从这一条条里找出我们需要的链接（点的时候在右边选择响应，可以看到这条请求返回啥）哇塞！你找到一串data，里面还有各种车票的信息，好了，就是你了：<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008212636116.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>PS</strong>：找json链接这种活就看经验了，老手可能马上就能找到，新手可能就要一条条点（汗~~）我这给一个快速的方法：进入余票查询界面，选择好出发地和目的地及日期，点击查询，好！然后再打开F12调试界面在点查询！哇塞只有1条而且就是我们需要的！（深入原因的话就是在你打开了调试界面后你只进行了这一条查询的post请求，而返回的当然就是你要的了）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008213803841.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好,继续正题,我们来观察这条json的链接,很容易明白那些参数吧,如下:<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br>leftTicketDTO.train_date=日期<br>leftTicketDTO.from_station=出发点的地点码<br>leftTicketDTO.to_station=目的地的地点码<br>purpose_codes=票的种类<br><strong>2.获取车站对照字典</strong><br>上文链接中有两个参数是地点码,即一个地名对应一个值,一开始我是直接下载了网上(baidu喽)的一个字典,然后最后写完.不对!我靠!而且调试半天定位到字典错了!(这么多的地名偏偏被窝测试到错误的也是没谁了…）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008220408892.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好!自己动手!</p><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests<span class="hljs-keyword">import</span> re<span class="hljs-comment">#生成字典 运行一次后抛弃之~~~</span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">new_dictionary</span><span class="hljs-params">()</span>:</span>    url=<span class="hljs-string">"https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9069"</span>    station_namesweb=requests.get(url)    stationdic = re.findall(<span class="hljs-string">r'([\u4e00-\u9fa5]+)\|([a-zA-Z]+)'</span>, station_namesweb.text)    stationdic=dict(stationdic)    print(stationdic)new_dictionary()</code></pre><p>requests请求,json打包,正则提取,over!<br>打印出一个字典复制然后在一个文件里就ok了(上面代码中的url其实也是一样找的,可以试试手去找找看)哈哈,其实这也是今天整个工程的浓缩版吧,思路也是差不多的<br><strong>3.输入出发点,目的地,时间,获得需要的查询链接</strong><br>废多看码!!!</p><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getUrl</span><span class="hljs-params">(self)</span>:</span>    startflag = <span class="hljs-literal">False</span>    endflag = <span class="hljs-literal">False</span>    <span class="hljs-keyword">while</span> startflag == <span class="hljs-literal">False</span>:        start = input(<span class="hljs-string">"请输入始发地：\n"</span>)        startflag = stations.__contains__(start)        <span class="hljs-keyword">if</span> startflag == <span class="hljs-literal">False</span>:            print(<span class="hljs-string">'始发地输入错误！'</span>)    <span class="hljs-keyword">while</span> endflag == <span class="hljs-literal">False</span>:        end = input(<span class="hljs-string">"请输入目的地：\n"</span>)        endflag = stations.__contains__(end)        <span class="hljs-keyword">if</span> endflag == <span class="hljs-literal">False</span>:            print(<span class="hljs-string">'目的地输入错误！'</span>)    self.date = input(<span class="hljs-string">"请输入日期(格式为xxxx-xx-xx)：\n"</span>)    url = <span class="hljs-string">'https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date='</span> \          + self.date + <span class="hljs-string">'&amp;leftTicketDTO.from_station='</span> \          + stations[start] + <span class="hljs-string">'&amp;leftTicketDTO.to_station='</span> \          + stations[end] + <span class="hljs-string">'&amp;purpose_codes=ADULT'</span>    <span class="hljs-keyword">return</span> url</code></pre><p><strong>4.获取车辆信息</strong><br>因为12306在这里没做啥验证所以可以直接请求,不妨直接在浏览器里看一下,emmm是不是头都大了!!!!<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008233255654.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>车辆的信息都在这里了,用|分隔开,我们要做的就是从里面提取出我们想要的信息,emmm其实我花的时间最多的是在这里,因为要一一对应知道每个信息代表什么,而我又找不到那么一辆每个信息都齐全的车来让我对照…只能用好几辆的信息来对比喽（还不一定是对的，眼力有限）…我的眼睛!!!<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008234420942.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p><blockquote><p><code>乱码|预订|030000K5540E|K551|MDB|RZH|HZH|RZH|02:31|10:50|08:19|Y|乱码|20181021|3|B2|44|52|0|0||||无|||无||有|10|||||10401030|1413|0</code></p><p>上代码:<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getData</span><span class="hljs-params">(self,url)</span>:</span>    dataweb = requests.get(url)    datajson = json.loads(dataweb.text)    datatrains = datajson[<span class="hljs-string">'data'</span>][<span class="hljs-string">'result'</span>]    restations=datajson[<span class="hljs-string">'data'</span>][<span class="hljs-string">'map'</span>]<span class="hljs-comment">#地点缩写：地点全称的字典</span>    dataans = []    <span class="hljs-keyword">for</span> train <span class="hljs-keyword">in</span> datatrains:        per = &#123;            <span class="hljs-string">'train_no'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'from_station_no'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'to_station_no'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'seat_types'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'chufazhan'</span>:<span class="hljs-string">''</span>,            <span class="hljs-string">'dadaozhan'</span>:<span class="hljs-string">''</span>,            <span class="hljs-string">'checi'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'chufasj'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'didasj'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'lishi'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'erdeng'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'yideng'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'shangwu'</span>: <span class="hljs-string">''</span>,            <span class="hljs-string">'wuzuo'</span>:<span class="hljs-string">''</span>        &#125;        train = train.split(<span class="hljs-string">'|'</span>)        per[<span class="hljs-string">'train_no'</span>] = train[<span class="hljs-number">2</span>]        per[<span class="hljs-string">'from_station_no'</span>] = train[<span class="hljs-number">16</span>]        per[<span class="hljs-string">'to_station_no'</span>] = train[<span class="hljs-number">17</span>]        per[<span class="hljs-string">'seat_types'</span>] = train[<span class="hljs-number">35</span>]        per[<span class="hljs-string">'chufazhan'</span>]=train[<span class="hljs-number">6</span>]        per[<span class="hljs-string">'dadaozhan'</span>]=train[<span class="hljs-number">7</span>]        <span class="hljs-comment">#将得到站点名字由缩写转换全称</span>        per[<span class="hljs-string">'chufazhan'</span>]=restations[per[<span class="hljs-string">'chufazhan'</span>]]        per[<span class="hljs-string">'dadaozhan'</span>]=restations[per[<span class="hljs-string">'dadaozhan'</span>]]        per[<span class="hljs-string">'checi'</span>] = train[<span class="hljs-number">3</span>]        per[<span class="hljs-string">'chufasj'</span>] = train[<span class="hljs-number">8</span>]        per[<span class="hljs-string">'didasj'</span>] = train[<span class="hljs-number">9</span>]        per[<span class="hljs-string">'lishi'</span>] = train[<span class="hljs-number">10</span>]        per[<span class="hljs-string">'erdeng'</span>] = train[<span class="hljs-number">30</span>]        per[<span class="hljs-string">'yideng'</span>] = train[<span class="hljs-number">31</span>]        per[<span class="hljs-string">'shangwu'</span>] = train[<span class="hljs-number">32</span>]        per[<span class="hljs-string">'wuzuo'</span>]=train[<span class="hljs-number">26</span>]        <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> per:            <span class="hljs-keyword">if</span> (per[value] == <span class="hljs-string">''</span>):                per[value] = <span class="hljs-string">'-'</span>        dataans.append(per)    <span class="hljs-keyword">return</span> dataans</code></pre><br>PS：这里有个问题要说明下：比如我朋友温州-金华，而金华有两个站，他只要其中一个站的，所以我们得显示出出发站和抵达站到底是哪个，但是在信息中我们获得地点是一个码而不是一个站的名字，而我们的字典中是 {名字：码}，一开始我想要不干脆再做个反转的字典，后来往上翻的时候发现：原来上面已经给我们了！解决！计划通~<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181009004354618.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>5.获取票价信息</strong><br>票价的url是另外一条了,获取方式同上上,老方法请求,解析,打包<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GetPrice</span><span class="hljs-params">(self,train_no,from_station_no,to_station_no,seat_types,date,price)</span>:</span>    url = <span class="hljs-string">'https://kyfw.12306.cn/otn/leftTicket/queryTicketPrice?train_no='</span> \          + train_no + <span class="hljs-string">'&amp;from_station_no='</span> \          + from_station_no + <span class="hljs-string">'&amp;to_station_no='</span> \          + to_station_no + <span class="hljs-string">'&amp;seat_types='</span> \          + seat_types + <span class="hljs-string">'&amp;train_date='</span> + date    priceweb=requests.get(url)    pricejson=json.loads(priceweb.text)    pricedata=pricejson[<span class="hljs-string">'data'</span>]    shangwu=pricedata.__contains__(<span class="hljs-string">'A9'</span>)<span class="hljs-comment">#商务</span>    yideng=pricedata.__contains__(<span class="hljs-string">'M'</span>)<span class="hljs-comment">#一等</span>    erdeng=pricedata.__contains__(<span class="hljs-string">'O'</span>)<span class="hljs-comment">#二等</span>    wuzuo=pricedata.__contains__(<span class="hljs-string">'WZ'</span>)<span class="hljs-comment">#无座</span>    <span class="hljs-keyword">if</span> shangwu:        price[<span class="hljs-string">'shangwu'</span>]=pricedata[<span class="hljs-string">'A9'</span>]    <span class="hljs-keyword">else</span> :        price[<span class="hljs-string">'shangwu'</span>]=<span class="hljs-string">''</span>    <span class="hljs-keyword">if</span> yideng:        price[<span class="hljs-string">'yideng'</span>]=pricedata[<span class="hljs-string">'M'</span>]    <span class="hljs-keyword">else</span> :        price[<span class="hljs-string">'yideng'</span>]=<span class="hljs-string">''</span>    <span class="hljs-keyword">if</span> erdeng:        price[<span class="hljs-string">'erdeng'</span>]=pricedata[<span class="hljs-string">'O'</span>]    <span class="hljs-keyword">else</span> :        price[<span class="hljs-string">'erdeng'</span>]=<span class="hljs-string">''</span>    <span class="hljs-keyword">if</span> wuzuo:        price[<span class="hljs-string">'wuzuo'</span>]=pricedata[<span class="hljs-string">'WZ'</span>]    <span class="hljs-keyword">else</span> :        price[<span class="hljs-string">'wuzuo'</span>]=<span class="hljs-string">''</span>    <span class="hljs-keyword">return</span> price</code></pre><br><strong>6.输出</strong><br>用了prettytable库输出表格<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Print</span><span class="hljs-params">(self)</span>:</span>    price=&#123;        <span class="hljs-string">'shangwu'</span>:<span class="hljs-string">''</span>,        <span class="hljs-string">'yideng'</span>:<span class="hljs-string">''</span>,        <span class="hljs-string">'erdeng'</span>:<span class="hljs-string">''</span>,        <span class="hljs-string">'wuzuo'</span>:<span class="hljs-string">''</span>,    &#125;    table = prettytable.PrettyTable()    table.field_names = [<span class="hljs-string">"车次"</span>,<span class="hljs-string">"出发站"</span>,<span class="hljs-string">"达到站"</span> ,<span class="hljs-string">"出发时间"</span>, <span class="hljs-string">"抵达时间"</span>, <span class="hljs-string">"历时"</span>, <span class="hljs-string">"二等座"</span>, <span class="hljs-string">"一等座"</span>, <span class="hljs-string">"商务座"</span>,<span class="hljs-string">"无座"</span>]    <span class="hljs-keyword">for</span> per <span class="hljs-keyword">in</span> self.data:        price=self.GetPrice(per[<span class="hljs-string">'train_no'</span>],per[<span class="hljs-string">'from_station_no'</span>],per[<span class="hljs-string">'to_station_no'</span>],per[<span class="hljs-string">'seat_types'</span>],self.date,price)        table.add_row([per[<span class="hljs-string">'checi'</span>],per[<span class="hljs-string">'chufazhan'</span>],per[<span class="hljs-string">'dadaozhan'</span>], per[<span class="hljs-string">'chufasj'</span>], per[<span class="hljs-string">'didasj'</span>], per[<span class="hljs-string">'lishi'</span>], per[<span class="hljs-string">'erdeng'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'erdeng'</span>], per[<span class="hljs-string">'yideng'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'yideng'</span>],                       per[<span class="hljs-string">'shangwu'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'shangwu'</span>],per[<span class="hljs-string">'wuzuo'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'wuzuo'</span>]])    print(table)</code></pre><br><strong>7.演示</strong><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008235639135.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>8.完整代码<br><a href="https://github.com/senjay/12306tickets_and_price_search" target="_blank" rel="noopener">https://github.com/senjay/12306tickets_and_price_search</a></p></blockquote>]]></content>
     
     
     <categories>

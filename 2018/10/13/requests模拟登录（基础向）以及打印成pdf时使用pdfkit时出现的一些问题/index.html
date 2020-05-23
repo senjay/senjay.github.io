@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>requests模拟登录（基础向）以及打印成pdf时使用pdfkit时出现的一些问题 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>SenjayのBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2018-10-13 02:26">
+                    2018年10月13日 凌晨
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    898 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    11
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>需求时这样的：学校有一个判题网，当期末的时候要把提交的结果一页一页的打印成pdf交给老师<br>因为是内网，模拟登录十分简单我就简单写一下，但是我在使用pdfkit时出现了一些问题（强迫症问题），最终也没找到很好的解决方法，如果有dalao有想法恳请告诉 - -！</p>
+<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>pdfkit<br>re<br><strong>1.模拟登录</strong><br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013013638153.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>登录的url如上 我们关注hearder里最后几个就行，先构造出来header</p>
+<pre><code class="hljs plain">header&#x3D;&#123;
+&#39;uer-aGent&#39;:&#39;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko&#x2F;20100101 Firefox&#x2F;61.0&#39;,
+&#39;Referer&#39;:&#39;http:&#x2F;&#x2F;**.***.***.***&#x2F;&#39;,
+&#39;Host&#39;:&#39;**.***.***.***&#39;
+&#125;</code></pre>
+<img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013014502706.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
+<p>这是需要post的参数，第一个参数csrfmid…啥的我们发现就是cookie中的一个</p>
+<p>接下来我们来讲讲如何获取cookie，因为是学生自己用的，验证很low，我们先通过requests.Session（）获得一个session（这里不懂的强烈建议先去搞懂Session和Cookie），我们先通过session.get（）先尝试登录一下，因为我们没有提交任何表单数据，毫无疑问是失败的，但是我们却因此获得了cookie，具体看代码，十分简单<br><pre><code class="hljs python"><span class="hljs-keyword">import</span> requests
+<span class="hljs-keyword">import</span> re
+<span class="hljs-keyword">import</span> time
+<span class="hljs-keyword">import</span> pdfkit
+
+postdata=&#123;
+<span class="hljs-string">'password'</span>:<span class="hljs-string">'******'</span>,
+<span class="hljs-string">'username'</span>:	<span class="hljs-string">'*******'</span>
+&#125;
+session = requests.Session()
+<span class="hljs-comment">#登录</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Getcookiesandlogin</span><span class="hljs-params">()</span>:</span>
+    posturl = <span class="hljs-string">'http://**.***.***.***/user/logincheck/'</span>
+    session.get(<span class="hljs-string">'http://**.***.***.***/'</span>,headers=header)<span class="hljs-comment">#通过这次来获取cookie</span>
+    postdata[<span class="hljs-string">'csrfmiddlewaretoken'</span>]=session.cookies.get_dict()[<span class="hljs-string">'csrftoken'</span>]<span class="hljs-comment">#把cookie加入表单参数中</span>
+    session.post(posturl, data=postdata,headers=header)</code></pre><br><strong>2.pdfkit</strong><br>pdfkit依赖于<a href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener">wkhtmltopdf</a>，链接为下载地址，我下的是windos的MXE (MinGW-w64)，直接解压就行，使用的时候设置一下路径参数就ok<br><pre><code class="hljs python">path=<span class="hljs-string">'E:/wkhtmltopdf/wkhtmltox/bin/wkhtmltopdf.exe'</span><span class="hljs-comment">#你解压后的路径</span>
+config = pdfkit.configuration(wkhtmltopdf=path)</code></pre></p>
+<p>先说最后都没有解决的问题吧，看两幅图片的对比<br>1.<br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013021751279.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>2.<img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013015556342.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>emmm，就是空白（红框圈出），打印pdf的时候会出现空白，而且这些空白是有些pdf有，有些pdf没有的，而这些空白也不仅仅是出现在页与页的分隔之间。。。<br><em>只截取关于pdfkit的一段代码吧（这是最后的）</em></p>
+<pre><code class="hljs python">text=session.get(url)
+css=[<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shCore.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shThemeDefault.css'</span>,
+     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\global.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\group.css'</span>,
+     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\printstyle.css'</span>]
+name=re.findall(<span class="hljs-string">r'&lt;title&gt;(.*) &lt;/title&gt;'</span>,text.text)[<span class="hljs-number">0</span>].replace(<span class="hljs-string">' '</span>,<span class="hljs-string">''</span>)
+name=name.replace(<span class="hljs-string">':'</span>,<span class="hljs-string">'_'</span>)
+path=<span class="hljs-string">'E:/Pycharm/MyProjects/monidenglupanti/'</span>+name+<span class="hljs-string">'.pdf'</span>
+h=text.text.replace(<span class="hljs-string">'/js/media/js/scripts/'</span>,<span class="hljs-string">'js/'</span>)
+h = text.text.replace(<span class="hljs-string">'/js/media/js/'</span>, <span class="hljs-string">'js/'</span>)
+<span class="hljs-comment">#这里外链的路径变成‘C:\Users\76083\AppData\Local\Temp\’，改成其他路径失效，没解决- -！</span>
+pdfkit.from_string(h,output_path=path,configuration=config,css=css)</code></pre>
+<p>苦逼历程：<br>1.一开始，发现打印的pdf没有样式，好，把网页的样式下载下来，添加进去，<br>后来发现，打印出来的pdf还是有些小地方不一样，想破脑袋，此处省略万字。。。<br>2.突然想到有些应该是javascript动态生成的！好，咱再把他也全部下载下来<br>（下载方法：Internet选项-常规-先点删除-选择临时文件(全清了也ok就当清理垃圾了)-删除后刷新一下你要下载的网页-再点设置-再点查看文件，好，里面就全是这个网站的css和js文件了）。<br>3.然后加载javascritpt，把网页中js的相对路径改成我需要的觉得路径，发现又发现设置其他盘无用（它还是会ignore）只能设置在‘C:\Users\76083\AppData\Local\Temp\’？？？算了，屈服<br>4.满心欢心运行效果，样式啥的全对了，看到空白，强迫症卒</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/python/">python</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">使用阿里云ECS安装mysql及远程登录的一些小问题</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/">
+                        <span class="hidden-mobile">12306余票及票价查询</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+<p id="hitokoto">:D 获取中..</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "requests模拟登录（基础向）以及打印成pdf时使用pdfkit时出现的一些问题&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

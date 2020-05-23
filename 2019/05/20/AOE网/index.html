@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>AOE网 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>SenjayのBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2019-05-20 16:27">
+                    2019年5月20日 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    1.1k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    13
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="AOE网"><a href="#AOE网" class="headerlink" title="AOE网"></a>AOE网</h2><p><strong>1.介绍</strong><br>定义：在带权有向图中，以顶点表示事件，有向边表示活动，边上的权值表示完成该活动的开销，则称这种有向图为用边表示活动的网络，简称为AOE网（Activity On Edge Network）</p>
+<p>性质：</p>
+<ul>
+<li>只有在某顶点所代表的事件发生后，从该顶点出发的各有向边所代表的活动才能开始</li>
+<li>只有在进入某一顶点的各有向边所代表的活动都已经结束时，该顶点所代表的事件才发生</li>
+</ul>
+<p><strong>2.几个词的解释</strong><br>ps:事件是点，活动是边！！！</p>
+<p>关键路径：<br>从源点到汇点的所有路径中，具有最长路径长度的路径，该路径上的活动成为<code>关键活动（后面有用先记着）</code></p>
+<p>事件<code>V[k]</code>的最早发生时间<code>ve[k]</code>:<br>从开始顶点V到V[k]的最长路径长度。</p>
+<p>事件<code>V[k]</code>的最迟发生时间<code>vl[k]</code>:<br>不推迟整个工程完成的前提下，即保证它所指向的事件Vi在ve(i)时刻能够发生时，改事件最迟必须发生的事件。</p>
+<p>活动<code>a[i]</code>的最早开始时间<code>e[i]</code>:       活动a[i]用边<code>(V[k],V[j])</code>表示</p>
+<pre><code class="hljs c++">e[i]=ve[k]</code></pre>
+<p>活动<code>a[i]</code>的最迟开始时间<code>l[i]</code>:</p>
+<pre><code class="hljs c++">l[i]=vl[j]-Weight(V[k],V[j])</code></pre>
+<p>一个活动a[i]的松弛时间：<br><code>d[i]=l[i]-e[i]</code>或者<code>d[i]=关键路径长度-包含a[i]活动的最长路径</code></p>
+<p><strong>3.计算</strong><br><img src="/2019/05/20/AOE%E7%BD%91/20190519214237921.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
+<p><strong>3.1 计算事件的最早和最迟发生时间</strong></p>
+<p>ve的计算方法为从前往后计算，取最大值，例如对于F,<code>ve(F)=max{ve(B)+a5,ve(E)+a7,ve(G)+a8}</code> ,只有一个的话就只取一个，多个的话，多个中取最大值</p>
+<p>vl的计算方法为从后往前计算，首先另终点J的vl值为其ve，即vl(J)=ve(J)=18，然后多个中取最小值，例如对于B,<code>vl(B)=min{vl(C)-a2,vl(F)-a5,vl(D)-a3}=2</code>;若只有一个，例如对于H,<code>vl(H)=vl(J)-a12=14</code></p>
+<p>最终算出各个顶点的最早和最迟发生时间如下<br>|V|ve（事件最早发生时间）| vl（事件最迟发生事件）|<br>|—|—|—|<br>|  A| 0 |0|<br>|  B| 2 |2|<br>| C| 5 |5|<br>|  D|  4|4|<br>| E| 10 |10|<br>|  F|13 |13|<br>| G| 7 |7|<br>|  H| 12 |14|<br>|  I| 13 |16|<br>|  J|18  |18|</p>
+<p>有以上可以得出ve==vl的点即为关键路径上的事件，即A,B,C,D,E,F,G,J，则有以上点连接的边所代表的活动a1,a2,a3,a4,a6,a7,a8,a10疑似为关键活动<br>注意：<br>关键路径可能不只有一条，计算到这里只能得出关键路径上的事件，具体怎么走还等计算活动的最早和最迟开始时间，如果仅仅需要计算出关键路径，则只需计算几个疑似关键活动的最早和最迟发生时间，为了清楚，我们这里就把全部活动的都计算出来</p>
+<p><strong>3.2活动的最早和最迟开始时间</strong><br>活动最早开始时间：  例如a1,为边（A,B），则<code>a1=ve(A)=0</code>;例如a2,为边（B,C），则a2=ve(B)=2</p>
+<p>活动最晚开始时间：例如对于a1,为边（A,B）,则<code>a1=vl(B)-weight(a1)=2-2=0</code>；例如a12,为边（H,J）,则<code>a12=vl(J)-weight(a12)=18-4=14</code></p>
+<p>最终结果如下</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>e（活动最早开始时间）</th>
+<th>l（活动最迟开始事件）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>a2</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>a3</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>a4</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr>
+<td>a5</td>
+<td>2</td>
+<td>9</td>
+</tr>
+<tr>
+<td>a6</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>a7</td>
+<td>10</td>
+<td>10</td>
+</tr>
+<tr>
+<td>a8</td>
+<td>7</td>
+<td>7</td>
+</tr>
+<tr>
+<td>a9</td>
+<td>10</td>
+<td>12</td>
+</tr>
+<tr>
+<td>a10</td>
+<td>13</td>
+<td>13</td>
+</tr>
+<tr>
+<td>a11</td>
+<td>7</td>
+<td>10</td>
+</tr>
+<tr>
+<td>a12</td>
+<td>12</td>
+<td>14</td>
+</tr>
+<tr>
+<td>a13</td>
+<td>13</td>
+<td>16</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>找出e==l的活动ai,这里为a1,a2,a3,,a4,a6,a7,a8,a10;经观察可发现这里有两条关键路径，分别为a1,a2,a4,a7,a10和a1,a3,a6,a8,a10</p>
+<p>又比如问一个活动的松弛时间，即活动ai在不拖延总工程时间的情况下，该活动可以拖延的时间，有两种解法，比如问BF的松弛时间：<br>解1：BF=a5,所以松弛时间=l(a5)-e(a5)=7<br>解2：包含BF活动的最长路径为ABFJ,其长度为11，又因为关键路径长度为18，所以松弛时间为18-11=7</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2019/09/03/HDU1728%E9%80%83%E7%A6%BB%E8%BF%B7%E5%AE%ABDFS/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HDU1728逃离迷宫DFS</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2019/03/31/%E5%BF%AB%E6%8E%92C++&amp;Python/">
+                        <span class="hidden-mobile">快排C++&Python</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+<p id="hitokoto">:D 获取中..</p>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+      })
+      .catch(console.error)
+</script>
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "AOE网&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
