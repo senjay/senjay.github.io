@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>java.awt.Robot的mouseMove(x,y)效果不起作用 - SenayのBlog</title>
+  <title>KMP算法及手工求解next数组 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2019-03-29 18:12">
-                    2019年3月29日 晚上
+                  <time datetime="2019-03-18 22:43">
+                    2019年3月18日 晚上
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    90 字
+                    1.2k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    17
                      分钟
                   </span>
                 
@@ -195,16 +195,296 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><code>mouseMove(x,y)</code>，此函数是使鼠标移动到<code>（x,y）</code>位置<br>测试发现它是一个逐渐逼近的过程，所以外面套个循环，就能移动到想要的位置了<br>原因未知，不知是不是win10的锅</p>
-<pre><code class="hljs java"><span class="hljs-keyword">import</span> java.awt.Robot;
-Robot robot=<span class="hljs-keyword">new</span> Robot();
-<span class="hljs-keyword">int</span> k=<span class="hljs-number">10</span>;
-<span class="hljs-keyword">int</span> x=<span class="hljs-number">666</span>;
-<span class="hljs-keyword">int</span> y=<span class="hljs-number">666</span>;
-<span class="hljs-keyword">while</span>((--k)&gt;<span class="hljs-number">0</span>)
-&#123;
-	robot.mouseMove(x,y);
-&#125;</code></pre>
+              <h2 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h2><p>详解找来找去感觉还是这两篇解释的很好<br><a href="https://segmentfault.com/a/1190000008575379?utm_medium=referral&amp;utm_source=tuicool" target="_blank" rel="noopener">KMP算法（1）：如何理解KMP</a><br><a href="https://segmentfault.com/a/1190000009409706" target="_blank" rel="noopener">KMP算法（2）：其细微之处</a></p>
+<h2 id="笔记"><a href="#笔记" class="headerlink" title="笔记"></a><strong>笔记</strong></h2><img src="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/2019031822273034.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
+<p>next[i]=j,即模式串p[1-i]的最长的相同真前后缀的长度<br><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"stdafx.h"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"string"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"iostream"</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">getNext</span><span class="hljs-params">(<span class="hljs-built_in">string</span> p, <span class="hljs-keyword">int</span> next[])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> len = p.<span class="hljs-built_in">size</span>();
+	<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>;
+	<span class="hljs-keyword">int</span> j = <span class="hljs-number">-1</span>;
+	next[<span class="hljs-number">0</span>] = <span class="hljs-number">-1</span>;
+	<span class="hljs-keyword">while</span> (i &lt; len - <span class="hljs-number">1</span>)
+	&#123;
+		<span class="hljs-keyword">if</span> (j == <span class="hljs-number">-1</span> || p[i] == p[j])
+			next[++i] = ++j;
+		<span class="hljs-keyword">else</span>
+			j = next[j];
+	&#125;
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">KMP</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s, <span class="hljs-built_in">string</span> p, <span class="hljs-keyword">int</span> next[])</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> i, j;
+	<span class="hljs-keyword">int</span> pl = p.<span class="hljs-built_in">size</span>();
+	<span class="hljs-keyword">int</span> sl = s.<span class="hljs-built_in">size</span>();
+	<span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>; i &lt; sl&amp;&amp; j &lt; pl;)<span class="hljs-comment">//注意这里不要用j&lt;p.size() 因为p.size()是unsigned int 类型，然后j有可能变成-1然后直接跳出循环</span>
+	&#123;
+		<span class="hljs-keyword">if</span> (j == <span class="hljs-number">-1</span> || s[i] == p[j])
+		&#123;
+			i++;
+			j++;
+		&#125;
+		<span class="hljs-keyword">else</span>
+			j = next[j];
+	&#125;
+	<span class="hljs-keyword">if</span> (j == p.<span class="hljs-built_in">size</span>())
+		<span class="hljs-keyword">return</span> i - j;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"></span>&#123;
+	<span class="hljs-keyword">int</span> next[<span class="hljs-number">100</span>] = &#123; <span class="hljs-number">0</span> &#125;;
+	<span class="hljs-built_in">string</span> s = <span class="hljs-string">"abababababcdab"</span>;
+	<span class="hljs-built_in">string</span> p = <span class="hljs-string">"abcdab"</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"主串:"</span> &lt;&lt; s &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"子串:"</span> &lt;&lt; p &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	getNext(p, next);
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"next数组为："</span>;
+	<span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; p.<span class="hljs-built_in">size</span>(); i++)
+		<span class="hljs-built_in">cout</span> &lt;&lt; next[i];
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+
+	<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"匹配位置:"</span> &lt;&lt; KMP(s, p, next) &lt;&lt; <span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+&#125;</code></pre></p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><img src="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/20190321174723805.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
+<h2 id="手工求解next数组方法"><a href="#手工求解next数组方法" class="headerlink" title="手工求解next数组方法"></a>手工求解next数组方法</h2><p>以下两种方法互通，分别为以0为初始或以-1为初始</p>
+<p><strong>1.以0为初始</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> p</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a </td>
+</tr>
+<tr>
+<td> next</td>
+<td>0</td>
+<td>1</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li>当i=0，1 next[0],next[1]分别初始为0，1</li>
+<li>当i=2,p的前2位为 <code>ab</code>,因<code>next[1]=1</code>，则观察<code>ab</code>的前<code>1</code>位和后<code>1</code>位是否相同，不同，所以<code>next[2]=1</code>(记住后面运算时若连1位相同都没有则记为<code>1</code>，即最小记为1，其实看后面就知道意思是<code>next[i]=0+1=1</code>)</li>
+<li>当i=3,p的前3位为<code>aba</code>,因<code>next[2]=1</code>,则观察<code>aba</code>的前<code>1</code>位和后<code>1</code>位是否相同，相同，则在原基础上<code>+1</code>，即<code>next[3]=1+1=2</code></li>
+<li>当i=4,p的前4位为<code>abab</code>,因<code>next[3]=2</code>,则观察<code>abab</code>的前<code>2</code>位和后<code>2</code>位是否相同，相同，则在原基础上<code>+1</code>，即<code>next[4]=2+1=3</code></li>
+<li>当i=5,p的前5位为<code>ababa</code>,因<code>next[4]=3</code>,则观察<code>ababa</code>的前<code>3</code>位和后<code>3</code>位是否相同，相同，则在原基础上<code>+1</code>，即<code>next[5]=3+1=4</code></li>
+<li>当i=6,p的前6位为<code>ababaa</code>,因<code>next[5]=4</code>,则观察<code>ababaa</code>的前<code>4</code>位和后<code>4</code>位是否相同，不相同，则在原基础上<code>-1</code>，观察前<code>3</code>位和后<code>3</code>位是否相同，不同继续<code>-1</code>，直到观察到前<code>2</code>位和后<code>2</code>位相同，若不同再继续减，后观察到前1位和后1位相同，则next[6]=1+1=2</li>
+<li>当i=7,p的前7位为<code>ababaaa</code>,因<code>next[5]=2</code>,则观察<code>ababaaa</code>的前<code>2</code>位和后<code>2</code>位是否相同，不相同，则在原基础上<code>-1</code>，观察前<code>1</code>位和后<code>1</code>位是否相同，相同，则next[7]=1+1=2</li>
+<li>…</li>
+<li>…</li>
+<li>…   </li>
+</ol>
+<p>最终为</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+</tr>
+<tr>
+<td>next</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>2.以-1为初始</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+</tr>
+<tr>
+<td>next</td>
+<td>-1</td>
+<td>0</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ol>
+<li>当i=0，1 next[0],next[1]分别初始为-1，0</li>
+<li>当i=2，p的前2位为<code>ab</code>,因<code>next[1]=0</code>，则<code>next[1]+1=1</code>,观察前<code>1</code>位和后<code>1</code>位是否相同，不同，则<code>1-1=0</code>，到0为止，则<code>next[2]=0</code>（<code>1-1=0</code>中第一个1的意思即前1位和后1位是否相同中的1）</li>
+<li>当i=3,p的前3位为<code>aba</code>,因<code>next[2]=0</code>,则<code>next[2]+1=1</code>,则观察的前<code>1</code>位和后<code>1</code>位是否相同，相同，则<code>next[3]=1</code></li>
+<li>当i=4,p的前4位为<code>abab</code>,因<code>next[3]=1</code>,则<code>next[3]+1=2</code>,则观察前<code>2</code>位和后<code>2</code>位是否相同，相同，则<code>next[4]=2</code></li>
+<li>当i=5,p的前5位为<code>ababa</code>,因<code>next[4]=2</code>,则<code>next[4]+1=3</code>,则观察前<code>3</code>位和后<code>3</code>位是否相同，相同，则<code>next[4]=3</code></li>
+<li>当i=6,p的前6位为<code>ababaa</code>,因<code>next[5]=3</code>,则<code>next[5]+1=4</code>,则观察前<code>4</code>位和后<code>4</code>位是否相同，不相同;则观察前<code>3</code>位和后<code>3</code>位是否相同，不同;则观察前<code>2</code>位和后<code>2</code>位是否相同，不相同;则观察前<code>1</code>位和后<code>1</code>位是否相同，相同，则<code>next[6]=1</code></li>
+<li>当i=7,p的前6位为<code>ababaaa</code>,因<code>next[6]=1</code>,则<code>next[6]+1=2</code>,则观察前<code>2</code>位和后<code>2</code>位是否相同，不相同;则观察前<code>1</code>位和后<code>1</code>位是否相同，相同，则<code>next[7]=1</code></li>
+<li>…</li>
+<li>…</li>
+<li><p>…</p>
+<p>最终为</p>
+</li>
+</ol>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>p</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>a</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+<td>b</td>
+<td>a</td>
+</tr>
+<tr>
+<td>next</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>俩种方法的关系</strong><br>观察发现法1的next数组每项+1就是法2的next数组，所以考试时无论用哪一种都是可以的，只要<code>分析或者看清</code>是以什么为初值就行<br>其实还可以理解为把法1的next数组向右移1位，并把首位赋值位-1</p>
+
             </article>
             <hr>
             <div>
@@ -213,7 +493,7 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Java/">Java</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
                     
                   </div>
                 
@@ -221,7 +501,7 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Bug/">Bug</a>
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
                     
                   </div>
                 
@@ -234,9 +514,9 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2019/03/31/%E5%BF%AB%E6%8E%92C++&amp;Python/">
+                      <a href="/2019/03/29/java.awt.Robot%E7%9A%84mouseMove(x,y)%E6%95%88%E6%9E%9C%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">快排C++&Python</span>
+                        <span class="hidden-mobile">java.awt.Robot的mouseMove(x,y)效果不起作用</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -244,8 +524,8 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/">
-                        <span class="hidden-mobile">KMP算法及手工求解next数组</span>
+                      <a href="/2019/01/21/Mysql-Err1055-ONLY_FULL_GROUP_BY-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/">
+                        <span class="hidden-mobile">Mysql Err1055 ONLY_FULL_GROUP_BY 存储过程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -476,7 +756,7 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "java.awt.Robot的mouseMove(x,y)效果不起作用&nbsp;",
+        "KMP算法及手工求解next数组&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

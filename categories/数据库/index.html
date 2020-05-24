@@ -7,17 +7,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon1.png">
+  <link rel="icon" type="image/png" href="/img/favicon1.png">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>分类 - 数据库 - Hexo</title>
+  <title>分类 - 数据库 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -40,6 +40,10 @@
 <link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
 
 
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -105,6 +109,15 @@
             <a class="nav-link" href="/about/">
               <i class="iconfont icon-user-fill"></i>
               关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
           </li>
         
         
@@ -213,18 +226,56 @@
   
 
   
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"10番道路","artist":"景山将太","url":"https://m801.music.126.net/20200524103729/ca493d6d24d3d1c636391dbc83acb991/jdyyaac/0f59/020f/0e53/83ef89a9945e8986709499761bd8a692.m4a","cover":"http://p2.music.126.net/DO7qNRAEbqCYo1JmrqFA_A==/109951163903681161.jpg"}]
+    });
+  }
+</script>
+
+  
 
   
 
   <footer class="mt-5">
   <div class="text-center py-3">
-<p id="hitokoto">:D 获取中..</p>
+  <div class="box">
+        <a id="hitokoto" target="_blank">获取中......</a>
+        <p id="hitokotofrom">---- 获取中......</p>
+   </div>
+  <style type="text/css">
+        .box {
+            display: inline-block;
+        }
+        .box p {
+             text-align: right;
+            margin-bottom: 0px;
+        }
+    </style>
 <script>
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
       const hitokoto = document.getElementById('hitokoto')
       hitokoto.innerText = data.hitokoto
+     hitokoto.href="https://hitokoto.cn?uuid="+data.uuid
+     const from=document.getElementById('hitokotofrom')
+     from.innerText="----  "+data.from
       })
       .catch(console.error)
 </script>
@@ -234,7 +285,7 @@
   <script>
   var now = new Date();
   function createtime(){
-      var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+      var grt= new Date("10/9/2018 00:48:20");//此处修改你的建站时间或者网站上线时间
       now.setTime(now.getTime()+250);
       days = (now - grt ) / 1000 / 60 / 60 / 24;
       dnum = Math.floor(days);
@@ -253,7 +304,7 @@
       if(String(snum).length ==1 ){
                 snum = "0" + snum;
       }
-      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("timeDate").innerHTML = "流转&nbsp"+dnum+"&nbsp天";
       document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
   }
   setInterval("createtime()",250);

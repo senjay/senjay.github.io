@@ -7,17 +7,17 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
-  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon1.png">
+  <link rel="icon" type="image/png" href="/img/favicon1.png">
   <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>加速度传感器的计步算法Pedometer - Hexo</title>
+  <title>加速度传感器的计步算法Pedometer - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -40,6 +40,10 @@
 <link  rel="stylesheet" href="/css/main.css" />
 
 <!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
 
 
 <meta name="generator" content="Hexo 4.2.1"></head>
@@ -105,6 +109,15 @@
             <a class="nav-link" href="/about/">
               <i class="iconfont icon-user-fill"></i>
               关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
           </li>
         
         
@@ -212,7 +225,8 @@ p_{1}&>p_{2}\\
 &walking,\Delta{h}>k_2\\
 &standing,\Delta{h}<k_3\\
 \end{aligned}
-\right.</script><p>&emsp;&emsp;需要注意的是.一旦检测到跳跃或者行走,就得有计时器计时,当经过$\Delta t$后再进行判别,因为人走路和跳跃是需要时间的!!!<br>&emsp;&emsp;其中${p<em>{1},p</em>{2},k_1,k_2,k_3,\Delta t}$都是需要我们设置的参数，下面分享一组<strong>手调</strong>测出来的参数QAQ，不一定最优但能行。。。</p>
+\right.</script><p>&emsp;&emsp;需要注意的是.一旦检测到跳跃或者行走,就得有计时器计时,当经过$\Delta t$后再进行判别,因为人走路和跳跃是需要时间的!!!</p>
+<p>​        其中$p_1$,$p_2$,$k_1$,$k_2$,$k_3$,$\Delta t$ 都是需要我们设置的参数，下面分享一组<strong>手调</strong>测出来的参数QAQ，不一定最优但能行。。。</p>
 <script type="math/tex; mode=display">
 \left\{
 \begin{aligned}
@@ -224,8 +238,10 @@ k_3&=0.008\\
 \Delta t&=2s
 \end{aligned}
 \right.</script><img src="/2020/05/15/%E5%8A%A0%E9%80%9F%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8%E7%9A%84%E8%AE%A1%E6%AD%A5%E7%AE%97%E6%B3%95Pedometer/20200227144604718.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
-<p>&emsp;&emsp;上图是带入这些参数得到的曲线，我们可以看到经过$p<em>1$参数的滤波得到的曲线(红色)，已经大致拟合原数据(蓝色)，而经过$p_2$参数得到的曲线(绿色)大致为均值,要说一下的是其实绿线的值大致在9.8附近,就是重力加速度,为什么不直接采用9.8的原因是实际会有误差。<br>&emsp;&emsp;至于为什么会选EMA，简单有效！我们其实可以发现其公式可以用线性插值函数快速实现,虽然没人说，但我觉得在很多时候我们平滑移动物体和相机用到这个插值基于的原理就是这个，在每帧不断迭代才产生了平滑。<br>$a_i$=Mathf.Lerp($a</em>{i-1}$,$x<em>i$,$p_1$)=$a</em>{i-1}+(1-p<em>1)x_i=(1-p_1)a</em>{i-1}+p_1x_i$</p>
-<p><strong>3.实现</strong><br><a href="https://blog.csdn.net/qq_36490364/article/details/104515912" target="_blank" rel="noopener">Unity下的实现</a></p>
+<p>&emsp;&emsp;上图是带入这些参数得到的曲线，我们可以看到经过$p_1$参数的滤波得到的曲线(红色)，已经大致拟合原数据(蓝色)，而经过$p_2$参数得到的曲线(绿色)大致为均值,要说一下的是其实绿线的值大致在9.8附近,就是重力加速度,为什么不直接采用9.8的原因是实际会有误差。</p>
+<p>​        至于为什么会选EMA，简单有效！我们其实可以发现其公式可以用线性插值函数快速实现,虽然没人说，但我觉得在很多时候我们平滑移动物体和相机用到这个插值基于的原理就是这个，在每帧不断迭代才产生了平滑。</p>
+<script type="math/tex; mode=display">
+a_i=Mathf.Lerp(a_{i-1 },x_i,p_1)=a_{i-1}+(1-p_1)x_i=(1-p_1)a_{i-1}+p_1x_i</script><p><strong>3.实现</strong><br><a href="https://blog.csdn.net/qq_36490364/article/details/104515912" target="_blank" rel="noopener">Unity下的实现</a></p>
 
             </article>
             <hr>
@@ -277,6 +293,24 @@ k_3&=0.008\\
               
             </div>
 
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="senjay/commit-utterance"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
             
           </div>
         </div>
@@ -331,18 +365,56 @@ k_3&=0.008\\
   
 
   
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"10番道路","artist":"景山将太","url":"https://m801.music.126.net/20200524103729/ca493d6d24d3d1c636391dbc83acb991/jdyyaac/0f59/020f/0e53/83ef89a9945e8986709499761bd8a692.m4a","cover":"http://p2.music.126.net/DO7qNRAEbqCYo1JmrqFA_A==/109951163903681161.jpg"}]
+    });
+  }
+</script>
+
+  
 
   
 
   <footer class="mt-5">
   <div class="text-center py-3">
-<p id="hitokoto">:D 获取中..</p>
+  <div class="box">
+        <a id="hitokoto" target="_blank">获取中......</a>
+        <p id="hitokotofrom">---- 获取中......</p>
+   </div>
+  <style type="text/css">
+        .box {
+            display: inline-block;
+        }
+        .box p {
+             text-align: right;
+            margin-bottom: 0px;
+        }
+    </style>
 <script>
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
       const hitokoto = document.getElementById('hitokoto')
       hitokoto.innerText = data.hitokoto
+     hitokoto.href="https://hitokoto.cn?uuid="+data.uuid
+     const from=document.getElementById('hitokotofrom')
+     from.innerText="----  "+data.from
       })
       .catch(console.error)
 </script>
@@ -352,7 +424,7 @@ k_3&=0.008\\
   <script>
   var now = new Date();
   function createtime(){
-      var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+      var grt= new Date("10/9/2018 00:48:20");//此处修改你的建站时间或者网站上线时间
       now.setTime(now.getTime()+250);
       days = (now - grt ) / 1000 / 60 / 60 / 24;
       dnum = Math.floor(days);
@@ -371,7 +443,7 @@ k_3&=0.008\\
       if(String(snum).length ==1 ){
                 snum = "0" + snum;
       }
-      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("timeDate").innerHTML = "流转&nbsp"+dnum+"&nbsp天";
       document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
   }
   setInterval("createtime()",250);
