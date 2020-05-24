@@ -1,12 +1,27 @@
 <footer class="mt-5">
   <div class="text-center py-3">
-<p id="hitokoto">:D 获取中..</p>
+  <div class="box">
+        <a id="hitokoto" target="_blank">获取中......</a>
+        <p id="hitokotofrom">---- 获取中......</p>
+   </div>
+  <style type="text/css">
+        .box {
+            display: inline-block;
+        }
+        .box p {
+             text-align: right;
+            margin-bottom: 0px;
+        }
+    </style>
 <script>
   fetch('https://v1.hitokoto.cn')
     .then(response => response.json())
     .then(data => {
       const hitokoto = document.getElementById('hitokoto')
       hitokoto.innerText = data.hitokoto
+     hitokoto.href="https://hitokoto.cn?uuid="+data.uuid
+     const from=document.getElementById('hitokotofrom')
+     from.innerText="----  "+data.from
       })
       .catch(console.error)
 </script>
@@ -16,7 +31,7 @@
   <script>
   var now = new Date();
   function createtime(){
-      var grt= new Date("02/14/2020 00:00:00");//此处修改你的建站时间或者网站上线时间
+      var grt= new Date("10/9/2018 00:48:20");//此处修改你的建站时间或者网站上线时间
       now.setTime(now.getTime()+250);
       days = (now - grt ) / 1000 / 60 / 60 / 24;
       dnum = Math.floor(days);
@@ -35,7 +50,7 @@
       if(String(snum).length ==1 ){
                 snum = "0" + snum;
       }
-      document.getElementById("timeDate").innerHTML = "本站安全运行&nbsp"+dnum+"&nbsp天";
+      document.getElementById("timeDate").innerHTML = "流转&nbsp"+dnum+"&nbsp天";
       document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
   }
   setInterval("createtime()",250);
