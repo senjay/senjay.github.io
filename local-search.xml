@@ -8,7 +8,7 @@
     <link href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/"/>
     <url>/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/</url>
     
-    <content type="html"><![CDATA[<h1 id="通过可逆运算交换变量的值"><a href="#通过可逆运算交换变量的值" class="headerlink" title="通过可逆运算交换变量的值"></a>通过可逆运算交换变量的值</h1><h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>​        交换两个变量的值除了引入临时变量，还有通过加减或异或等奇淫技巧来完成，现在来介绍其原理并且推广它们。</p><h2 id="2-交换的原理"><a href="#2-交换的原理" class="headerlink" title="2 交换的原理"></a>2 交换的原理</h2><p>​        加减、异或都是可逆运算，现在定义一种可逆运算规则$f$,它的逆运算是$f^{-1}$，不妨设$f(a,b)=c$,则有$f^{-1}(c,a)=b$，则有如下推导,注意我用<code>:=</code>来表示赋值：</p><script type="math/tex; mode=display">\begin{align}a& :=f(a,b)  \tag{1}\label{1}\\b& :=f^{-1}(a,b)=f^{-1}(f(a,b),b)=a \tag{2}\label{2}\\a& :=f^{-1}(a,b)=f^{-1}(f(a,b),a)=b \tag{3}\label{3}\end{align}</script><p>可以看到，最终$a,b$交换了两者的值，因此可见只要是逆运算就可以满足要求，比如使用乘除：</p><pre><code class="hljs c++">a=a*b;b=a/b;a=a/b;</code></pre><p>我们可以代入数字验证一下，可以发现它也是正确的。</p><h2 id="3-交换律的影响"><a href="#3-交换律的影响" class="headerlink" title="3 交换律的影响"></a>3 交换律的影响</h2><p>​        但是，如果你细心点，你会发现既然乘除可以，那为什么要先乘后除，或者干脆使用乘方与开方，因为它们也是一组逆运算，可是当我们这样操作会发现答案是与预期不符的。因为问题出在交换律上。</p><h3 id="3-1-f-与-f-1-只有一者满足交换律"><a href="#3-1-f-与-f-1-只有一者满足交换律" class="headerlink" title="3.1 $f$与$f^{-1}$只有一者满足交换律"></a>3.1 $f$与$f^{-1}$只有一者满足交换律</h3><p>​        如果$f(a,b)\not= f(b,a)$,我们也就能得出$f^{-1}(c,a)\not=f^{-1}(c,b)$,而公式$\eqref{2}\eqref{3}$正是依赖于此的。也可这样想，不妨设$f(a,b)=c_1,f(b,a)=c_2$，则正确的应该是$f^{-1}(c_1,a)=b,f^{-1}(c_2,b)=a$。所以运算规则$f$应满足交换律，其逆运算则无要求。</p><p>​        那么，如果$f$不满足交换律，可以实现交换变量而不引入临时变量吗？答案当然是可以的，不过这就对不同的$f$就有不同的方法了，因为我们要知道$c_1$与$c_2$的关系，如果$f$是减法，则$c_1=-c_2$;如果是除法，则$c_1=c_2^{-1}$。</p><h3 id="3-2-f-与-f-1-都不满足交换律"><a href="#3-2-f-与-f-1-都不满足交换律" class="headerlink" title="3.2 $f$与$f^{-1}$都不满足交换律"></a>3.2 $f$与$f^{-1}$都不满足交换律</h3><p>​        这个条件下很好的例子就是矩阵和幂两种。min矩阵涉及左乘、右乘、逆；幂涉及乘方、开方、对数。它们的运算时涉及到三种运算规则的。</p><p>​        以矩阵为例：</p><script type="math/tex; mode=display">\begin{align}A&:=AB\\B&:=AB^{-1}=ABB^{-1}=A\\A&:=B^{-1}A=A^{-1}AB=B\\\end{align}</script><p>​        幂运算：</p><p>​        </p><script type="math/tex; mode=display">\begin{align}a&:=a^b\\b&:=\sqrt[b]{a}=\sqrt[b]{a^b}=a\\a&:=\log_{a}{a}=\log_{a}{a^b}=b\end{align}</script><p>这种情况下是每种运算规则都是需要用到才能完成交换的。</p><h3 id="3-3-f-与-f-1-都满足交换律"><a href="#3-3-f-与-f-1-都满足交换律" class="headerlink" title="3.3  $f$与$f^{-1}$都满足交换律"></a>3.3  $f$与$f^{-1}$都满足交换律</h3><p>​        这个的最好的例子就是异或运算$\oplus $,因为它除了自身就满足交换，同时它的逆运算就是自身$f=f^{-1}$,</p><script type="math/tex; mode=display">\begin{align}a&:=a\oplus b\\b&:=a\oplus b=a\oplus b\oplus b =a\\a&:=a\oplus b=a\oplus b\oplus a =b\end{align}</script><h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h3><p>​        主要讲了讲这种变量交换操作的背后原理即推广，但是需要提醒的是在实际应用中，我还是建议通过临时变量来进行交换，上面的操作虽然给人眼前一亮，同时也有理论支持，可应用在实际中还是可能会出现错误，比如溢出，甚至交换变量类型根本就不是数字。我的建议是虽然这很有趣但请不要用。</p><p>​        </p>]]></content>
+    <content type="html"><![CDATA[<h1 id="通过可逆运算交换变量的值"><a href="#通过可逆运算交换变量的值" class="headerlink" title="通过可逆运算交换变量的值"></a>通过可逆运算交换变量的值</h1><h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>​        交换两个变量的值除了引入临时变量，还有通过加减或异或等奇淫技巧来完成，现在来介绍其原理并且推广它们。</p><h2 id="2-交换的原理"><a href="#2-交换的原理" class="headerlink" title="2 交换的原理"></a>2 交换的原理</h2><p>​        加减、异或都是可逆运算，现在定义一种可逆运算规则$f$,它的逆运算是$f^{-1}$，不妨设$f(a,b)=c$,则有$f^{-1}(c,a)=b$，则有如下推导,注意我用<code>:=</code>来表示赋值：</p><script type="math/tex; mode=display">\begin{align}a& :=f(a,b)  \tag{1}\label{1}\\b& :=f^{-1}(a,b)=f^{-1}(f(a,b),b)=a \tag{2}\label{2}\\a& :=f^{-1}(a,b)=f^{-1}(f(a,b),a)=b \tag{3}\label{3}\end{align}</script><p>可以看到，最终$a,b$交换了两者的值，因此可见只要是逆运算就可以满足要求，比如使用乘除：</p><pre><code class="hljs c++">a=a*b;b=a/b;a=a/b;</code></pre><p>我们可以代入数字验证一下，可以发现它也是正确的。</p><h2 id="3-交换律的影响"><a href="#3-交换律的影响" class="headerlink" title="3 交换律的影响"></a>3 交换律的影响</h2><p>​        但是，如果你细心点，你会发现既然乘除可以，那为什么要先乘后除，或者干脆使用乘方与开方，因为它们也是一组逆运算，可是当我们这样操作会发现答案是与预期不符的。因为问题出在交换律上。</p><h3 id="3-1-f-与-f-1-只有一者满足交换律"><a href="#3-1-f-与-f-1-只有一者满足交换律" class="headerlink" title="3.1 $f$与$f^{-1}$只有一者满足交换律"></a>3.1 $f$与$f^{-1}$只有一者满足交换律</h3><p>​        如果$f(a,b)\not= f(b,a)$,我们也就能得出$f^{-1}(c,a)\not=f^{-1}(c,b)$,而公式$\eqref{2}\eqref{3}$正是依赖于此的。也可这样想，不妨设$f(a,b)=c_1,f(b,a)=c_2$，则正确的应该是$f^{-1}(c_1,a)=b,f^{-1}(c_2,b)=a$。所以运算规则$f$应满足交换律，其逆运算则无要求。</p><p>​        那么，如果$f$不满足交换律，可以实现交换变量而不引入临时变量吗？答案当然是可以的，不过这就对不同的$f$就有不同的方法了，因为我们要知道$c_1$与$c_2$的关系，如果$f$是减法，则$c_1=-c_2$;如果是除法，则$c_1=c_2^{-1}$。</p><h3 id="3-2-f-与-f-1-都不满足交换律"><a href="#3-2-f-与-f-1-都不满足交换律" class="headerlink" title="3.2 $f$与$f^{-1}$都不满足交换律"></a>3.2 $f$与$f^{-1}$都不满足交换律</h3><p>​        这个条件下很好的例子就是矩阵和幂两种。矩阵涉及左乘、右乘、逆；幂涉及乘方、开方、对数。它们的运算时涉及到三种运算规则的。</p><p>​        以矩阵为例：</p><script type="math/tex; mode=display">\begin{align}A&:=AB\\B&:=AB^{-1}=ABB^{-1}=A\\A&:=B^{-1}A=A^{-1}AB=B\\\end{align}</script><p>​        幂运算：</p><p>​        </p><script type="math/tex; mode=display">\begin{align}a&:=a^b\\b&:=\sqrt[b]{a}=\sqrt[b]{a^b}=a\\a&:=\log_{a}{a}=\log_{a}{a^b}=b\end{align}</script><p>这种情况下是每种运算规则都是需要用到才能完成交换的。</p><h3 id="3-3-f-与-f-1-都满足交换律"><a href="#3-3-f-与-f-1-都满足交换律" class="headerlink" title="3.3  $f$与$f^{-1}$都满足交换律"></a>3.3  $f$与$f^{-1}$都满足交换律</h3><p>​        这个的最好的例子就是异或运算$\oplus $,因为它除了自身就满足交换，同时它的逆运算就是自身$f=f^{-1}$,</p><script type="math/tex; mode=display">\begin{align}a&:=a\oplus b\\b&:=a\oplus b=a\oplus b\oplus b =a\\a&:=a\oplus b=a\oplus b\oplus a =b\end{align}</script><h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4 总结"></a>4 总结</h3><p>​        主要讲了讲这种变量交换操作的背后原理即推广，但是需要提醒的是在实际应用中，我还是建议通过临时变量来进行交换，上面的操作虽然给人眼前一亮，同时也有理论支持，可应用在实际中还是可能会出现错误，比如溢出，甚至交换变量类型根本就不是数字。我的建议是虽然这很有趣但请不要用。</p><p>​        </p>]]></content>
     
     
     <categories>
@@ -262,9 +262,9 @@
     
     <tags>
       
-      <tag>Bug</tag>
-      
       <tag>Unity</tag>
+      
+      <tag>Bug</tag>
       
     </tags>
     
@@ -370,9 +370,9 @@
     
     <tags>
       
-      <tag>算法</tag>
-      
       <tag>习题</tag>
+      
+      <tag>算法</tag>
       
     </tags>
     
@@ -447,9 +447,9 @@
     
     <tags>
       
-      <tag>Mysql</tag>
-      
       <tag>Bug</tag>
+      
+      <tag>Mysql</tag>
       
     </tags>
     
@@ -549,9 +549,9 @@
     
     <tags>
       
-      <tag>Mysql</tag>
-      
       <tag>Bug</tag>
+      
+      <tag>Mysql</tag>
       
     </tags>
     
