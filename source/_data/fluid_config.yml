@@ -65,7 +65,7 @@ custom_html: ''  # 自定义底部 HTML 内容（位于 footer 上方），也�
 
 web_analytics:  # 网页访问统计
   enable: false
-  baidu:  # 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串
+  baidu: # 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串
   google:  # Google统计的Tracking ID，参见 https://analytics.google.com/analytics/web/
   tencent:  # 腾讯统计的H5 App id，参见 https://mta.qq.com/h5/manage/ctr_app_manage (开启高级功能才有cid)
     sid:
@@ -89,8 +89,8 @@ aplayer:  # 音乐播放器，注意不能与 hexo-tag-aplayer 插件共用
   order: 'random'  # 播放顺序，可选值: 'list', 'random'
   theme: '#b7daff'  # 主题色
   songs:  # 歌曲列表，必须传入下列各参数，其中 url 与 cover 在本地需存于 source 目录，更多参数见文档：https://aplayer.js.org/#/zh-Hans/?id=%E5%8F%82%E6%95%B0
-    - { name: '10番道路', artist: '景山将太', url: 'https://m801.music.126.net/20200524103729/ca493d6d24d3d1c636391dbc83acb991/jdyyaac/0f59/020f/0e53/83ef89a9945e8986709499761bd8a692.m4a', cover: 'http://p2.music.126.net/DO7qNRAEbqCYo1JmrqFA_A==/109951163903681161.jpg' }
-    # - { name: 'name', artist: 'artist', url: '/songs/test.mp3', cover: '/img/cover.jpg' }
+    - { name: '10番道路', artist: '景山将太', url: 'https://music.163.com/song/media/outer/url?id=4932563.mp3', cover: 'http://p2.music.126.net/DO7qNRAEbqCYo1JmrqFA_A==/109951163903681161.jpg' }
+    # - { name: 'name', artist: 'artist', url: '/songs/撒打算.mp3', cover: '/img/cover.jpg' }
 
 version:  # 版本相关
   check: true  # 每次生成检测是否为最新版本
