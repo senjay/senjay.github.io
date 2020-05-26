@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Mysql Err1055 ONLY_FULL_GROUP_BY 存储过程 - SenayのBlog</title>
+  <title>LeetCodeのTree - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2019-01-21 22:05">
-                    2019年1月21日 晚上
+                  <time datetime="2020-05-26 23:18">
+                    2020年5月26日 晚上
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    167 字
+                    543 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    8
                      分钟
                   </span>
                 
@@ -195,9 +195,84 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Ubuntu16.04<br>Mysql5.7<br><strong>1.背景</strong><br>Err 1055 报错 sql_moede为ONLY_FULL_GROUP_BY,具体错误原因不介绍了.按提示改变sql_mode后存储过程中仍报改错.<br><strong>2.解决方法</strong><br>修改/etc/mysql/my.cnf 可以在最后加上如下<br><pre><code class="hljs mysql">[mysqld]
-sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</code></pre><br>然后 service mysql restart 重启服务<br>还有一些其他的设置sql_mode的方法,可自行了解<br>但是按照上面方法做完后在查询中不会再报1055,但是使用存储过程仍旧有问题,解决方法就是<br>…<br>…<br>…<br>复制,删除,新建,粘贴!!!<br>新建一个存储过程就OK,具体原因不了解,总之是个大坑</p>
-
+              <h1 id="关于树"><a href="#关于树" class="headerlink" title="关于树"></a>关于树</h1><h2 id="简单"><a href="#简单" class="headerlink" title="简单"></a>简单</h2><h3 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100 相同的树"></a>100 <a href="https://leetcode-cn.com/problems/same-tree/" target="_blank" rel="noopener">相同的树</a></h3><p>给定两个二叉树，编写一个函数来检验它们是否相同。</p>
+<p>如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSameTree</span><span class="hljs-params">(TreeNode* p, TreeNode* q)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(!p&amp;&amp;!q)<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">//都为空返回true</span>
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(p&amp;&amp;q&amp;&amp;p-&gt;val==q-&gt;val)<span class="hljs-comment">//相等往下做判断</span>
+        <span class="hljs-keyword">return</span> isSameTree(p-&gt;left,q-&gt;left)&amp;&amp;isSameTree(p-&gt;right,q-&gt;right);
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+&#125;;</code></pre>
+<h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101 对称二叉树"></a>101 <a href="https://leetcode-cn.com/problems/symmetric-tree/" target="_blank" rel="noopener">对称二叉树</a></h3><p>给定一个二叉树，检查它是否是镜像对称的。</p>
+<p>上题的引申</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> judge(root,root);
+    &#125;
+    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">judge</span><span class="hljs-params">(TreeNode* p,TreeNode* q)</span></span>
+<span class="hljs-function">    </span>&#123;
+            <span class="hljs-keyword">if</span>(!p&amp;&amp;!q)<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(p&amp;&amp;q&amp;&amp;p-&gt;val==q-&gt;val)
+            <span class="hljs-keyword">return</span> judge(p-&gt;left,q-&gt;right)&amp;&amp;judge(p-&gt;right,q-&gt;left);
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+&#125;;</code></pre>
+<h3 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104 二叉树的最大深度"></a>104 <a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener">二叉树的最大深度</a></h3><p>给定一个二叉树，找出其最大深度。</p>
+<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;
+        <span class="hljs-keyword">if</span>(!root)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(maxDepth(root-&gt;left),maxDepth(root-&gt;right))+<span class="hljs-number">1</span>;<span class="hljs-comment">//返回左右最大值    </span>
+    &#125;
+&#125;;</code></pre>
+<h2 id="中等"><a href="#中等" class="headerlink" title="中等"></a>中等</h2><h3 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94 二叉树的中序遍历"></a>94 <a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener">二叉树的中序遍历</a></h3><p>非递归方法</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;
+        <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt;s;
+        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;
+        <span class="hljs-keyword">while</span>(!s.empty()||root)
+        &#123;
+            <span class="hljs-keyword">if</span>(root)
+            &#123;
+                s.push(root);
+                root=root-&gt;left;
+            &#125;
+            <span class="hljs-keyword">else</span>
+            &#123;
+                TreeNode* temp=s.top();
+                s.pop();
+                ans.push_back(temp-&gt;val);
+                root=temp-&gt;right;
+            &#125;
+        &#125;
+        <span class="hljs-keyword">return</span> ans;
+    &#125;
+&#125;;</code></pre>
+<h3 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105 从前序与中序遍历序列构造二叉树"></a>105 <a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener">从前序与中序遍历序列构造二叉树</a></h3><p>递归构造，常规。</p>
+<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function">TreeNode* <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; pre,<span class="hljs-keyword">int</span> ps,<span class="hljs-keyword">int</span> pe, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder,<span class="hljs-keyword">int</span> is,<span class="hljs-keyword">int</span> ie)</span></span>
+<span class="hljs-function">    </span>&#123;
+        <span class="hljs-keyword">if</span>(ps&gt;pe||is&gt;ie)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;
+        TreeNode* t=<span class="hljs-keyword">new</span> TreeNode();
+        t-&gt;val=pre[ps];
+        <span class="hljs-keyword">int</span> k=is;
+        <span class="hljs-keyword">while</span>(is&lt;ie&amp;&amp;inorder[k]!=t-&gt;val)k++;<span class="hljs-comment">//寻找中序中的头节点</span>
+        t-&gt;left=build(pre,ps+<span class="hljs-number">1</span>,ps+k-is,inorder,is,k<span class="hljs-number">-1</span>);<span class="hljs-comment">//构造左子树</span>
+        t-&gt;right=build(pre,ps+k-is+<span class="hljs-number">1</span>,pe,inorder,k+<span class="hljs-number">1</span>,ie);<span class="hljs-comment">//构造右子树</span>
+        <span class="hljs-keyword">return</span> t;
+    &#125;
+    <span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;
+        <span class="hljs-keyword">return</span> build(preorder,<span class="hljs-number">0</span>,preorder.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>,inorder,<span class="hljs-number">0</span>,inorder.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);
+    &#125;
+&#125;;</code></pre>
+<h2 id="困难"><a href="#困难" class="headerlink" title="困难"></a>困难</h2>
             </article>
             <hr>
             <div>
@@ -206,7 +281,7 @@ sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
+                      <a class="hover-with-bg" href="/categories/C/">C++</a>
                     
                   </div>
                 
@@ -214,9 +289,7 @@ sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Mysql/">Mysql</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Bug/">Bug</a>
+                      <a class="hover-with-bg" href="/tags/%E4%B9%A0%E9%A2%98/">习题</a>
                     
                   </div>
                 
@@ -229,18 +302,12 @@ sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">KMP算法及手工求解next数组</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2018/11/02/python-numpy%E7%9A%84%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87%E5%92%8C%E5%85%B6%E4%B8%ADNone%E7%9A%84%E6%84%8F%E6%80%9D/">
-                        <span class="hidden-mobile">python numpy的数组切片和其中None的意思</span>
+                      <a href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/">
+                        <span class="hidden-mobile">通过可逆运算交换变量的值</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -471,7 +538,7 @@ sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Mysql Err1055 ONLY_FULL_GROUP_BY 存储过程&nbsp;",
+        "LeetCodeのTree&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

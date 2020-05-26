@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>LeetCodeのTree</title>
+    <link href="/2020/05/26/Tree/"/>
+    <url>/2020/05/26/Tree/</url>
+    
+    <content type="html"><![CDATA[<h1 id="关于树"><a href="#关于树" class="headerlink" title="关于树"></a>关于树</h1><h2 id="简单"><a href="#简单" class="headerlink" title="简单"></a>简单</h2><h3 id="100-相同的树"><a href="#100-相同的树" class="headerlink" title="100 相同的树"></a>100 <a href="https://leetcode-cn.com/problems/same-tree/" target="_blank" rel="noopener">相同的树</a></h3><p>给定两个二叉树，编写一个函数来检验它们是否相同。</p><p>如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。</p><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSameTree</span><span class="hljs-params">(TreeNode* p, TreeNode* q)</span> </span>&#123;        <span class="hljs-keyword">if</span>(!p&amp;&amp;!q)<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>; <span class="hljs-comment">//都为空返回true</span>        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(p&amp;&amp;q&amp;&amp;p-&gt;val==q-&gt;val)<span class="hljs-comment">//相等往下做判断</span>        <span class="hljs-keyword">return</span> isSameTree(p-&gt;left,q-&gt;left)&amp;&amp;isSameTree(p-&gt;right,q-&gt;right);        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;    &#125;&#125;;</code></pre><h3 id="101-对称二叉树"><a href="#101-对称二叉树" class="headerlink" title="101 对称二叉树"></a>101 <a href="https://leetcode-cn.com/problems/symmetric-tree/" target="_blank" rel="noopener">对称二叉树</a></h3><p>给定一个二叉树，检查它是否是镜像对称的。</p><p>上题的引申</p><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;        <span class="hljs-keyword">return</span> judge(root,root);    &#125;    <span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">judge</span><span class="hljs-params">(TreeNode* p,TreeNode* q)</span></span><span class="hljs-function">    </span>&#123;            <span class="hljs-keyword">if</span>(!p&amp;&amp;!q)<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(p&amp;&amp;q&amp;&amp;p-&gt;val==q-&gt;val)            <span class="hljs-keyword">return</span> judge(p-&gt;left,q-&gt;right)&amp;&amp;judge(p-&gt;right,q-&gt;left);            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;    &#125;&#125;;</code></pre><h3 id="104-二叉树的最大深度"><a href="#104-二叉树的最大深度" class="headerlink" title="104 二叉树的最大深度"></a>104 <a href="https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/" target="_blank" rel="noopener">二叉树的最大深度</a></h3><p>给定一个二叉树，找出其最大深度。</p><p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">maxDepth</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;        <span class="hljs-keyword">if</span>(!root)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(maxDepth(root-&gt;left),maxDepth(root-&gt;right))+<span class="hljs-number">1</span>;<span class="hljs-comment">//返回左右最大值    </span>    &#125;&#125;;</code></pre><h2 id="中等"><a href="#中等" class="headerlink" title="中等"></a>中等</h2><h3 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94 二叉树的中序遍历"></a>94 <a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/" target="_blank" rel="noopener">二叉树的中序遍历</a></h3><p>非递归方法</p><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; <span class="hljs-title">inorderTraversal</span><span class="hljs-params">(TreeNode* root)</span> </span>&#123;        <span class="hljs-built_in">stack</span>&lt;TreeNode*&gt;s;        <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; ans;        <span class="hljs-keyword">while</span>(!s.empty()||root)        &#123;            <span class="hljs-keyword">if</span>(root)            &#123;                s.push(root);                root=root-&gt;left;            &#125;            <span class="hljs-keyword">else</span>            &#123;                TreeNode* temp=s.top();                s.pop();                ans.push_back(temp-&gt;val);                root=temp-&gt;right;            &#125;        &#125;        <span class="hljs-keyword">return</span> ans;    &#125;&#125;;</code></pre><h3 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105 从前序与中序遍历序列构造二叉树"></a>105 <a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/" target="_blank" rel="noopener">从前序与中序遍历序列构造二叉树</a></h3><p>递归构造，常规。</p><pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function">TreeNode* <span class="hljs-title">build</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; pre,<span class="hljs-keyword">int</span> ps,<span class="hljs-keyword">int</span> pe, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder,<span class="hljs-keyword">int</span> is,<span class="hljs-keyword">int</span> ie)</span></span><span class="hljs-function">    </span>&#123;        <span class="hljs-keyword">if</span>(ps&gt;pe||is&gt;ie)<span class="hljs-keyword">return</span> <span class="hljs-literal">NULL</span>;        TreeNode* t=<span class="hljs-keyword">new</span> TreeNode();        t-&gt;val=pre[ps];        <span class="hljs-keyword">int</span> k=is;        <span class="hljs-keyword">while</span>(is&lt;ie&amp;&amp;inorder[k]!=t-&gt;val)k++;<span class="hljs-comment">//寻找中序中的头节点</span>        t-&gt;left=build(pre,ps+<span class="hljs-number">1</span>,ps+k-is,inorder,is,k<span class="hljs-number">-1</span>);<span class="hljs-comment">//构造左子树</span>        t-&gt;right=build(pre,ps+k-is+<span class="hljs-number">1</span>,pe,inorder,k+<span class="hljs-number">1</span>,ie);<span class="hljs-comment">//构造右子树</span>        <span class="hljs-keyword">return</span> t;    &#125;    <span class="hljs-function">TreeNode* <span class="hljs-title">buildTree</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; preorder, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; inorder)</span> </span>&#123;        <span class="hljs-keyword">return</span> build(preorder,<span class="hljs-number">0</span>,preorder.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>,inorder,<span class="hljs-number">0</span>,inorder.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>);    &#125;&#125;;</code></pre><h2 id="困难"><a href="#困难" class="headerlink" title="困难"></a>困难</h2>]]></content>
+    
+    
+    <categories>
+      
+      <category>C++</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>习题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>通过可逆运算交换变量的值</title>
     <link href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/"/>
     <url>/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/</url>
@@ -262,9 +287,9 @@
     
     <tags>
       
-      <tag>Unity</tag>
-      
       <tag>Bug</tag>
+      
+      <tag>Unity</tag>
       
     </tags>
     
@@ -370,9 +395,9 @@
     
     <tags>
       
-      <tag>习题</tag>
-      
       <tag>算法</tag>
+      
+      <tag>习题</tag>
       
     </tags>
     
@@ -447,9 +472,9 @@
     
     <tags>
       
-      <tag>Bug</tag>
-      
       <tag>Mysql</tag>
+      
+      <tag>Bug</tag>
       
     </tags>
     
@@ -549,9 +574,9 @@
     
     <tags>
       
-      <tag>Bug</tag>
-      
       <tag>Mysql</tag>
+      
+      <tag>Bug</tag>
       
     </tags>
     
