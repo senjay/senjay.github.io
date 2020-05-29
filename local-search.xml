@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>打家劫舍</title>
+    <link href="/2020/05/29/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/"/>
+    <url>/2020/05/29/%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/</url>
+    
+    <content type="html"><![CDATA[<h4 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode 198 打家劫舍"></a>LeetCode 198 <a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">打家劫舍</a></h4><p>​        你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p><p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p><pre><code class="hljs plain">输入: [2,7,9,3,1]输出: 12解释: 偷窃 1 号房屋 (金额 &#x3D; 2), 偷窃 3 号房屋 (金额 &#x3D; 9)，接着偷窃 5 号房屋 (金额 &#x3D; 1)。     偷窃到的最高金额 &#x3D; 2 + 9 + 1 &#x3D; 12 。</code></pre><p>​        动态规划，自然而然想到每个房子有两种状态偷与不偷：偷的话只能是最走到<strong>前前一个房子是偷盗的金额总和</strong>加上当前房子金额，不偷的话就是等于走到<strong>前一个房子时偷到的金额总和</strong>，定义$dp[i]$为$nums[0…i]$的能偷到的最高金额，则转移方程为</p><script type="math/tex; mode=display">dp[i]=\begin{cases}          max(dp[i-1],dp[i-2]+nums[i])      \quad\quad\quad\quad\quad &i\in(2,j)\\        nums[0]   &i=0\\        max(nums[0],nums[1])  &i=1\end{cases}</script><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span><span class="hljs-keyword">public</span>:    <span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; nums)</span> </span>&#123;        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()==<span class="hljs-number">0</span>)<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;        <span class="hljs-keyword">if</span>(nums.<span class="hljs-built_in">size</span>()==<span class="hljs-number">1</span>)<span class="hljs-keyword">return</span> nums[<span class="hljs-number">0</span>];<span class="hljs-comment">//边界情况</span>        <span class="hljs-keyword">int</span> dp[<span class="hljs-number">1000</span>]=&#123;<span class="hljs-number">0</span>&#125;;        dp[<span class="hljs-number">0</span>]=nums[<span class="hljs-number">0</span>];        dp[<span class="hljs-number">1</span>]=<span class="hljs-built_in">max</span>(nums[<span class="hljs-number">0</span>],nums[<span class="hljs-number">1</span>]);        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">2</span>;i&lt;nums.<span class="hljs-built_in">size</span>();i++)        &#123;            dp[i]=<span class="hljs-built_in">max</span>(dp[i<span class="hljs-number">-2</span>]+nums[i],dp[i<span class="hljs-number">-1</span>]);        &#125;        <span class="hljs-keyword">return</span> dp[nums.<span class="hljs-built_in">size</span>()<span class="hljs-number">-1</span>];    &#125;&#125;;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>习题</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>习题</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LeetCodeのTree</title>
     <link href="/2020/05/26/Tree/"/>
     <url>/2020/05/26/Tree/</url>
