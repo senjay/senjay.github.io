@@ -195,7 +195,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h4 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode 198 打家劫舍"></a>LeetCode 198 <a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">打家劫舍</a></h4><p>​        你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+              <h2 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode 198 打家劫舍"></a>LeetCode 198 <a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">打家劫舍</a></h2><p>​        你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
 <p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
 <pre><code class="hljs plain">输入: [2,7,9,3,1]
 输出: 12
@@ -204,7 +204,7 @@
 <p>​        动态规划，自然而然想到每个房子有两种状态偷与不偷：偷的话只能是最走到<strong>前前一个房子是偷盗的金额总和</strong>加上当前房子金额，不偷的话就是等于走到<strong>前一个房子时偷到的金额总和</strong>，定义$dp[i]$为$nums[0…i]$的能偷到的最高金额，则转移方程为</p>
 <script type="math/tex; mode=display">
 dp[i]=\begin{cases}
-          max(dp[i-1],dp[i-2]+nums[i])      \quad\quad\quad\quad\quad &i\in(2,j)\\
+          max(dp[i-1],dp[i-2]+nums[i])      \quad\quad\quad\quad\quad &i\in[ 2,j]\\
         nums[0]   &i=0\\
         max(nums[0],nums[1])  &i=1
 \end{cases}</script><pre><code class="hljs C++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
@@ -251,6 +251,12 @@ dp[i]=\begin{cases}
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
+                    
+                      <a href="/2020/05/30/Lagrange%E6%8F%92%E5%80%BC%E6%B3%95%E4%B8%8ENewton%E6%8F%92%E5%80%BC%E6%B3%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Lagrange插值法与Newton插值法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </div>
                   <div class="post-next col-6">
