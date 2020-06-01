@@ -195,12 +195,12 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Lagrange插值法"><a href="#Lagrange插值法" class="headerlink" title="Lagrange插值法"></a>Lagrange插值法</h2><p>​        考虑有$n$个<strong>不同的点</strong>$(x<em>1,y_1)$,$(x_2,y_2)$,$(x_i,y_i)$$\dots (x_n,y_n)$,定义函数$f_i(x)$满足在$l_i(x_j)$满足克罗内克符号函数$\delta</em>{ij}$，</p>
+              <h2 id="Lagrange插值法"><a href="#Lagrange插值法" class="headerlink" title="Lagrange插值法"></a>Lagrange插值法</h2><p>​        考虑有$n$个<strong>不同的点</strong> <script type="math/tex">(x_1,y_1),(x_2,y_2),(x_i,y_i)\dots (x_n,y_n)</script> , 定义函数<script type="math/tex">f_i(x)</script>满足在<script type="math/tex">l_i(x_j)</script>满足克罗内克符号函数 <script type="math/tex">\delta_{ij}</script>，</p>
 <script type="math/tex; mode=display">
 l_i(x_j)=\delta_{ij}=\begin{cases}
 1\quad\quad\quad i=j\\
 0\quad\quad\quad i\not=j
-\end{cases}l</script><p>此时，若另</p>
+\end{cases}</script><p>此时，若另</p>
 <script type="math/tex; mode=display">
 L(x)=\sum_{i=1}^n y_il_i(x)</script><p>则对于任意$x_i$有</p>
 <script type="math/tex; mode=display">
@@ -251,7 +251,7 @@ l_i(x)&=\frac{(x-x_1)(x-x_2)(x-x_3)\dots(x-x_{i-1})(x-x_{i+1})\dots(x_i-x_n)}{(x
 \phi_{3}(x) &=\left(x-x_{1}\right)\left(x-x_{2}\right) \\
 \cdots &=\cdots \\
 \phi_{n+1}(x) &=\prod_{i=1}^{n}\left(x-x_{i}\right)
-\end{aligned}</script><p>可以看到由于$\phi<em>{n+1}(x)=\phi</em>{n}(x)(x-x_{n})$,因此可以重用之前的结果。</p>
+\end{aligned}</script><p>可以看到由于<script type="math/tex">\phi_{n+1}(x)=\phi_{n}(x)(x-x_{n})</script>,因此可以重用之前的结果。</p>
 <p>则最终的多项式为:</p>
 <script type="math/tex; mode=display">
 N(x)=\sum_{i=1}^{n+1}a_i\phi_i(x)</script><p>现在仅仅需要确定$a_i$的值就可以确定$N(x)$。</p>
