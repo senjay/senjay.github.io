@@ -210,7 +210,7 @@ y_i=l_i(x_i)</script><p>即$n$个点必然经过$L(x)$,即为所求。</p>
 \begin{align}
 l_i(x)&=\frac{(x-x_1)(x-x_2)(x-x_3)\dots(x-x_{i-1})(x-x_{i+1})\dots(x_i-x_n)}{(x_i-x_1)(x_i-x_2)(x_i-x_3)\dots(x_i-x_{i-1})(x_i-x_{i+1})\dots(x_i-x_n)}\\
 \\
-&=\prod_{j\not=i\\j=1}^{ n }\frac{x-x_j}{x_i-x_j}
+&=\prod_{j\not=i}^{ 1\le j\le n }\frac{x-x_j}{x_i-x_j}
 \end{align}</script><p>这里的$l_i(x)$称为插值基函数。</p>
 <p>​        以下是代码实现</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
