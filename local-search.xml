@@ -4,11 +4,36 @@
   
   
   <entry>
-    <title>Blinn-Phong Reflection Model</title>
-    <link href="/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/"/>
-    <url>/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/</url>
+    <title>VS项目配置项说明</title>
+    <link href="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/"/>
+    <url>/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/</url>
     
-    <content type="html"><![CDATA[<h2 id="光照模型"><a href="#光照模型" class="headerlink" title="光照模型"></a>光照模型</h2><script type="math/tex; mode=display">L=L_d+L_s+L_a</script><p>$L_d$为漫反射光，$L_s$为高光，$L_a$为环境光。</p><h3 id="1-漫反射"><a href="#1-漫反射" class="headerlink" title="1.漫反射"></a>1.漫反射</h3><img src="/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/image-20200617135427916.png" srcset="/img/loading.gif" class="" title="image-20200617135427916"><p>理解：漫反射散向四面八方，与观察方向无关，只与表面接受到的光源的<strong>有效光</strong>有关</p><script type="math/tex; mode=display">L_d=k_d\frac{I}{r^2}max\{0,n\cdot l\}</script><p>$k_d$漫反射系数(范围0至1，表明反射的强度)，$I$光源,$r$表面距光源距离，$n$表明法向量，$l$入射光向量(注意方向为负)</p><p>ps:均为单位向量</p><h3 id="2-高光"><a href="#2-高光" class="headerlink" title="2.高光"></a>2.高光</h3><img src="/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/image-20200617135645390.png" srcset="/img/loading.gif" class="" title="image-20200617135645390"><p>相比于Phong模型，Blinn-Phong模型的高光项采用$l,v$两者的角平分线与$n$的夹角来表示观察方向与镜面反射方向的夹角，从而提高计算效率。</p><script type="math/tex; mode=display">L_s=k_s\frac{I}{r^2}max\{0,n\cdot h\}^p</script><p>$k_s$镜面反射系数(范围0至1，表明反射的强度)，$I$光源,$r$表面距光源距离，$n$表明法向量，$h=\frac{l+v}{|l+v|}$,$p$表示角度的影响，因为高光只在小角度才会起作用，下面是$cos^px$的几个变化图</p><img src="/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/image-20200617141947095.png" srcset="/img/loading.gif" class="" title="image-20200617141947095"><h3 id="3-环境光"><a href="#3-环境光" class="headerlink" title="3.环境光"></a>3.环境光</h3><p>在Blinn-Phong模型中环境光被当作常数处理</p><script type="math/tex; mode=display">L_a=k_aI_a</script><h3 id="4-展示"><a href="#4-展示" class="headerlink" title="4. 展示"></a>4. 展示</h3><img src="/2020/06/17/2020-06-17-Blinn-Phong-Reflection-Model/image-20200617142116863.png" srcset="/img/loading.gif" class="" title="image-20200617142116863">]]></content>
+    <content type="html"><![CDATA[<p>​        记录一下vs配置时项目的属性设置，主要是引入三方库时需要用到，不同于cmake这种通过配置文件来操作的，感觉vs这种通过鼠标来设置又蠢又麻烦。。。</p><ul><li>VC++目录：<ul><li>可执行目录：寻找依赖的可执行的文件的目录</li><li>包含目录：寻找#include<xxxx.h>中的xxxx.h的搜索目录</li><li>库目录：寻找.lib文件的搜索目录</li></ul></li><li><p>C/C++:</p><ul><li>常规-&gt;附加包含目录：寻找#include<xxxx.h>中的xxxx.h的搜索目录（每一项对应一个文件夹XXXX，文件夹中包含了编译时所需的头文件，使用时直接#include<XXXX>即可）</li></ul></li><li><p>链接器：</p><ul><li>常规-&gt;附加库目录：寻找.lib文件的搜索目录</li><li>输入-&gt;附加依赖项：lib库（C++的库会把函数、类的声明放在*.h中，实现放在*.cpp或* .cc中。编译之后，*.cpp，*.cc，*.c会被打包成一个.lib文件，这样可以保护源代码）</li></ul></li></ul><p>最终方法为:</p><ol><li>附加包含目录—-添加工程的头文件目录：   项目-&gt;属性-&gt;配置属性-&gt;C/C++-&gt;常规-&gt;附加包含目录：加上头文件的存放目录； </li><li>附加库目录—-添加文件引用的lib静态库路径：   项目-&gt;属性-&gt;配置属性-&gt;链接器-&gt;常规-&gt;附加库目录：加上lib文件的存放目录； </li><li>附加依赖项—-添加工程引用的lib文件名：   项目-&gt;属性-&gt;配置属性-&gt;链接器-&gt;输入-&gt;附加依赖项：加上lib文件名。</li></ol><p>​        <strong>ps</strong>:包含目录：修改了系统的include宏的值，是全局的； 附加包含目录：用于当前项目，对其他项目没有影响。</p><img src="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/image-20200628225451830.png" srcset="/img/loading.gif" class="" title="image-20200628225451830"><img src="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/image-20200628225507115.png" srcset="/img/loading.gif" class="" title="image-20200628225507115"><img src="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/image-20200628225519543.png" srcset="/img/loading.gif" class="" title="image-20200628225519543"><img src="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/image-20200628225540868.png" srcset="/img/loading.gif" class="" title="image-20200628225540868"><p><a href="https://blog.csdn.net/raodotcong/article/details/8998379" target="_blank" rel="noopener">更详细的文章</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>配置</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>配置</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Blinn-Phong Reflectance Model</title>
+    <link href="/2020/06/17/2020-06-17-Blinn-Phong-Reflectance-Model/"/>
+    <url>/2020/06/17/2020-06-17-Blinn-Phong-Reflectance-Model/</url>
+    
+    <content type="html"><![CDATA[<h2 id="光照模型"><a href="#光照模型" class="headerlink" title="光照模型"></a>光照模型</h2><script type="math/tex; mode=display">L=L_d+L_s+L_a</script><p>$L_d$为漫反射光，$L_s$为高光，$L_a$为环境光。</p><h3 id="1-漫反射"><a href="#1-漫反射" class="headerlink" title="1.漫反射"></a>1.漫反射</h3><p>理解：漫反射散向四面八方，与观察方向无关，只与表面接受到的光源的<strong>有效光</strong>有关</p><script type="math/tex; mode=display">L_d=k_d\frac{I}{r^2}max\{0,n\cdot l\}</script><p>$k_d$漫反射系数(范围0至1，表明反射的强度)，$I$光源,$r$表面距光源距离，$n$表明法向量，$l$入射光向量(注意方向为负)</p><p>ps:均为单位向量</p><h3 id="2-高光"><a href="#2-高光" class="headerlink" title="2.高光"></a>2.高光</h3><p>相比于Phong模型，Blinn-Phong模型的高光项采用$l,v$两者的角平分线与$n$的夹角来表示观察方向与镜面反射方向的夹角，从而提高计算效率。</p><script type="math/tex; mode=display">L_s=k_s\frac{I}{r^2}max\{0,n\cdot h\}^p</script><p>$k_s$镜面反射系数(范围0至1，表明反射的强度)，$I$光源,$r$表面距光源距离，$n$表明法向量，$h=\frac{l+v}{|l+v|}$,$p$表示角度的影响，因为高光只在小角度才会起作用，下面是$cos^px$的几个变化图</p><h3 id="3-环境光"><a href="#3-环境光" class="headerlink" title="3.环境光"></a>3.环境光</h3><p>在Blinn-Phong模型中环境光被当作常数处理</p><script type="math/tex; mode=display">L_a=k_aI_a</script><h3 id="4-展示"><a href="#4-展示" class="headerlink" title="4. 展示"></a>4. 展示</h3>]]></content>
     
     
     <categories>
