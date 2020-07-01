@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon1.png">
+  <link rel="icon" type="image/png" href="/img/favicon1.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Senjay">
+  <meta name="keywords" content="">
+  <title>OpenGL笔记1 - SenayのBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>SenjayのBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/links/">
+              <i class="iconfont icon-link-fill"></i>
+              友链</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-07-01 23:55">
+                    2020年7月1日 晚上
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    2.4k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    29
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1.初始化"></a>1.初始化</h2><pre><code class="hljs c++">glewExperimental = GL_TRUE;<span class="hljs-comment">//让GLEW在管理OpenGL的函数指针时更多地使用现代化的技术</span>
+<span class="hljs-keyword">if</span> (glewInit() != GLEW_OK)<span class="hljs-comment">//初始化</span>
+&#123;
+    <span class="hljs-built_in">std</span>::<span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Failed to initialize GLEW"</span> &lt;&lt; <span class="hljs-built_in">std</span>::<span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+&#125;</code></pre>
+<div class="note note-warning">
+            <p>如果是以静态库调用glew,务必在开头加上预编译的头<code>#define GLEW_STATIC</code></p>
+          </div>
+<h2 id="2-基本流程"><a href="#2-基本流程" class="headerlink" title="2.基本流程"></a>2.基本流程</h2><p>&emsp;&emsp;首先创建一个对象，然后用一个id保存它的引用（实际数据被储存在后台）。然后将对象绑定至上下文的目标位置（例子中窗口对象目标的位置被定义成<code>GL_WINDOW_TARGET</code>）。接下来设置窗口的选项。最后将目标位置的对象id设回0，解绑这个对象。设置的选项将被保存在<code>objectId</code>所引用的对象中，一旦我们重新绑定这个对象到<code>GL_WINDOW_TARGET</code>位置，这些选项就会重新生效。</p>
+<pre><code class="hljs c++"><span class="hljs-comment">// 创建对象</span>
+GLuint objectId = <span class="hljs-number">0</span>;
+glGenObject(<span class="hljs-number">1</span>, &amp;objectId);
+<span class="hljs-comment">// 绑定对象至上下文</span>
+glBindObject(GL_WINDOW_TARGET, objectId);
+<span class="hljs-comment">// 设置当前绑定到 GL_WINDOW_TARGET 的对象的一些选项</span>
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_WIDTH, <span class="hljs-number">800</span>);
+glSetObjectOption(GL_WINDOW_TARGET, GL_OPTION_WINDOW_HEIGHT, <span class="hljs-number">600</span>);
+<span class="hljs-comment">// 将上下文对象设回默认</span>
+glBindObject(GL_WINDOW_TARGET, <span class="hljs-number">0</span>);</code></pre>
+<div class="note note-info">
+            <p>简单的理解就是像创建id,然后绑定至OpenGL中的对象，这两步也可以近似理解为实例化一个对象，然后就可以对这个对象进行操作。</p>
+          </div>
+<h2 id="3-FSM"><a href="#3-FSM" class="headerlink" title="3. FSM"></a>3. FSM</h2><p>&emsp;&emsp;OpenGL的系统是一个有限状态机，因此其函数有两种，状态设置函数(State-changing Function)和状态应用函数(State-using Function)，前者改变OpenGL的状态，只有当进入相应状态，然后执行该状态下的应用函数才会起作用。</p>
+<p>比如</p>
+<pre><code class="hljs c++">glClearColor(<span class="hljs-number">0.2f</span>, <span class="hljs-number">0.3f</span>, <span class="hljs-number">0.3f</span>, <span class="hljs-number">1.0f</span>);<span class="hljs-comment">//rgb(范围0-1),alpha channel    状态设置函数</span>
+glClear(GL_COLOR_BUFFER_BIT);<span class="hljs-comment">//状态应用函数，真正应用清除颜色</span></code></pre>
+<h2 id="4-VBO"><a href="#4-VBO" class="headerlink" title="4. VBO"></a>4. VBO</h2><p>&emsp;&emsp;顶点缓冲对象为cpu-&gt;gpu的图形的顶点数据，简而言之，通过缓冲一次传一批顶点。</p>
+<pre><code class="hljs c++">GLuint VBO;
+glGenBuffers(<span class="hljs-number">1</span>, &amp;VBO);  <span class="hljs-comment">//获得VBO id</span>
+glBindBuffer(GL_ARRAY_BUFFER, VBO);<span class="hljs-comment">//绑定顶点缓冲  </span>
+glBufferData(GL_ARRAY_BUFFER, <span class="hljs-keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);<span class="hljs-comment">//绑定顶点数据，这一步才真正将顶点数据vertices与buffer绑定</span></code></pre>
+<p>介绍一下第四个参数</p>
+<ul>
+<li><code>GL_STATIC_DRAW</code> ：数据不会或几乎不会改变。</li>
+<li><code>GL_DYNAMIC_DRAW</code>：数据会被改变很多。</li>
+<li><code>GL_STREAM_DRAW</code> ：数据每次绘制时都会改变。</li>
+</ul>
+<h2 id="5-Vertex-Shader"><a href="#5-Vertex-Shader" class="headerlink" title="5.Vertex Shader"></a>5.Vertex Shader</h2><pre><code class="hljs glsl"><span class="hljs-meta">#version 330 core //声明版本</span>
+
+<span class="hljs-keyword">layout</span> (<span class="hljs-keyword">location</span> = <span class="hljs-number">0</span>) <span class="hljs-keyword">in</span> <span class="hljs-type">vec3</span> position;<span class="hljs-comment">//in关键字声明输入变量的属性，layout(location=x)为输入变量的位置</span>
+
+<span class="hljs-type">void</span> main()
+&#123;
+    <span class="hljs-built_in">gl_Position</span> = <span class="hljs-type">vec4</span>(position.x, position.y, position.z, <span class="hljs-number">1.0</span>);<span class="hljs-comment">//输出给后面，因为输入的是三维向量，将其改成后面需要的齐次坐标形式</span>
+&#125;</code></pre>
+<div class="note note-info">
+            <p>Shader 我理解为将一道完整的工序中独立出一个步骤，而这个步骤是由用户自定的，这个步骤有上一道步骤的输入，而我们可以在这里进行编程操作，只要保证输出是符合下一道步骤的输入即可。有点面向切面的味道。</p>
+          </div>
+<h3 id="5-1-编译Shader"><a href="#5-1-编译Shader" class="headerlink" title="5.1.编译Shader"></a>5.1.编译Shader</h3><pre><code class="hljs c++">GLuint vertexShader;
+vertexShader = glCreateShader(GL_VERTEX_SHADER);<span class="hljs-comment">//创建一个shader id</span>
+<span class="hljs-comment">//绑定shader代码，参数一次为id,shader 数量，shader代码，第四个如果不为null,它会返回源码数组相应的长度数组</span>
+glShaderSource(vertexShader, <span class="hljs-number">1</span>, &amp;vertexShaderSource, <span class="hljs-literal">NULL</span>);
+glCompileShader(vertexShader);<span class="hljs-comment">//编译</span></code></pre>
+<h2 id="6-Fragment-Shader"><a href="#6-Fragment-Shader" class="headerlink" title="6.Fragment Shader"></a>6.Fragment Shader</h2><p>用于颜色</p>
+<pre><code class="hljs glsl"><span class="hljs-meta">#version 330 core</span>
+<span class="hljs-keyword">out</span> <span class="hljs-type">vec4</span> color;<span class="hljs-comment">//out 关键字声明输出该变量</span>
+<span class="hljs-type">void</span> main()
+&#123;
+    color = <span class="hljs-type">vec4</span>(<span class="hljs-number">1.0</span>f, <span class="hljs-number">0.5</span>f, <span class="hljs-number">0.2</span>f, <span class="hljs-number">1.0</span>f);<span class="hljs-comment">//输出颜色</span>
+&#125;</code></pre>
+<h3 id="6-1-编译Shader"><a href="#6-1-编译Shader" class="headerlink" title="6.1 编译Shader"></a>6.1 编译Shader</h3><pre><code class="hljs c++">GLuint fragmentShader;
+fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+glShaderSource(fragmentShader, <span class="hljs-number">1</span>, &amp;fragmentShaderSource, null);
+glCompileShader(fragmentShader);</code></pre>
+<h2 id="7-Shader-Program-Object"><a href="#7-Shader-Program-Object" class="headerlink" title="7.Shader Program Object"></a>7.Shader Program Object</h2><p>&emsp;&emsp;要使用刚才编译的着色器我们必须把它们链接为一个着色器程序对象，然后在渲染对象的时候激活这个着色器程序。已激活着色器程序的着色器将在我们发送渲染调用的时候被使用。当链接着色器至一个程序的时候，它会把每个着色器的输出链接到下个着色器的输入。当输出和输入不匹配的时候，你会得到一个连接错误。</p>
+<pre><code class="hljs c++">GLuint shaderProgram;
+shaderProgram = glCreateProgram();<span class="hljs-comment">//创建一个程序对象</span>
+
+glAttachShader(shaderProgram, vertexShader);
+glAttachShader(shaderProgram, fragmentShader);<span class="hljs-comment">//将shader附加至Program</span>
+glLinkProgram(shaderProgram);<span class="hljs-comment">//将gl与该program链接，即渲染时采用这个program</span>
+
+<span class="hljs-comment">//激活使用该着色器对象，调用之后，每个着色器调用和渲染调用都会使用这个程序对象</span>
+glUseProgram(shaderProgram);
+
+<span class="hljs-comment">//链接shader到program后别忘记删除</span>
+glDeleteShader(vertexShader);
+glDeleteShader(fragmentShader);</code></pre>
+<h2 id="8-读取顶点（解释自定义的顶点）"><a href="#8-读取顶点（解释自定义的顶点）" class="headerlink" title="8.读取顶点（解释自定义的顶点）"></a>8.读取顶点（解释自定义的顶点）</h2><p>&emsp;&emsp;如果是自定义的顶点数据，该如何解释也是一个问题，可以使用下面的方法解决</p>
+<pre><code class="hljs c++"><span class="hljs-comment">// 0. 复制顶点数组到缓冲中供OpenGL使用</span>
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, <span class="hljs-keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);
+<span class="hljs-comment">// 1. 设置顶点属性指针</span>
+glVertexAttribPointer(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, GL_FLOAT, GL_FALSE, <span class="hljs-number">3</span> * <span class="hljs-keyword">sizeof</span>(GLfloat), (GLvoid*)<span class="hljs-number">0</span>);
+glEnableVertexAttribArray(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// 2. 当我们渲染一个物体时要使用着色器程序</span>
+glUseProgram(shaderProgram);
+<span class="hljs-comment">// 3. 绘制物体</span>
+someOpenGLFunctionThatDrawsOurTriangle();</code></pre>
+<p><code>glVertexAttribPointer</code>函数的参数：</p>
+<ul>
+<li>第一个参数指定配置的顶点属性。比如在顶点着色器中使用<code>layout(location = 0)</code>定义了position顶点属性的位置值(Location)它可以把顶点属性的位置值设置为<code>0</code>。因为我们希望把数据传递到这一个顶点属性中，所以这里传入<code>0</code>。</li>
+<li>第二个参数指定顶点属性的大小。顶点属性是一个<code>vec3</code>，它由3个值组成，所以大小是3。</li>
+<li>第三个参数指定数据的类型，这里是<code>GL_FLOAT</code>(GLSL中<code>vec*</code>都是由浮点数值组成的)。</li>
+<li>第四个参数定义是否希望数据被标准化(Normalize)。如果我们设置为<code>GL_TRUE</code>，所有数据都会被映射到0（对于有符号型signed数据是-1）到1之间。它设置为GL_FALSE。</li>
+<li>第五个参数叫做步长(Stride)，它告诉我们在连续的顶点属性组之间的间隔。由于下个组位置数据在3个<code>GLfloat</code>之后，我们把步长设置为<code>3 * sizeof(GLfloat)</code>。</li>
+<li>最后一个参数的类型是<code>GLvoid*</code>，所以需要进行这个奇怪的强制类型转换。它表示位置数据在缓冲中起始位置的偏移量(Offset)。由于位置数据在数组的开头，所以这里是0。</li>
+</ul>
+<div class="note note-success">
+            <p>每个顶点属性从一个VBO管理的内存中获得它的数据，而具体是从哪个VBO（程序中可以有多个VBO）获取则是通过在调用<code>glVetexAttribPointer</code>时绑定到<code>GL_ARRAY_BUFFER</code>的VBO决定的。由于在调用<code>glVetexAttribPointer</code>之前绑定的是先前定义的VBO对象，顶点属性<code>0</code>现在会链接到它的顶点数据。</p>
+          </div>
+<h2 id="9-VAO"><a href="#9-VAO" class="headerlink" title="9.VAO"></a>9.VAO</h2><p>&emsp;&emsp;顶点数组对象(Vertex Array Object, VAO)可以像顶点缓冲对象那样被绑定，任何随后的顶点属性调用都会储存在这个VAO中。这样的好处就是，当配置顶点属性指针时，你只需要将那些调用执行一次，之后再绘制物体的时候只需要绑定相应的VAO就行了。这使在不同顶点数据和属性配置之间切换变得非常简单，只需要绑定不同的VAO就行了。刚刚设置的所有状态都将存储在VAO中</p>
+<pre><code class="hljs c++">GLuint VAO;
+glGenVertexArrays(<span class="hljs-number">1</span>, &amp;VAO); <span class="hljs-comment">//创建VAO</span>
+<span class="hljs-comment">// ..:: 初始化代码（只运行一次 (除非你的物体频繁改变)） :: ..</span>
+<span class="hljs-comment">// 1. 绑定VAO</span>
+glBindVertexArray(VAO);
+<span class="hljs-comment">// 2. 把顶点数组复制到缓冲中供OpenGL使用</span>
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, <span class="hljs-keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);
+<span class="hljs-comment">// 3. 设置顶点属性指针</span>
+glVertexAttribPointer(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, GL_FLOAT, GL_FALSE, <span class="hljs-number">3</span> * <span class="hljs-keyword">sizeof</span>(GLfloat), (GLvoid*)<span class="hljs-number">0</span>);
+glEnableVertexAttribArray(<span class="hljs-number">0</span>);
+<span class="hljs-comment">//4. 解绑VAO,相当于买完东西后离开，这个东西自己拿去用(比如在绘制东西时再绑定上去)</span>
+glBindVertexArray(<span class="hljs-number">0</span>);
+
+
+<span class="hljs-comment">// 5. 绘制物体</span>
+glUseProgram(shaderProgram);<span class="hljs-comment">//使用shader渲染</span>
+glBindVertexArray(VAO);<span class="hljs-comment">//再绑定</span>
+glDrawArrays(GL_TRIANGLES, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>);<span class="hljs-comment">//形状，起始点，顶点数量</span>
+glBindVertexArray(<span class="hljs-number">0</span>);<span class="hljs-comment">//解绑</span></code></pre>
+<p>&emsp;&emsp;流程是：打算绘制多个物体时，首先要生成/配置所有的VAO（和必须的VBO及属性指针)，然后储存它们供后面使用。当要绘制物体的时候就拿出相应的VAO，绑定它，绘制完物体后，再解绑VAO。</p>
+<h2 id="10-EBO"><a href="#10-EBO" class="headerlink" title="10.EBO"></a>10.EBO</h2><p>&emsp;&emsp;索引缓冲对象，通过索引来重用顶点。</p>
+<pre><code class="hljs c++">glDrawArrays(GL_TRIANGLES, <span class="hljs-number">0</span>, <span class="hljs-number">3</span>);GLuint EBO;
+glGenBuffers(<span class="hljs-number">1</span>, &amp;EBO);<span class="hljs-comment">//创建对象id</span>
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER,<span class="hljs-keyword">sizeof</span>(indices),indices,GL_STATIC_DRAW); <span class="hljs-comment">//绑定索引</span>
+
+
+<span class="hljs-comment">//此时，绘制方法改变，即不再使用glDrawArrays</span>
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);<span class="hljs-comment">//绑定EBO</span>
+glDrawElements(GL_TRIANGLES, <span class="hljs-number">6</span>, GL_UNSIGNED_INT, <span class="hljs-number">0</span>);<span class="hljs-comment">//通过索引方法来绘制，形状，顶点数，索引类型，EBO偏移量</span></code></pre>
+<h2 id="11-线框模式"><a href="#11-线框模式" class="headerlink" title="11.线框模式"></a>11.线框模式</h2><p>&emsp;&emsp;要想用线框模式绘制你的三角形，可以通过<code>glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)</code>函数配置OpenGL如何绘制图元。第一个参数表示将其应用到所有的三角形的正面和背面，第二个参数表示用线来绘制。之后的绘制调用会一直以线框模式绘制三角形，直到我们用<code>glPolygonMode(GL_FRONT_AND_BACK, GL_FILL)</code>将其设置回默认模式。</p>
+<h2 id="12-总结"><a href="#12-总结" class="headerlink" title="12.总结"></a>12.总结</h2><p>&emsp;&emsp;在绑定VAO时如果绑定了EBO，VAO也会存储索引。当目标是<code>GL_ELEMENT_ARRAY_BUFFER</code>的时候，VAO会储存<code>glBindBuffer</code>的函数调用。这也意味着它也会储存解绑调用，所以确保你没有在解绑VAO之前解绑索引数组缓冲，否则它就没有这个EBO配置了。</p>
+<pre><code class="hljs c++"><span class="hljs-comment">// ..:: 初始化代码 :: ..</span>
+<span class="hljs-comment">// 1. 绑定顶点数组对象</span>
+glBindVertexArray(VAO);
+<span class="hljs-comment">// 2. 把我们的顶点数组复制到一个顶点缓冲中，供OpenGL使用</span>
+glBindBuffer(GL_ARRAY_BUFFER, VBO);
+glBufferData(GL_ARRAY_BUFFER, <span class="hljs-keyword">sizeof</span>(vertices), vertices, GL_STATIC_DRAW);
+<span class="hljs-comment">// 3. 复制索引数组到一个索引缓冲中，供OpenGL使用</span>
+glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+glBufferData(GL_ELEMENT_ARRAY_BUFFER, <span class="hljs-keyword">sizeof</span>(indices), indices, GL_STATIC_DRAW);
+<span class="hljs-comment">// 3. 设定顶点属性指针</span>
+glVertexAttribPointer(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>, GL_FLOAT, GL_FALSE, <span class="hljs-number">3</span> * <span class="hljs-keyword">sizeof</span>(GLfloat), (GLvoid*)<span class="hljs-number">0</span>);
+glEnableVertexAttribArray(<span class="hljs-number">0</span>);
+<span class="hljs-comment">// 4. 解绑VAO(不是EBO!)</span>
+glBindVertexArray(<span class="hljs-number">0</span>);
+
+<span class="hljs-comment">//...</span>
+
+<span class="hljs-comment">// ..:: 绘制代码（游戏循环中） :: ..</span>
+glUseProgram(shaderProgram);
+glBindVertexArray(VAO);
+glDrawElements(GL_TRIANGLES, <span class="hljs-number">6</span>, GL_UNSIGNED_INT, <span class="hljs-number">0</span>)
+glBindVertexArray(<span class="hljs-number">0</span>);</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/OpenGL/">OpenGL</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/OpenGL/">OpenGL</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/28/2020-06-28-VS%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE%E9%A1%B9%E8%AF%B4%E6%98%8E/">
+                        <span class="hidden-mobile">VS项目配置项说明</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="senjay/commit-utterance"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+    <!-- APlayer 音乐播放器 -->
+    <div id="aplayer"></div>
+    <script defer src="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.js" ></script>
+<link  rel="stylesheet" href="https://cdn.staticfile.org/aplayer/1.10.1/APlayer.min.css" />
+<script type="text/javascript">
+  var oldLoadAp = window.onload;
+  window.onload = function () {
+    oldLoadAp && oldLoadAp();
+
+    new APlayer({
+      container: document.getElementById('aplayer'),
+      fixed: true,
+      autoplay: 'false' === 'true',
+      loop: 'all',
+      order: 'random',
+      theme: '#b7daff',
+      preload: 'none',
+      audio: [{"name":"10番道路","artist":"景山将太","url":"https://music.163.com/song/media/outer/url?id=4932563.mp3","cover":"http://p2.music.126.net/DO7qNRAEbqCYo1JmrqFA_A==/109951163903681161.jpg"}]
+    });
+  }
+</script>
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+  <div class="box">
+        <a id="hitokoto" target="_blank">获取中......</a>
+        <p id="hitokotofrom">---- 获取中......</p>
+   </div>
+  <style type="text/css">
+        .box {
+            display: inline-block;
+        }
+        .box p {
+             text-align: right;
+            margin-bottom: 0px;
+        }
+    </style>
+<script>
+  fetch('https://v1.hitokoto.cn')
+    .then(response => response.json())
+    .then(data => {
+      const hitokoto = document.getElementById('hitokoto')
+      hitokoto.innerText = data.hitokoto
+     hitokoto.href="https://hitokoto.cn?uuid="+data.uuid
+     const from=document.getElementById('hitokotofrom')
+     from.innerText="----  "+data.from
+      })
+      .catch(console.error)
+</script>
+<div>
+  <span id="timeDate">载入天数...</span>
+  <span id="times">载入时分秒...</span>
+  <script>
+  var now = new Date();
+  function createtime(){
+      var grt= new Date("10/9/2018 00:48:20");//此处修改你的建站时间或者网站上线时间
+      now.setTime(now.getTime()+250);
+      days = (now - grt ) / 1000 / 60 / 60 / 24;
+      dnum = Math.floor(days);
+      hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum);
+      hnum = Math.floor(hours);
+      if(String(hnum).length ==1 ){
+          hnum = "0" + hnum;
+      }
+      minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+      mnum = Math.floor(minutes);
+      if(String(mnum).length ==1 ){
+                mnum = "0" + mnum;
+      }
+      seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+      snum = Math.round(seconds);
+      if(String(snum).length ==1 ){
+                snum = "0" + snum;
+      }
+      document.getElementById("timeDate").innerHTML = "流转&nbsp"+dnum+"&nbsp天";
+      document.getElementById("times").innerHTML = hnum + "&nbsp小时&nbsp" + mnum + "&nbsp分&nbsp" + snum + "&nbsp秒";
+  }
+  setInterval("createtime()",250);
+  </script>
+</div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "OpenGL笔记1&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2d_models/hijiki","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"https://cdn.jsdelivr.net/npm/live2d-widget-model-hijiki@latest/assets/hijiki.model.json# 你的自定义 url"},"mobile":{"show":false,"scale":0.5},"display":{"position":"left"},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
