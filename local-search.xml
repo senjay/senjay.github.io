@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Shader笔记1</title>
+    <link href="/2020/07/02/2020-07-02-Shader/"/>
+    <url>/2020/07/02/2020-07-02-Shader/</url>
+    
+    <content type="html"><![CDATA[<h2 id="Vector"><a href="#Vector" class="headerlink" title="Vector"></a>Vector</h2><div class="table-container"><table><thead><tr><th>类型</th><th>含义</th></tr></thead><tbody><tr><td><code>vecn</code></td><td>包含<code>n</code>个float分量的默认向量</td></tr><tr><td><code>bvecn</code></td><td>包含<code>n</code>个bool分量的向量</td></tr><tr><td><code>ivecn</code></td><td>包含<code>n</code>个int分量的向量</td></tr><tr><td><code>uvecn</code></td><td>包含<code>n</code>个unsigned int分量的向量</td></tr><tr><td><code>dvecn</code></td><td>包含<code>n</code>个double分量的向量</td></tr></tbody></table></div><h3 id="Swizzling-重组"><a href="#Swizzling-重组" class="headerlink" title="Swizzling(重组)"></a>Swizzling(重组)</h3><pre><code class="hljs glsl"><span class="hljs-type">vec2</span> someVec;<span class="hljs-type">vec4</span> differentVec = someVec.xyxx;<span class="hljs-type">vec3</span> anotherVec = differentVec.zyw;<span class="hljs-type">vec4</span> otherVec = someVec.xxxx + anotherVec.yxzy;</code></pre><h2 id="Uniform"><a href="#Uniform" class="headerlink" title="Uniform"></a>Uniform</h2><p>&emsp;&emsp;Uniform是一种从CPU中的应用向GPU中的着色器发送数据的方式，但uniform和顶点属性有些不同。首先，uniform是全局的(Global)。全局意味着uniform变量必须在每个着色器程序对象中都是独一无二的，而且它可以被着色器程序的任意着色器在任意阶段访问。第二，无论你把uniform值设置成什么，uniform会一直保存它们的数据，直到它们被重置或更新。</p><pre><code class="hljs glsl"><span class="hljs-meta">#version 330 core</span><span class="hljs-keyword">out</span> <span class="hljs-type">vec4</span> color;<span class="hljs-keyword">uniform</span> <span class="hljs-type">vec4</span> ourColor; <span class="hljs-comment">// 在OpenGL程序代码中设定这个变量</span><span class="hljs-type">void</span> main()&#123;    color = ourColor;&#125;</code></pre><h3 id="传值"><a href="#传值" class="headerlink" title="传值"></a>传值</h3><p>&emsp;&emsp;通过opengl向uniform变量传值。用<code>glGetUniformLocation</code>查询uniform <code>ourColor</code>的位置值。如果返回<code>-1</code>就代表没有找到这个位置值。最后，我们可以通过glUniform4f函数设置uniform值。注意，查询uniform地址不要求你之前使用过着色器程序，但是更新一个unform之前你<strong>必须</strong>先使用程序（调用glUseProgram)，因为它是在当前激活的着色器程序中设置unform的。</p><pre><code class="hljs glsl">GLfloat timeValue = glfwGetTime();GLfloat greenValue = (<span class="hljs-built_in">sin</span>(timeValue) / <span class="hljs-number">2</span>) + <span class="hljs-number">0.5</span>;GLint vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");glUseProgram(shaderProgram);<span class="hljs-comment">//必须先使用程序</span>glUniform4f(vertexColorLocation, <span class="hljs-number">0.0</span>f, greenValue, <span class="hljs-number">0.0</span>f, <span class="hljs-number">1.0</span>f);</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>Shader</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Shader</tag>
+      
+      <tag>GLSL</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OpenGL笔记1</title>
     <link href="/2020/07/01/2020-07-01-OpenGL%E7%AC%94%E8%AE%B01/"/>
     <url>/2020/07/01/2020-07-01-OpenGL%E7%AC%94%E8%AE%B01/</url>
