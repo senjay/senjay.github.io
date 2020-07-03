@@ -1,5 +1,5 @@
 ---
-title: Blinn-Phong Reflection Model
+title: Blinn-Phong Reflectance Model
 date: 2020-06-17 ‏‎13:41:16
 categories:
 - 算法
