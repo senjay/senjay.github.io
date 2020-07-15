@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    375 字
+                    379 字
                   </span>
                 
 
@@ -210,8 +210,10 @@ d(x,p_i)&=((x-x_i)\cdot n_i)^2\\
 &=\bar x^TQ_i\bar x
 \end{align}</script><p>其中$Q_i$称为Quadratic error Matrix,注意到这个$Q_i$由于是法向量生成的，所以是定义面上的，现在分别定义顶点和边上的Quadratic error Matrix $Q_i^v$和$Q^e$:</p>
 <script type="math/tex; mode=display">
-Q_i^v=\sum_{j\in \Omega(i)}Q_j\\
-Q^e=Q_1^v+Q_2^v</script><img src="/2020/07/14/2020-07-14-Quadric-error-metric/image-20200714233952827.png" srcset="/img/loading.gif" class="" title="image-20200714233952827">
+\begin{align}
+Q_i^v&=\sum_{j\in \Omega(i)}Q_j\\
+Q^e&=Q_1^v+Q_2^v
+\end{align}</script><img src="/2020/07/14/2020-07-14-Quadric-error-metric/image-20200714233952827.png" srcset="/img/loading.gif" class="" title="image-20200714233952827">
 <p>所以每条边上的 $\bar v$要满足</p>
 <script type="math/tex; mode=display">
 \bar v=min(v^TQ^ev)</script><p>（ps:如果$Q^e$不满秩，则$\bar v=\frac{v_1+v_2}{2}$,即为两顶点中点）</p>
