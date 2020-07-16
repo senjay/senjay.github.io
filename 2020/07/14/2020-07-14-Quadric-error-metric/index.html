@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    379 字
+                    471 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    5
+                    7
                      分钟
                   </span>
                 
@@ -216,13 +216,25 @@ Q^e&=Q_1^v+Q_2^v
 \end{align}</script><img src="/2020/07/14/2020-07-14-Quadric-error-metric/image-20200714233952827.png" srcset="/img/loading.gif" class="" title="image-20200714233952827">
 <p>所以每条边上的 $\bar v$要满足</p>
 <script type="math/tex; mode=display">
-\bar v=min(v^TQ^ev)</script><p>（ps:如果$Q^e$不满秩，则$\bar v=\frac{v_1+v_2}{2}$,即为两顶点中点）</p>
+\bar v=min(v^TQ^ev)</script><p>若$Q^e$可逆，记$\Delta=v^TQ^ev$,当取最小值时，应该满足$\frac{\partial \Delta}{\partial x}=0$，$\frac{\partial \Delta}{\partial y}=0$，$\frac{\partial \Delta}{\partial z}=0$，即：</p>
+<script type="math/tex; mode=display">
+\left[\begin{array}{cccc}
+q_{11} & q_{12} & q_{13} & q_{14} \\
+q_{12} & q_{22} & q_{23} & q_{24} \\
+q_{13} & q_{23} & q_{33} & q_{34} \\
+0 & 0 & 0 & 1
+\end{array}\right] \mathbf{\mathbf { \bar v }}=\left[\begin{array}{c}
+0 \\
+0 \\
+0 \\
+1
+\end{array}\right]</script><p>（ps:如果$Q^e$不满秩，则可取$\bar v=\frac{v_1+v_2}{2}$,即为两顶点中点）</p>
 <h3 id="2-算法流程"><a href="#2-算法流程" class="headerlink" title="2. 算法流程"></a>2. 算法流程</h3><p>&emsp;输入：网格，目标定点数n，cost阈值t</p>
 <p>&emsp;输出：简化后的网格</p>
 <ol>
 <li><p>计算每条边的 $Q^e$</p>
 </li>
-<li><p>计算每条边上的QEM $\bar v$</p>
+<li><p>计算每条边上的新的$\bar v$</p>
 </li>
 <li><p>while <script type="math/tex">N_v</script> &gt;n and <script type="math/tex">Cost_{min}</script>&lt;t:   </p>
 <p>​        将每条边的$cost=\bar v^TQ^e\bar v$放入最小堆；</p>
