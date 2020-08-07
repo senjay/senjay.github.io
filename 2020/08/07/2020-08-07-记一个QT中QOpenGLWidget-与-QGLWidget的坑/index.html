@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>归档 - SenayのBlog</title>
+  <title>记一个QT中QOpenGLWidget 与 QGLWidget的坑 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -50,7 +50,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,6 +142,38 @@
             </span>
 
             
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-08-07 14:46">
+                    2020年8月7日 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    302 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    4
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
           </div>
 
           
@@ -152,55 +184,115 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 35 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Mathematics for 3D Game Programming and Computer Graphics 1-4章笔记</span>
-      <span style="float: right;">07-19</span>
-    </a>
-  
-    
-    <a href="/2020/07/14/2020-07-14-Quadric-error-metric/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Quadric error metric</span>
-      <span style="float: right;">07-14</span>
-    </a>
-  
-    
-    <a href="/2020/07/02/2020-07-02-Shader/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Shader笔记1</span>
-      <span style="float: right;">07-02</span>
-    </a>
-  
-    
-    <a href="/2020/07/01/2020-07-01-OpenGL%E7%AC%94%E8%AE%B01/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">OpenGL笔记1</span>
-      <span style="float: right;">07-01</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>&emsp;&emsp;因为QGLWidget在文档中显示过时，就采用了QOpenGLWidget,因为要用到多重采样来抗锯齿</p>
+<pre><code class="hljs c++">QSurfaceFormat format;
+format.setSamples(<span class="hljs-number">4</span>);
+QSurfaceFormat::setDefaultFormat(format);</code></pre>
+<p>结果造成像素深度<code>winz</code>无法读取</p>
+<pre><code class="hljs c++">glReadPixels((<span class="hljs-keyword">int</span>)winx, (<span class="hljs-keyword">int</span>)winy, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, GL_DEPTH_COMPONENT, GL_FLOAT,&amp;winz);</code></pre>
+<p><code>winz</code>一直不会改变。</p>
+<p>&emsp;&emsp;这个bug找了两天多，最终才确定是QOpenGLWidget的多重采样造成的。在QT文档中有</p>
+<pre><code class="hljs c++">QOpenGLWidget always renders offscreen, <span class="hljs-keyword">using</span> framebuffer objects. QGLWidget on the other hand uses a native window <span class="hljs-keyword">and</span> surface.</code></pre>
+<p>同时关于Multisampling的记录是</p>
+<pre><code class="hljs C++">Multisampling
+	To enable multisampling, set the number of requested samples on the QSurfaceFormat that is passed to setFormat(). On systems that do not support it the request may get ignored.
+	Multisampling support <span class="hljs-keyword">requires</span> support <span class="hljs-keyword">for</span> multisampled renderbuffers <span class="hljs-keyword">and</span> framebuffer blits. On OpenGL ES <span class="hljs-number">2.0</span> implementations it is likely that these will <span class="hljs-keyword">not</span> be present. This means that multisampling will <span class="hljs-keyword">not</span> be <span class="hljs-built_in">available</span>. With modern OpenGL versions <span class="hljs-keyword">and</span> OpenGL ES <span class="hljs-number">3.0</span> <span class="hljs-keyword">and</span> up <span class="hljs-keyword">this</span> is usually <span class="hljs-keyword">not</span> a problem anymore.</code></pre>
+<p>&emsp;&emsp;可以看到它是<strong>离屏渲染（offscreen）</strong>的，要求使用<code>multisampled renderbuffers</code>和<code>framebuffer</code>,这是一个很大的不同，所以如果坚持要使用它并且要用到读取深度之类的可行思路是重新绑定FBO后去读取。而在QGLWidget中只需要在构造函数的初始化列表中用</p>
+<pre><code class="hljs c++">:QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::AlphaChannel), parent)</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/bug/">bug</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/bug/">bug</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/">
+                        <span class="hidden-mobile">Mathematics for 3D Game Programming and Computer Graphics 1-4章笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="senjay/commit-utterance"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
 
 
               </div>
-            </div>
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -337,6 +429,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -356,7 +476,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "记一个QT中QOpenGLWidget 与 QGLWidget的坑&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -400,9 +520,62 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 

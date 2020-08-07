@@ -170,6 +170,51 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/">记一个QT中QOpenGLWidget 与 QGLWidget的坑</a>
+
+      <a href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/" class="index-excerpt">
+        
+        
+          
+        
+        <div>&emsp;&emsp;因为QGLWidget在文档中显示过时，就采用了QOpenGLWidget,因为要用到多重采样来抗锯齿
+QSurfaceFormat format;
+format.setSamples(4);
+QSurfaceFormat::setDefaultFormat(format);
+结果造成像素深度winz无法读取
+glReadPixels((int)winx, (int)win</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bug/">bug</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/bug/">bug</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/">Mathematics for 3D Game Programming and Computer Graphics 1-4章笔记</a>
 
       <a href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/" class="index-excerpt">
@@ -590,51 +635,6 @@ l_i(x_j)=\delta_{ij}=\begin{cases}
             <i class="iconfont icon-category"></i>
             
               <a href="/categories/%E4%B9%A0%E9%A2%98/">习题</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%B9%A0%E9%A2%98/">习题</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/05/26/Tree/">LeetCodeのTree</a>
-
-      <a href="/2020/05/26/Tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>关于树简单100 相同的树给定两个二叉树，编写一个函数来检验它们是否相同。
-如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
-class Solution &#123;
-public:
-    bool isSameTree(TreeNode* p, TreeNode* q) &#123;
-        if(!p&amp;&amp;!q)return true; //都为空返</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-05-26
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
             
           </div>
         
