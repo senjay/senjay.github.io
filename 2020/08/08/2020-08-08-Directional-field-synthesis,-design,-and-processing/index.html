@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>归档 - SenayのBlog</title>
+  <title>Directional field synthesis, design, and processing - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -50,7 +50,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,6 +142,38 @@
             </span>
 
             
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-08-08 14:22">
+                    2020年8月8日 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    204 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    2
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
           </div>
 
           
@@ -152,49 +184,133 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 37 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/03/31/%E5%BF%AB%E6%8E%92C++&Python/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">快排C++&amp;Python</span>
-      <span style="float: right;">03-31</span>
-    </a>
-  
-    
-    <a href="/2019/03/29/java.awt.Robot%E7%9A%84mouseMove(x,y)%E6%95%88%E6%9E%9C%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">java.awt.Robot的mouseMove(x,y)效果不起作用</span>
-      <span style="float: right;">03-29</span>
-    </a>
-  
-    
-    <a href="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">KMP算法及手工求解next数组</span>
-      <span style="float: right;">03-18</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="1-Types-of-Directional-Fields"><a href="#1-Types-of-Directional-Fields" class="headerlink" title="1. Types of Directional Fields"></a>1. Types of Directional Fields</h3><ol>
+<li>方向场：每个点上的方向或矢量组成的一个大小为<script type="math/tex">N</script>的集合。</li>
+<li><em>RoSy fields</em>: <em>rotationally-symmetric direction fields</em>，对称角度为<script type="math/tex">\frac{2\pi}{N}</script></li>
+</ol>
+<img src="/2020/08/08/2020-08-08-Directional-field-synthesis,-design,-and-processing/image-20200808150152601.png" srcset="/img/loading.gif" class="" title="image-20200808150152601">
+<p>以上右上角带小标的代表模大小相同。</p>
+<h3 id="2-Differential-Geometry-of-Directional-Fields"><a href="#2-Differential-Geometry-of-Directional-Fields" class="headerlink" title="2. Differential Geometry of Directional Fields"></a>2. Differential Geometry of Directional Fields</h3><h4 id="2-1-Differential-and-Riemannian-Structure"><a href="#2-1-Differential-and-Riemannian-Structure" class="headerlink" title="2.1 Differential and Riemannian Structure"></a>2.1 Differential and Riemannian Structure</h4><ol>
+<li><p>Tangent Bundle and Vector Fields：切丛和向量场，由曲面M的切向量组成。</p>
+</li>
+<li><p>Cotangent Bundle and 1-forms      ×</p>
+</li>
+<li><p>Connections and Parallel Transport   ×</p>
+</li>
+<li><p>Riemannian Metric   ×</p>
+</li>
+<li><p>Levi-Civita Connection    ×</p>
+</li>
+<li><p>Holonomy  ×</p>
+</li>
+</ol>
+<h4 id="2-2-Vector-Field-Topology"><a href="#2-2-Vector-Field-Topology" class="headerlink" title="2.2 Vector Field Topology"></a>2.2 Vector Field Topology</h4><p>&emsp;&emsp;奇异点的指标，是包围奇异点的封闭曲线上的向量逆时针遍历一圈后所旋转的次数。而<em>Poincare–Hopf theorem</em>指出在向量场上所有奇异点指标之和<script type="math/tex">\sum index =2-2g</script>,其中<script type="math/tex">g</script>为规格</p>
+<h3 id="2-3-Vector-Calculus"><a href="#2-3-Vector-Calculus" class="headerlink" title="2.3 Vector Calculus"></a>2.3 Vector Calculus</h3><ol>
+<li>梯度、散度、旋度的介绍。</li>
+<li>霍奇分解和协变场 ×</li>
+<li>外积分</li>
+</ol>
+<p>​        </p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/10/2020-08-10-%E7%A9%BA%E9%97%B4%E6%9B%B2%E7%BA%BFFrenet%E6%A0%87%E6%9E%B6/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">空间曲线Frenet标架</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/">
+                        <span class="hidden-mobile">记一个QT中QOpenGLWidget 与 QGLWidget的坑</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="senjay/commit-utterance"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
 
 
               </div>
-            </div>
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -331,6 +447,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -350,7 +494,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "Directional field synthesis, design, and processing&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -394,9 +538,62 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
