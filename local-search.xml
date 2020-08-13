@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Gauss、Stokes、Green公式</title>
+    <link href="/2020/08/13/2020-02-22-Gauss%E3%80%81Stokes%E3%80%81Green%E5%85%AC%E5%BC%8F/"/>
+    <url>/2020/08/13/2020-02-22-Gauss%E3%80%81Stokes%E3%80%81Green%E5%85%AC%E5%BC%8F/</url>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;以下<script type="math/tex">F</script>为向量场,<script type="math/tex">\mathbf{n}</script>为法向量，<script type="math/tex">\mathbf{\tau}</script>为切向量。</p><h4 id="1-Gauss"><a href="#1-Gauss" class="headerlink" title="1. Gauss"></a>1. Gauss</h4><script type="math/tex; mode=display">\int_{V}\nabla\cdot Fdv=\int_{S}F\cdot d\mathbf{A}=\int_{S}F\cdot \mathbf{n}dA</script><h4 id="2-Stokes"><a href="#2-Stokes" class="headerlink" title="2. Stokes"></a>2. Stokes</h4><script type="math/tex; mode=display">\int_{S}\nabla\times F\cdot d\mathbf{A}=\int_{S}\nabla\times F\cdot \mathbf{n}dA=\oint_{\partial S}F\cdot d\mathbf{l}=\oint_{\partial S}F\cdot \mathbf{\tau}dl</script><h4 id="3-Green"><a href="#3-Green" class="headerlink" title="3. Green"></a>3. Green</h4><h5 id="3-1-散度形式"><a href="#3-1-散度形式" class="headerlink" title="3.1 散度形式"></a>3.1 散度形式</h5><script type="math/tex; mode=display">\int_{S}\nabla\cdot F dA=\oint_{\partial S}F\cdot d\mathbf{l}=\int_{\partial S}F\cdot\mathbf{n}dl</script><h5 id="3-2-旋度形式"><a href="#3-2-旋度形式" class="headerlink" title="3.2 旋度形式"></a>3.2 旋度形式</h5><script type="math/tex; mode=display">\int_{S}\nabla\times F\cdot d\mathbf{A}=\oint_{\partial S}F\cdot d\mathbf{l}=\oint_{\partial S}F\cdot \mathbf{\tau}dl</script><h4 id="4-说明"><a href="#4-说明" class="headerlink" title="4. 说明"></a>4. 说明</h4><p>&emsp;&emsp;可理解为内部区域的性质通过边界来反映，即：</p><ol><li>Gauss:内部体积元的散度积分等于表面通量积分</li><li>Stokes:表面面积元矢量的旋度积分等于边界的环量积分</li><li>Green:两个形式分别为以上的退化形式</li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>math</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>C++易踩Bug持续更新</title>
     <link href="/2020/08/12/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/"/>
     <url>/2020/08/12/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/</url>
