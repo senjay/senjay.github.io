@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Gauss、Stokes、Green公式 - SenayのBlog</title>
+  <title>LoopyCuts编译运行方法 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-08-13 19:35">
-                    2020年8月13日 晚上
+                  <time datetime="2020-08-16 01:01">
+                    2020年8月16日 凌晨
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    214 字
+                    792 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    3
+                    9
                      分钟
                   </span>
                 
@@ -195,16 +195,53 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>&emsp;&emsp;以下<script type="math/tex">F</script>为向量场,<script type="math/tex">\mathbf{n}</script>为法向量，<script type="math/tex">\mathbf{\tau}</script>为切向量。</p>
-<h4 id="1-Gauss"><a href="#1-Gauss" class="headerlink" title="1. Gauss"></a>1. Gauss</h4><script type="math/tex; mode=display">
-\int_{V}\nabla\cdot Fdv=\int_{S}F\cdot d\mathbf{A}=\int_{S}F\cdot \mathbf{n}dA</script><h4 id="2-Stokes"><a href="#2-Stokes" class="headerlink" title="2. Stokes"></a>2. Stokes</h4><script type="math/tex; mode=display">
-\int_{S}\nabla\times F\cdot d\mathbf{A}=\int_{S}\nabla\times F\cdot \mathbf{n}dA=\oint_{\partial S}F\cdot d\mathbf{l}=\oint_{\partial S}F\cdot \mathbf{\tau}dl</script><h4 id="3-Green"><a href="#3-Green" class="headerlink" title="3. Green"></a>3. Green</h4><h5 id="3-1-散度形式"><a href="#3-1-散度形式" class="headerlink" title="3.1 散度形式"></a>3.1 散度形式</h5><script type="math/tex; mode=display">
-\int_{S}\nabla\cdot F dA=\oint_{\partial S}F\cdot d\mathbf{l}=\int_{\partial S}F\cdot\mathbf{n}dl</script><h5 id="3-2-旋度形式"><a href="#3-2-旋度形式" class="headerlink" title="3.2 旋度形式"></a>3.2 旋度形式</h5><script type="math/tex; mode=display">
-\int_{S}\nabla\times F\cdot d\mathbf{A}=\oint_{\partial S}F\cdot d\mathbf{l}=\oint_{\partial S}F\cdot \mathbf{\tau}dl</script><h4 id="4-说明"><a href="#4-说明" class="headerlink" title="4. 说明"></a>4. 说明</h4><p>&emsp;&emsp;可理解为内部区域的性质通过边界来反映，即：</p>
+              <h4 id="一-loop-distributor部分"><a href="#一-loop-distributor部分" class="headerlink" title="一.loop_distributor部分"></a>一.loop_distributor部分</h4><h5 id="1-windos-qtcreater下："><a href="#1-windos-qtcreater下：" class="headerlink" title="1. windos qtcreater下："></a>1. windos qtcreater下：</h5><p>如果使用windows且使用64位,按以下步骤：</p>
 <ol>
-<li>Gauss:内部体积元的散度积分等于表面通量积分</li>
-<li>Stokes:表面面积元矢量的旋度积分等于边界的环量积分</li>
-<li>Green:两个形式分别为以上的退化形式</li>
+<li><p>glwidget.h文件中在<code>#define GLWIDGET_H</code>后面添加以下代码（一定得按此顺序添加头文件）</p>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GLEW_STATIC</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/glew.h&gt;</span></span></code></pre>
+</li>
+<li><p>将编译好的一份glew库放在loop_distributor文件夹下，同时我在里面lib下的glew库的64位lib库里添加了一份win下的<code>OpenGL32</code>和<code>lGlU32</code>静态库</p>
+</li>
+<li><p>修改loop_distributor.pro文件，将以下修改</p>
+<pre><code class="hljs cmake">win32&#123;
+  DEFINES += NOMINMAX
+  <span class="hljs-comment">#LIBS +=$$ANTDIR/lib/AntTweakBar.lib</span>
+  LIBS +=-L$$ANTDIR/lib/ -lAntTweakBar64<span class="hljs-comment">#需添加64位，并用该写法否则无法链接dll</span>
+&#125;</code></pre>
+<p>同时在最后添加glew库的依赖</p>
+<pre><code class="hljs cmake">
+<span class="hljs-comment">#windos下还需以下依赖，同时取消glwidget.h 中#include &lt;GL/glew.h&gt;的注释，并在其前面添加#define GLEW_STATIC</span>
+win32: LIBS += -L$$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/lib/Release/x64/ -lglew32s
+INCLUDEPATH += $$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/<span class="hljs-keyword">include</span>
+DEPENDPATH += $$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/<span class="hljs-keyword">include</span>
+win32: LIBS += -lOpenGL32
+win32: LIBS += -lGlU32
+win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译需要加该项</span></code></pre>
+<p>编译完成运行时选择<code>test_data</code>文件夹下将里面的<code>.sharp</code>和<code>.rosy</code>改成和obj模型同名文件，同时将该模型路径以参数方式运行程序（项目-&gt;run-&gt;command line arguments），否则无法运行。</p>
+<p>这样调试还不行，而且qtcreater调试体验也不好，不过按照以上方法设置后会为vs中的设置大大减轻压力，因为vs能识别一部分pro文件。</p>
+</li>
+</ol>
+<h5 id="2-vs"><a href="#2-vs" class="headerlink" title="2.vs"></a>2.vs</h5><p>&emsp;&emsp;导入pro文件后运行，debug模式下提示缺少<code>AntTweakBar64.dll</code>,在调试-&gt;属性-&gt;配置属性-&gt;调试-&gt;环境中添加以下路径<code>PATH=%PATH%;G:\test\LoopyCuts\lib\AntTweakBar1.16\lib;E:\QT\5.12.9\msvc2015_64\bin</code></p>
+<p>第二个是缺少dll的路径，第三个是qt中的dll路径（不添加会继续提示缺少）。缺少dll的解决方法也可以用其他的，我一直用这个，比其他的体验真的好。。</p>
+<p>&emsp;&emsp;release下上述方法失效，解决方法就是拷贝缺少的dll到包含有exe的同文件夹下。</p>
+<p>&emsp;&emsp;vs中添加命令行参数的方法为调试-&gt;属性-&gt;配置属性-&gt;调试-&gt;命令参数中设置</p>
+<h4 id="二-volumetric-cutter部分"><a href="#二-volumetric-cutter部分" class="headerlink" title="二.volumetric_cutter部分"></a>二.volumetric_cutter部分</h4><h5 id="1-tetgen"><a href="#1-tetgen" class="headerlink" title="1. tetgen"></a>1. tetgen</h5><p>&emsp;&emsp;正常cmake,记得用msvc编译，选择x64,不然默认出linux下的.a静态库</p>
+<h5 id="2-程序部分"><a href="#2-程序部分" class="headerlink" title="2.程序部分"></a>2.程序部分</h5><p>&emsp;&emsp;提前说明以下，这个程序依赖的一个库cinolib无法用msvc编译，巨坑，<a href="https://github.com/mlivesu/cinolib/issues/12" target="_blank" rel="noopener">issue链接</a>！首先在pro文件中配置好tetgen的依赖，然后如果有以下报错依次解决:</p>
+<ol>
+<li><p><code>octree.cpp</code>661行报错，改成以下代码,<a href="https://github.com/mlivesu/cinolib/commit/4849cb3beeb2ea1a26526bc6f7fc265da4ed2c4f" target="_blank" rel="noopener">相关commit链接</a>：</p>
+<pre><code class="hljs c++"><span class="hljs-function">AABB <span class="hljs-title">s_box</span><span class="hljs-params">(s[<span class="hljs-number">0</span>],s[<span class="hljs-number">1</span>])</span></span>;</code></pre>
+</li>
+<li><p><code>hexmesh.cpp</code>405行和415行报错，<a href="https://github.com/mlivesu/cinolib/commit/df7cf8f4dfa6dbbebf1e6b04c26262185861335d" target="_blank" rel="noopener">相关commit链接</a>，依次修改为</p>
+<pre><code class="hljs c++"><span class="hljs-keyword">this</span>-&gt;update_p_quality(pid);<span class="hljs-comment">//405</span>
+<span class="hljs-keyword">this</span>-&gt;update_quality();<span class="hljs-comment">//415</span></code></pre>
+</li>
+<li><p><code>draw_lines_tris.cpp</code>160行<code>glGenerateMimap(GL_TEXTURE_2D)</code>报错，未找到相关解决方法，注释掉后能在linux中运行</p>
+</li>
+</ol>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
+<li>第一部分在windos下编译运行成功，linux下的话应该可以添加glew库运行，我ubuntu机子上没有该库就没尝试</li>
+<li>第二部分第三个错误未完美解决，翻了issue和commit也没有，注释掉后在linux编译成功，但运行效果未测试。windos下失败，而且用mingw编译特别慢。</li>
 </ol>
 
             </article>
@@ -215,7 +252,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
                     
                   </div>
                 
@@ -223,7 +260,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/math/">math</a>
+                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
                     
                   </div>
                 
@@ -236,18 +273,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/16/LoopyCuts%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%96%B9%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LoopyCuts编译运行方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/12/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">
-                        <span class="hidden-mobile">C++易踩Bug持续更新</span>
+                      <a href="/2020/08/13/2020-02-22-Gauss%E3%80%81Stokes%E3%80%81Green%E5%85%AC%E5%BC%8F/">
+                        <span class="hidden-mobile">Gauss、Stokes、Green公式</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -478,7 +509,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Gauss、Stokes、Green公式&nbsp;",
+        "LoopyCuts编译运行方法&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
