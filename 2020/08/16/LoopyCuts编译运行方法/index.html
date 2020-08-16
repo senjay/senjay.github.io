@@ -195,14 +195,14 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>这目前是我编译过的最‘恶心’的代码:joy:</p>
+              <p>这绝对是目前我编译过的最心酸的代码:），第一部分的pro配置和部分源码头文件是有误的，第二部分的pro、源码有误，更是几乎翻遍了依赖库cinolib的issue和commit:(</p>
 <h4 id="一-loop-distributor部分"><a href="#一-loop-distributor部分" class="headerlink" title="一.loop_distributor部分"></a>一.loop_distributor部分</h4><h5 id="1-windos-qtcreater下："><a href="#1-windos-qtcreater下：" class="headerlink" title="1. windos qtcreater下："></a>1. windos qtcreater下：</h5><p>如果使用windows且使用64位,按以下步骤：</p>
 <ol>
 <li><p>glwidget.h文件中在<code>#define GLWIDGET_H</code>后面添加以下代码（一定得按此顺序添加头文件）</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GLEW_STATIC</span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/glew.h&gt;</span></span></code></pre>
 </li>
-<li><p>将编译好的一份glew库放在loop_distributor文件夹下，同时我在里面lib下的glew库的64位lib库里添加了一份win下的<code>OpenGL32</code>和<code>lGlU32</code>静态库</p>
+<li><p>将编译好的一份glew库放在loop_distributor文件夹下，同时我在里面lib下的glew库的64位lib库里添加了一份win下的<code>OpenGL32</code>和<code>GlU32</code>静态库</p>
 </li>
 <li><p>修改loop_distributor.pro文件，将以下修改</p>
 <pre><code class="hljs cmake">win32&#123;
@@ -241,7 +241,7 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
 </li>
 <li><p>以上步骤能在linux下编译，如果使用windows,还需以下步骤：</p>
 <ul>
-<li><p>在cinolib\include\cinolib\gl文件夹下的draw_xxx.h中头文件中的win下的条件编译宏改成以下代码</p>
+<li><p>在lib\cinolib\include\cinolib\gl文件夹下的draw_xxx.h中头文件中的win下的条件编译宏改成以下代码</p>
 <pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;windows.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/gl.h&gt;</span></span>
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/glu.h&gt;</span></span></code></pre>
