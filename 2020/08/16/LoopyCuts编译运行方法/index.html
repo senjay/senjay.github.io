@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.1k 字
+                    1.2k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    13
+                    14
                      分钟
                   </span>
                 
@@ -237,7 +237,7 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
 <pre><code class="hljs c++"><span class="hljs-keyword">this</span>-&gt;update_p_quality(pid);<span class="hljs-comment">//405</span>
 <span class="hljs-keyword">this</span>-&gt;update_quality();<span class="hljs-comment">//415</span></code></pre>
 </li>
-<li><p><code>draw_lines_tris.cpp</code>160行<code>glGenerateMimap(GL_TEXTURE_2D)</code>报错，未找到相关解决方法，注释掉后能在linux中运行,有个commit也是注释掉该方法，可是在下一个commit又取消了该注释,<a href="https://github.com/mlivesu/cinolib/commit/2d9f95ccc8f63a0bc0a0a17989cdfec5649e41c0#diff-3fd1c919d023c8ba52b7932fc71fa5c9" target="_blank" rel="noopener">链接</a>，具体效果未知</p>
+<li><p><code>draw_lines_tris.cpp</code>160行<code>glGenerateMimap(GL_TEXTURE_2D)</code>报错，未找到相关解决方法，注释掉后能运行,有个为了兼容msvc的<a href="https://github.com/mlivesu/cinolib/commit/8a41a44642d75cc1725157effef222b8c27488a4" target="_blank" rel="noopener">commit</a>也是注释掉该方法，可是在后续commit又取消了该注释,<a href="https://github.com/mlivesu/cinolib/commit/2d9f95ccc8f63a0bc0a0a17989cdfec5649e41c0#diff-3fd1c919d023c8ba52b7932fc71fa5c9" target="_blank" rel="noopener">链接</a>，具体效果未知。ps:在linux中不注释该方法也无法运行，当前版本都是高于这两个commit的按理说不应该有这个问题。</p>
 </li>
 <li><p>以上步骤能在linux下编译，如果使用windows,还需以下步骤：</p>
 <ul>
