@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Instant Meshes 标架场方法</title>
+    <link href="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/"/>
+    <url>/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/</url>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;在顶点<script type="math/tex">V_i</script>定义n-Rosy标架场，定义</p><script type="math/tex; mode=display">\begin{align}&\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},k):=rot(\mathbf{n},k\frac{2\pi}{s_o}),k \in \mathbb{Z} \\&\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n}):=\{\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},0),\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},1),\dots,\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},s_o-1)\}\end{align}</script><p>第一个式子是将<script type="math/tex">\vec{o}</script>绕法向量<script type="math/tex">\vec{n}</script>旋转<script type="math/tex">k\frac{2\pi}{s_o}</script>角度，第二个式子即是在顶点处用<script type="math/tex">\vec{o}</script>对称旋转<script type="math/tex">n</script>次构成一个n-Rosy标架场</p><img src="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/image-20200822165325984.png" srcset="/img/loading.gif" class="" title="image-20200822165325984"><h3 id="1-Intrinsic-smoothness"><a href="#1-Intrinsic-smoothness" class="headerlink" title="1.Intrinsic smoothness"></a>1.Intrinsic smoothness</h3><p>&emsp;&emsp;该方法为将顶点<script type="math/tex">V_i</script>的相邻顶点<script type="math/tex">V_j</script>旋转到<script type="math/tex">V_i</script>的切平面上，然后寻找<script type="math/tex">\vec{o_i}</script>与<script type="math/tex">\vec{o_j}</script>的最小旋转角度，并用高斯赛德尔方法进行迭代求解。</p><p>&emsp;&emsp;定义能量函数：</p><script type="math/tex; mode=display">E(O, \mathbf{k}):=\sum_{i \in \mathcal{V}} \sum_{j \in \mathcal{N}(i)} \angle\left(\mathbf{o}_{i}, \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k_{i j}\right)\right)^{2}</script><p>其中<script type="math/tex">\mathbf{o}_{j i}:=\operatorname{rot}\left(\mathbf{n}_{j} \times \mathbf{n}_{i}, \angle\left(\mathbf{n}_{j}, \mathbf{n}_{i}\right)\right) \mathbf{o}_{j}</script>,即<script type="math/tex">o_j</script>旋转到<script type="math/tex">V_i</script>切平面上后的向量。<script type="math/tex">k_{ij}</script>为旋转次数，要求解该能量函数，可通过以下方法</p><script type="math/tex; mode=display">\begin{align}&k_{i j}:=\underset{0 \leq k<s_{o}}{\arg \min } \angle\left(\mathbf{o}_{i}, \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k\right)\right)\\&\mathbf{o}_{i} \leftarrow \sum_{j \in \mathcal{N}(i)} w_{i j} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k_{i j}\right), \quad \mathbf{o}_{i} \leftarrow \mathbf{o}_{i} /\left\|\mathbf{o}_{i}\right\|\end{align}</script><p>即先寻找最佳旋转次数，然后通过拉普拉斯权重归一化，由于搜寻空间是很小的(<script type="math/tex">s_o</script>，如果是n-Rosy,也就是n,而n通常是很小的一个常数)，可用暴力方法，若顶点<script type="math/tex">V_i</script>周围有<script type="math/tex">m</script>个点，那迭代一次的搜索空间大小也只有<script type="math/tex">mn</script></p><p>然后通过高斯赛德尔迭代：</p><script type="math/tex; mode=display">\begin{array}{ll}\mathbf{o}_{i}^{\prime} \leftarrow w_{i j_{1}} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j_{1} i}, \mathbf{n}_{i}, k_{i j_{1}}\right), & \mathbf{o}_{i} \leftarrow \mathbf{o}_{i}^{\prime} /\left\|\mathbf{o}_{i}^{\prime}\right\| \\\mathbf{o}_{i}^{\prime} \leftarrow \mathbf{o}_{i}^{\prime}+w_{i j_{2}} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j_{2} i}, \mathbf{n}_{i}, k_{i j_{2}}\right), & \mathbf{o}_{i} \leftarrow \mathbf{o}_{i}^{\prime} /\left\|\mathbf{o}_{i}^{\prime}\right\|\end{array}</script><h3 id="2-Extrinsic-smoothness"><a href="#2-Extrinsic-smoothness" class="headerlink" title="2.Extrinsic smoothness"></a>2.Extrinsic smoothness</h3><p>&emsp;&emsp;该方法区别于上面的方法为直接在三维空间里求解能量函数，即不再旋转到切平面，则能量函数改为：</p><script type="math/tex; mode=display">E_{\mathrm{e}}(O, k):=\sum_{i \in \mathcal{V}} \sum_{j \in \mathcal{N}(i)} \angle\left(\mathcal{R}_{s_{o}}\left(\mathbf{o}_{i}, \mathbf{n}_{i}, k_{i j}\right), \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j}, \mathbf{n}_{j}, k_{j i}\right)\right)^{2}</script><p>则<script type="math/tex">k_{ij}</script>的最优解为</p><script type="math/tex; mode=display">\left(k_{i j}, k_{j i}\right):=\underset{0 \leq k, l<s_{o}}{\arg \min } \angle\left(\mathcal{R}_{s_{o}}\left(\mathbf{o}_{i}, \mathbf{n}_{i}, k\right), \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j}, \mathbf{n}_{j}, l\right)\right)^{2}</script><p>可以看到搜索空间变为<script type="math/tex">n^2</script>,其实它还是很小的，也是可以暴力求的。下一步则依然还是高斯赛德尔迭代。</p><h3 id="3-说明"><a href="#3-说明" class="headerlink" title="3.说明"></a>3.说明</h3><ol><li>上述算法有解的条件是收敛，而事实就是它就是<strong>收敛</strong>的。</li><li>上述算法因为它是基于局部的，所以可以<strong>支持并行</strong>。</li><li>初始标架场被设置为随机的切向量，锐利特征则通过二面角阈值来判断，锐利边上顶点的法向量为任一面的法向量，而其余的可用角度权重等来定义。</li><li>Gauss–Seidel method可能陷入局部最小解，可通过随机法避免，而该文提出了另一种<strong>多分辨率层次法（Multiresolution hierarchy）</strong>来避免这种情况,如下。<img src="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/image-20200822165143871.png" srcset="/img/loading.gif" class="" title="image-20200822165143871"></li></ol>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>标架场</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>LoopyCuts编译运行方法</title>
     <link href="/2020/08/16/LoopyCuts%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%96%B9%E6%B3%95/"/>
     <url>/2020/08/16/LoopyCuts%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%96%B9%E6%B3%95/</url>

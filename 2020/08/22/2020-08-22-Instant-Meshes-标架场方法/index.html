@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>LoopyCuts编译运行方法 - SenayのBlog</title>
+  <title>Instant Meshes 标架场方法 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-08-16 01:01">
-                    2020年8月16日 凌晨
+                  <time datetime="2020-08-22 15:16">
+                    2020年8月22日 下午
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.2k 字
+                    309 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    14
+                    4
                      分钟
                   </span>
                 
@@ -195,74 +195,34 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>这绝对是目前我编译过的最心酸的代码:），第一部分的pro配置和部分源码头文件是有误的，第二部分的pro、源码有误，更是几乎翻遍了依赖库cinolib的issue和commit:(</p>
-<h4 id="一-loop-distributor部分"><a href="#一-loop-distributor部分" class="headerlink" title="一.loop_distributor部分"></a>一.loop_distributor部分</h4><h5 id="1-windos-qtcreater下："><a href="#1-windos-qtcreater下：" class="headerlink" title="1. windos qtcreater下："></a>1. windos qtcreater下：</h5><p>如果使用windows且使用64位,按以下步骤：</p>
-<ol>
-<li><p>glwidget.h文件中在<code>#define GLWIDGET_H</code>后面添加以下代码（一定得按此顺序添加头文件）</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> GLEW_STATIC</span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/glew.h&gt;</span></span></code></pre>
-</li>
-<li><p>将编译好的一份glew库放在loop_distributor文件夹下，同时我在里面lib下的glew库的64位lib库里添加了一份win下的<code>OpenGL32</code>和<code>GlU32</code>静态库</p>
-</li>
-<li><p>修改loop_distributor.pro文件，将以下修改</p>
-<pre><code class="hljs cmake">win32&#123;
-  DEFINES += NOMINMAX
-  <span class="hljs-comment">#LIBS +=$$ANTDIR/lib/AntTweakBar.lib</span>
-  LIBS +=-L$$ANTDIR/lib/ -lAntTweakBar64<span class="hljs-comment">#需添加64位，并用该写法否则无法链接dll</span>
-&#125;</code></pre>
-<p>同时在最后添加glew库的依赖</p>
-<pre><code class="hljs cmake">
-<span class="hljs-comment">#windos下还需以下依赖，同时取消glwidget.h 中#include &lt;GL/glew.h&gt;的注释，并在其前面添加#define GLEW_STATIC</span>
-win32: LIBS += -L$$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/lib/Release/x64/ -lglew32s
-INCLUDEPATH += $$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/<span class="hljs-keyword">include</span>
-DEPENDPATH += $$PWD/../lib/glew-<span class="hljs-number">2.1</span>.<span class="hljs-number">0</span>/<span class="hljs-keyword">include</span>
-win32: LIBS += -lOpenGL32
-win32: LIBS += -lGlU32
-win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译需要加该项</span></code></pre>
-<p>编译完成运行时选择<code>test_data</code>文件夹下将里面的<code>.sharp</code>和<code>.rosy</code>改成和obj模型同名文件，同时将该模型路径以参数方式运行程序（项目-&gt;run-&gt;command line arguments），否则无法运行。</p>
-<p>这样调试还不行，而且qtcreater调试体验也不好，不过按照以上方法设置后会为vs中的设置大大减轻压力，因为vs能识别一部分pro文件。</p>
-</li>
-</ol>
-<h5 id="2-vs"><a href="#2-vs" class="headerlink" title="2.vs"></a>2.vs</h5><p>&emsp;&emsp;导入pro文件后运行，debug模式下提示缺少<code>AntTweakBar64.dll</code>,在调试-&gt;属性-&gt;配置属性-&gt;调试-&gt;环境中添加以下路径<code>PATH=%PATH%;G:\test\LoopyCuts\lib\AntTweakBar1.16\lib;E:\QT\5.12.9\msvc2015_64\bin</code></p>
-<p>第二个是缺少dll的路径，第三个是qt中的dll路径（不添加会继续提示缺少）。缺少dll的解决方法也可以用其他的，我一直用这个，比其他的体验真的好。。</p>
-<p>&emsp;&emsp;release下上述方法失效，解决方法就是拷贝缺少的dll到包含有exe的同文件夹下。</p>
-<p>&emsp;&emsp;vs中添加命令行参数的方法为调试-&gt;属性-&gt;配置属性-&gt;调试-&gt;命令参数中设置</p>
-<h4 id="二-volumetric-cutter部分"><a href="#二-volumetric-cutter部分" class="headerlink" title="二.volumetric_cutter部分"></a>二.volumetric_cutter部分</h4><h5 id="1-tetgen"><a href="#1-tetgen" class="headerlink" title="1. tetgen"></a>1. tetgen</h5><p>&emsp;&emsp;正常cmake,记得用msvc编译，选择x64,不然默认出linux下的.a静态库</p>
-<h5 id="2-程序部分"><a href="#2-程序部分" class="headerlink" title="2.程序部分"></a>2.程序部分</h5><p>&emsp;&emsp;提前说明以下，这个程序依赖的一个库cinolib无法用msvc编译，巨坑，<a href="https://github.com/mlivesu/cinolib/issues/12" target="_blank" rel="noopener">issue链接</a>！首先在pro文件中配置好tetgen的依赖，然后如果有以下报错依次解决:</p>
-<ol>
-<li><p><code>octree.cpp</code>661行报错，改成以下代码,<a href="https://github.com/mlivesu/cinolib/commit/4849cb3beeb2ea1a26526bc6f7fc265da4ed2c4f" target="_blank" rel="noopener">相关commit链接</a>：</p>
-<pre><code class="hljs c++"><span class="hljs-function">AABB <span class="hljs-title">s_box</span><span class="hljs-params">(s[<span class="hljs-number">0</span>],s[<span class="hljs-number">1</span>])</span></span>;</code></pre>
-</li>
-<li><p><code>hexmesh.cpp</code>405行和415行报错，<a href="https://github.com/mlivesu/cinolib/commit/df7cf8f4dfa6dbbebf1e6b04c26262185861335d" target="_blank" rel="noopener">相关commit链接</a>，依次修改为</p>
-<pre><code class="hljs c++"><span class="hljs-keyword">this</span>-&gt;update_p_quality(pid);<span class="hljs-comment">//405</span>
-<span class="hljs-keyword">this</span>-&gt;update_quality();<span class="hljs-comment">//415</span></code></pre>
-</li>
-<li><p><code>draw_lines_tris.cpp</code>160行<code>glGenerateMimap(GL_TEXTURE_2D)</code>报错，未找到相关解决方法，注释掉后能运行,有个为了兼容msvc的<a href="https://github.com/mlivesu/cinolib/commit/8a41a44642d75cc1725157effef222b8c27488a4" target="_blank" rel="noopener">commit</a>也是注释掉该方法，可是在后续commit又取消了该注释,<a href="https://github.com/mlivesu/cinolib/commit/2d9f95ccc8f63a0bc0a0a17989cdfec5649e41c0#diff-3fd1c919d023c8ba52b7932fc71fa5c9" target="_blank" rel="noopener">链接</a>，具体效果未知。ps:在linux中不注释该方法也无法运行，当前版本都是高于这两个commit的按理说不应该有这个问题。</p>
-</li>
-<li><p>以上步骤能在linux下编译，如果使用windows,还需以下步骤：</p>
-<ul>
-<li><p>在lib\cinolib\include\cinolib\gl文件夹下的draw_xxx.h中头文件中的win下的条件编译宏改成以下代码</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;windows.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/gl.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;GL/glu.h&gt;</span></span></code></pre>
-</li>
-<li><p>如果在win下使用mingw编译的话不仅速度慢而且因为obj文件太大无法编译，<strong>不推荐</strong></p>
-</li>
-<li><p>使用msvc编译，msvc不支持变长数组，但源码中有些地方使用变长数组，所以在源码中做如下修改，使用动态申请，但勿忘delete</p>
-<p>laplacian.cpp54行: </p>
-<p>&emsp;&emsp;<code>uint base[n]</code>改用<code>uint *base=new uint[n]()</code>,勿忘delete！</p>
-<p>ambient_occlusion.cpp195行：</p>
-<p>&emsp;&emsp;<code>float depth_buffer[buffer_size*buffer_size]</code>改为<code>float *depth_buffer=new float[buffer_size*buffer_size]();</code>勿忘delete！</p>
-</li>
-</ul>
-</li>
-<li><p>关于这个的pro改动地方有点多，未作记录，就不列出</p>
-</li>
-</ol>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><ol>
-<li>第一部分在<strong>windos下编译运行成功</strong>，linux下的话应该可以添加glew库运行，我ubuntu机子上没有该库就没尝试。</li>
-<li>第二部分第三个错误未完美解决，翻到两个相关commit（前一个注释，后一个取消注释？？），注释掉后在<strong>linux编译成功，windos下修改后能在msvc编译下编译成功</strong>，mingw编译特别慢，而且还出错。</li>
-<li>以上两部分使用方法和运行效果还未测试。</li>
+              <p>&emsp;&emsp;在顶点<script type="math/tex">V_i</script>定义n-Rosy标架场，定义</p>
+<script type="math/tex; mode=display">
+\begin{align}&\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},k):=rot(\mathbf{n},k\frac{2\pi}{s_o}),k \in \mathbb{Z} \\&\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n}):=\{\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},0),\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},1),\dots,\mathcal{R_{s_o}}(\mathbf{o},\mathbf{n},s_o-1)\}\end{align}</script><p>第一个式子是将<script type="math/tex">\vec{o}</script>绕法向量<script type="math/tex">\vec{n}</script>旋转<script type="math/tex">k\frac{2\pi}{s_o}</script>角度，第二个式子即是在顶点处用<script type="math/tex">\vec{o}</script>对称旋转<script type="math/tex">n</script>次构成一个n-Rosy标架场</p>
+<img src="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/image-20200822165325984.png" srcset="/img/loading.gif" class="" title="image-20200822165325984">
+<h3 id="1-Intrinsic-smoothness"><a href="#1-Intrinsic-smoothness" class="headerlink" title="1.Intrinsic smoothness"></a>1.Intrinsic smoothness</h3><p>&emsp;&emsp;该方法为将顶点<script type="math/tex">V_i</script>的相邻顶点<script type="math/tex">V_j</script>旋转到<script type="math/tex">V_i</script>的切平面上，然后寻找<script type="math/tex">\vec{o_i}</script>与<script type="math/tex">\vec{o_j}</script>的最小旋转角度，并用高斯赛德尔方法进行迭代求解。</p>
+<p>&emsp;&emsp;定义能量函数：</p>
+<script type="math/tex; mode=display">
+E(O, \mathbf{k}):=\sum_{i \in \mathcal{V}} \sum_{j \in \mathcal{N}(i)} \angle\left(\mathbf{o}_{i}, \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k_{i j}\right)\right)^{2}</script><p>其中<script type="math/tex">\mathbf{o}_{j i}:=\operatorname{rot}\left(\mathbf{n}_{j} \times \mathbf{n}_{i}, \angle\left(\mathbf{n}_{j}, \mathbf{n}_{i}\right)\right) \mathbf{o}_{j}</script>,即<script type="math/tex">o_j</script>旋转到<script type="math/tex">V_i</script>切平面上后的向量。<script type="math/tex">k_{ij}</script>为旋转次数，要求解该能量函数，可通过以下方法</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&k_{i j}:=\underset{0 \leq k<s_{o}}{\arg \min } \angle\left(\mathbf{o}_{i}, \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k\right)\right)\\
+&\mathbf{o}_{i} \leftarrow \sum_{j \in \mathcal{N}(i)} w_{i j} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j i}, \mathbf{n}_{i}, k_{i j}\right), \quad \mathbf{o}_{i} \leftarrow \mathbf{o}_{i} /\left\|\mathbf{o}_{i}\right\|
+\end{align}</script><p>即先寻找最佳旋转次数，然后通过拉普拉斯权重归一化，由于搜寻空间是很小的(<script type="math/tex">s_o</script>，如果是n-Rosy,也就是n,而n通常是很小的一个常数)，可用暴力方法，若顶点<script type="math/tex">V_i</script>周围有<script type="math/tex">m</script>个点，那迭代一次的搜索空间大小也只有<script type="math/tex">mn</script></p>
+<p>然后通过高斯赛德尔迭代：</p>
+<script type="math/tex; mode=display">
+\begin{array}{ll}
+\mathbf{o}_{i}^{\prime} \leftarrow w_{i j_{1}} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j_{1} i}, \mathbf{n}_{i}, k_{i j_{1}}\right), & \mathbf{o}_{i} \leftarrow \mathbf{o}_{i}^{\prime} /\left\|\mathbf{o}_{i}^{\prime}\right\| \\
+\mathbf{o}_{i}^{\prime} \leftarrow \mathbf{o}_{i}^{\prime}+w_{i j_{2}} \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j_{2} i}, \mathbf{n}_{i}, k_{i j_{2}}\right), & \mathbf{o}_{i} \leftarrow \mathbf{o}_{i}^{\prime} /\left\|\mathbf{o}_{i}^{\prime}\right\|
+\end{array}</script><h3 id="2-Extrinsic-smoothness"><a href="#2-Extrinsic-smoothness" class="headerlink" title="2.Extrinsic smoothness"></a>2.Extrinsic smoothness</h3><p>&emsp;&emsp;该方法区别于上面的方法为直接在三维空间里求解能量函数，即不再旋转到切平面，则能量函数改为：</p>
+<script type="math/tex; mode=display">
+E_{\mathrm{e}}(O, k):=\sum_{i \in \mathcal{V}} \sum_{j \in \mathcal{N}(i)} \angle\left(\mathcal{R}_{s_{o}}\left(\mathbf{o}_{i}, \mathbf{n}_{i}, k_{i j}\right), \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j}, \mathbf{n}_{j}, k_{j i}\right)\right)^{2}</script><p>则<script type="math/tex">k_{ij}</script>的最优解为</p>
+<script type="math/tex; mode=display">
+\left(k_{i j}, k_{j i}\right):=\underset{0 \leq k, l<s_{o}}{\arg \min } \angle\left(\mathcal{R}_{s_{o}}\left(\mathbf{o}_{i}, \mathbf{n}_{i}, k\right), \mathcal{R}_{s_{o}}\left(\mathbf{o}_{j}, \mathbf{n}_{j}, l\right)\right)^{2}</script><p>可以看到搜索空间变为<script type="math/tex">n^2</script>,其实它还是很小的，也是可以暴力求的。下一步则依然还是高斯赛德尔迭代。</p>
+<h3 id="3-说明"><a href="#3-说明" class="headerlink" title="3.说明"></a>3.说明</h3><ol>
+<li>上述算法有解的条件是收敛，而事实就是它就是<strong>收敛</strong>的。</li>
+<li>上述算法因为它是基于局部的，所以可以<strong>支持并行</strong>。</li>
+<li>初始标架场被设置为随机的切向量，锐利特征则通过二面角阈值来判断，锐利边上顶点的法向量为任一面的法向量，而其余的可用角度权重等来定义。</li>
+<li>Gauss–Seidel method可能陷入局部最小解，可通过随机法避免，而该文提出了另一种<strong>多分辨率层次法（Multiresolution hierarchy）</strong>来避免这种情况,如下。<img src="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/image-20200822165143871.png" srcset="/img/loading.gif" class="" title="image-20200822165143871"></li>
 </ol>
 
             </article>
@@ -273,7 +233,7 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%95%99%E7%A8%8B/">教程</a>
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
                     
                   </div>
                 
@@ -281,7 +241,7 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%95%99%E7%A8%8B/">教程</a>
+                      <a class="hover-with-bg" href="/tags/%E6%A0%87%E6%9E%B6%E5%9C%BA/">标架场</a>
                     
                   </div>
                 
@@ -294,18 +254,12 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Instant Meshes 标架场方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/13/2020-02-22-Gauss%E3%80%81Stokes%E3%80%81Green%E5%85%AC%E5%BC%8F/">
-                        <span class="hidden-mobile">Gauss、Stokes、Green公式</span>
+                      <a href="/2020/08/16/LoopyCuts%E7%BC%96%E8%AF%91%E8%BF%90%E8%A1%8C%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">LoopyCuts编译运行方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -536,7 +490,7 @@ win32:QMAKE_CXXFLAGS += /bigobj<span class="hljs-comment">#debug模式下编译�
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "LoopyCuts编译运行方法&nbsp;",
+        "Instant Meshes 标架场方法&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
