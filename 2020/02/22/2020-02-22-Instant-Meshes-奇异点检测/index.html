@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>归档 - SenayのBlog</title>
+  <title>Instant Meshes 奇异点检测 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -50,7 +50,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,6 +142,38 @@
             </span>
 
             
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-02-22 16:06">
+                    2020年2月22日 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    142 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    1
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
           </div>
 
           
@@ -152,67 +184,118 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 42 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/09/03/HDU1728%E9%80%83%E7%A6%BB%E8%BF%B7%E5%AE%ABDFS/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">HDU1728逃离迷宫DFS</span>
-      <span style="float: right;">09-03</span>
-    </a>
-  
-    
-    <a href="/2019/05/20/AOE%E7%BD%91/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">AOE网</span>
-      <span style="float: right;">05-20</span>
-    </a>
-  
-    
-    <a href="/2019/03/31/%E5%BF%AB%E6%8E%92C++&Python/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">快排C++&amp;Python</span>
-      <span style="float: right;">03-31</span>
-    </a>
-  
-    
-    <a href="/2019/03/29/java.awt.Robot%E7%9A%84mouseMove(x,y)%E6%95%88%E6%9E%9C%E4%B8%8D%E8%B5%B7%E4%BD%9C%E7%94%A8/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">java.awt.Robot的mouseMove(x,y)效果不起作用</span>
-      <span style="float: right;">03-29</span>
-    </a>
-  
-    
-    <a href="/2019/03/18/KMP%E7%AE%97%E6%B3%95%E5%8F%8A%E6%89%8B%E5%B7%A5%E6%B1%82%E8%A7%A3next%E6%95%B0%E7%BB%84/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">KMP算法及手工求解next数组</span>
-      <span style="float: right;">03-18</span>
-    </a>
-  
-    
-    <a href="/2019/01/21/Mysql-Err1055-ONLY_FULL_GROUP_BY-%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Mysql Err1055 ONLY_FULL_GROUP_BY 存储过程</span>
-      <span style="float: right;">01-21</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <p>&emsp;&emsp;对于<script type="math/tex">4-Rosy\ field</script>，每个三角形网格的顶点<script type="math/tex">V_i</script>,都有一个标架<script type="math/tex">q_{si}</script>,根据以下式子，可判断奇异点：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+&\mathop{\arg\min}_{si,sj}\{q_{si}\cdot q_{sj}\}\ \ \ \ \ \ \ \ \ \ \ \ si,sj\in [0,3]\\
+& \mathrm{index}=(\sum(si-sj))\bmod 4
+\end{align}</script><script type="math/tex; mode=display">
+\left\{
+\begin{aligned}
+&\mathrm{is\ singularity},\ \ \ \ \ \ \mathrm{index}=1\ or\ 3\\
+&\mathrm{not\ singularity},\ \ \ \mathrm{else}\\
+\end{aligned}
+\right.</script><p>即在三角形中，相邻两个点的标架夹成的最小角的标架方向的序号的差的和与方向场的方向数的余数若为1或者3即该三角形内有奇异点。</p>
+<img src="/2020/02/22/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/image-20200828191106279.png" srcset="/img/loading.gif" class="" title="image-20200828191106279">
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%A0%87%E6%9E%B6%E5%9C%BA/">标架场</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/02/22/Unity-Android%E7%9C%9F%E6%9C%BA%E6%B5%8B%E8%AF%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Unity Android真机测试</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/02/22/Unity%E6%89%93%E5%8C%85apk%E5%90%8E%E9%9B%BE%E6%95%88%E6%9E%9C%E6%B6%88%E5%A4%B1/">
+                        <span class="hidden-mobile">Unity打包apk后雾效果消失</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="senjay/commit-utterance"
+          issue-term="pathname"
+  
+          label="utterances"
+    
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
 
 
               </div>
-            </div>
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -349,6 +432,34 @@
 
 
 
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
 
 
   <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
@@ -368,7 +479,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "Instant Meshes 奇异点检测&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
@@ -412,9 +523,62 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script>
+
+  
 
 
 
