@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Instant Meshes 奇异点检测</title>
+    <link href="/2020/08/28/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/"/>
+    <url>/2020/08/28/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/</url>
+    
+    <content type="html"><![CDATA[<p>&emsp;&emsp;对于<script type="math/tex">4-Rosy\ field</script>，每个三角形网格的顶点<script type="math/tex">V_i</script>,都有一个标架<script type="math/tex">q_{si}</script>,根据以下式子，可判断奇异点：</p><script type="math/tex; mode=display">\begin{align}&\mathop{\arg\min}_{si,sj}\{q_{si}\cdot q_{sj}\}\ \ \ \ \ \ \ \ \ \ \ \ si,sj\in [0,3]\\& \mathrm{index}=(\sum(si-sj))\bmod 4\end{align}</script><script type="math/tex; mode=display">\left\{\begin{aligned}&\mathrm{is\ singularity},\ \ \ \ \ \ \mathrm{index}=1\ or\ 3\\&\mathrm{not\ singularity},\ \ \ \mathrm{else}\\\end{aligned}\right.</script><p>即在三角形中，相邻两个点的标架夹成的最小角的标架方向的序号的差的和与方向场的方向数的余数若为1或者3即该三角形内有奇异点。</p><img src="/2020/08/28/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/image-20200828191106279.png" srcset="/img/loading.gif" class="" title="image-20200828191106279">]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>标架场</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Instant Meshes 标架场方法</title>
     <link href="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/"/>
     <url>/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/</url>
@@ -665,31 +690,6 @@
     <tags>
       
       <tag>Unity</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>Instant Meshes 奇异点检测</title>
-    <link href="/2020/02/22/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/"/>
-    <url>/2020/02/22/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/</url>
-    
-    <content type="html"><![CDATA[<p>&emsp;&emsp;对于<script type="math/tex">4-Rosy\ field</script>，每个三角形网格的顶点<script type="math/tex">V_i</script>,都有一个标架<script type="math/tex">q_{si}</script>,根据以下式子，可判断奇异点：</p><script type="math/tex; mode=display">\begin{align}&\mathop{\arg\min}_{si,sj}\{q_{si}\cdot q_{sj}\}\ \ \ \ \ \ \ \ \ \ \ \ si,sj\in [0,3]\\& \mathrm{index}=(\sum(si-sj))\bmod 4\end{align}</script><script type="math/tex; mode=display">\left\{\begin{aligned}&\mathrm{is\ singularity},\ \ \ \ \ \ \mathrm{index}=1\ or\ 3\\&\mathrm{not\ singularity},\ \ \ \mathrm{else}\\\end{aligned}\right.</script><p>即在三角形中，相邻两个点的标架夹成的最小角的标架方向的序号的差的和与方向场的方向数的余数若为1或者3即该三角形内有奇异点。</p><img src="/2020/02/22/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/image-20200828191106279.png" srcset="/img/loading.gif" class="" title="image-20200828191106279">]]></content>
-    
-    
-    <categories>
-      
-      <category>笔记</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>标架场</tag>
       
     </tags>
     
