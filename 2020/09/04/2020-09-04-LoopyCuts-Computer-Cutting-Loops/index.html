@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Instant Meshes 奇异点检测 - SenayのBlog</title>
+  <title>LoopyCuts-Computer Cutting Loops - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-08-28 19:27">
-                    2020年8月28日 晚上
+                  <time datetime="2020-09-04 19:26">
+                    2020年9月4日 晚上
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    142 字
+                    34 字
                   </span>
                 
 
@@ -195,19 +195,58 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>&emsp;&emsp;对于<script type="math/tex">4-Rosy\ field</script>，每个三角形网格的顶点<script type="math/tex">V_i</script>,都有一个标架<script type="math/tex">q_{si}</script>,根据以下式子，可判断奇异点：</p>
+              <h3 id="1-基本概念"><a href="#1-基本概念" class="headerlink" title="1.基本概念"></a>1.基本概念</h3><p>&emsp;&emsp;feature line分为flat、concave、convex三种，由integrated curvature的<script type="math/tex">\theta</script>根据阈值<script type="math/tex">\bar \theta</script>判定:</p>
 <script type="math/tex; mode=display">
-\begin{align}
-&\mathop{\arg\min}_{si,sj}\{q_{si}\cdot q_{sj}\}\ \ \ \ \ \ \ \ \ \ \ \ si,sj\in [0,3]\\
-& \mathrm{index}=(\sum(si-sj))\bmod 4
-\end{align}</script><script type="math/tex; mode=display">
 \left\{
 \begin{aligned}
-&\mathrm{is\ singularity},\ \ \ \ \ \ \mathrm{index}=1\ or\ 3\\
-&\mathrm{not\ singularity},\ \ \ \mathrm{else}\\
+&\mathrm{flat},\ \ \ \ \ \ \ \ \ \ \ |\theta|<\bar\theta \\
+&\mathrm{concave},\ \ \ \ \theta<-\bar\theta\\
+&\mathrm{convex},\ \ \ \ \ \ \theta>\bar\theta\\
 \end{aligned}
-\right.</script><p>即在三角形中，相邻两个点的标架夹成的最小角的标架方向的序号的差的和与方向场的方向数的余数若为1或者3即该三角形内有奇异点。</p>
-<img src="/2020/08/28/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/image-20200828191106279.png" srcset="/img/loading.gif" class="" title="image-20200828191106279">
+\right.</script><p>这里<script type="math/tex">\bar \theta=10^{\circ}</script>，例子如下图</p>
+<p>&emsp;&emsp;标架场采用《Mixed-integer quadrangulation》中的方法建立</p>
+<img src="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/image-20200904213438466.png" srcset="/img/loading.gif" class="" title="image-20200904213438466">
+<h3 id="2-Field-Coherent-Loops"><a href="#2-Field-Coherent-Loops" class="headerlink" title="2.Field-Coherent Loops"></a>2.Field-Coherent Loops</h3><p>&emsp;&emsp;由标架场引导出field-coherent geodesic path:<script type="math/tex">\ell</script>切线与p点标架夹角小于<script type="math/tex">\frac{\pi}{4}</script>。为了描述其偏离程度使用以下公式</p>
+<script type="math/tex; mode=display">
+\|w\|_{\mathrm{X}}=|w|\left(1+\alpha \frac{\angle\left(p_{\theta}, w\right)}{\pi / 4}\right)</script><p>其中<script type="math/tex">w</script>为切向量，<script type="math/tex">p_{\theta}</script>为标架之一，<script type="math/tex">\alpha</script>为惩罚系数。我们的目标是由点沿着field-coherent geodesic path返回点，即得到闭合曲线。而上述公式是为了避免造成过度偏离现象，如下图</p>
+<img src="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/image-20200904213304148.png" srcset="/img/loading.gif" class="" title="image-20200904213304148">
+<p>&emsp;&emsp;定义曲线之间的距离如下：</p>
+<script type="math/tex; mode=display">
+d\left(\ell_{i}, \ell_{j}\right)=\frac{1}{\left|\ell_{j}\right|} \int_{\ell_{j}} \operatorname{dist}\left(\ell_{i}, p_{\theta}\right) d p_{\theta}</script><p>其中<script type="math/tex">\operatorname{dist}\left(\ell_{i}, p_{\theta}\right)</script>为<script type="math/tex">p_{\theta}</script>与<script type="math/tex">\ell</script>之间的最短field-coherent geodesic path长度。</p>
+<p>&emsp;&emsp;设loop集合<script type="math/tex">\mathcal{L}=\{\ell_1 \dots \ell_k \}</script>,而<script type="math/tex">\ell \notin \mathcal{L}</script>，    </p>
+<script type="math/tex; mode=display">
+d(\mathcal{L}, \ell)=\frac{1}{|\ell|} \int_{\ell} \min _{\ell_{i} \in \mathcal{L}} \operatorname{dist}\left(\ell_{i}, p_{\theta}\right) d p_{\theta}</script><p>则离<script type="math/tex">\mathcal{L}</script>最远的<script type="math/tex">\bar \ell</script>为</p>
+<script type="math/tex; mode=display">
+\bar{\ell}=\operatorname{argmax}_{\ell \in \mathrm{L}} d(\mathcal{L}, \ell)</script><img src="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/image-20200904221853685.png" srcset="/img/loading.gif" class="" title="image-20200904221853685">
+<h3 id="3-特征loop"><a href="#3-特征loop" class="headerlink" title="3.特征loop"></a>3.特征loop</h3><p>&emsp;&emsp;维护一个初始队列<script type="math/tex">Q</script>用来装loop,feature line <script type="math/tex">\ell</script> 分为两类处理，如下：</p>
+<ol>
+<li>闭合：如果为flat特征则加入<script type="math/tex">Q</script>队列;如果为concave,拷贝正反方向两份入队</li>
+<li>非闭合：如果为flat拓展成一个loop入队，如果为concave,沿两端点分别生成两个loop入队</li>
+</ol>
+<h3 id="4-采样最远loop"><a href="#4-采样最远loop" class="headerlink" title="4.采样最远loop"></a>4.采样最远loop</h3><p>&emsp;&emsp;每次采样最远的loop加入<script type="math/tex">Q</script>中，其终止条件需满足以下两个：</p>
+<ol>
+<li>Topological integrity ：Q中每个loop至少与其他loop相交三次。</li>
+<li>Geometric fit  ：path的面积与polyon的面积相差不超过阈值</li>
+</ol>
+<h3 id="5-维护采样池"><a href="#5-维护采样池" class="headerlink" title="5. 维护采样池"></a>5. 维护采样池</h3><p>&emsp;&emsp;定义<script type="math/tex">\bar Q=Q \cup C\mathcal{F}</script>,其中<script type="math/tex">C\mathcal{F}</script>为convex feature,通过以下两种方式创建采样池<script type="math/tex">\mathcal{P}</script>:</p>
+<ol>
+<li>以固定间隔采样<script type="math/tex">\bar Q</script>中loop,对其中每个loop，跟踪一个垂直它自己新loop加入采样池<script type="math/tex">\mathcal{P}</script>，新loop需满足与<script type="math/tex">\bar Q</script>中loop不正切相交</li>
+<li>在表面进行泊松分布采样（Poisson-Disk Sampling）获得点集<script type="math/tex">\mathrm{P}</script>,对于每个<script type="math/tex">p\in \mathrm{P}</script>跟踪两条新的loop,同样的他们需要满足与<script type="math/tex">\bar Q</script>中的不正切相交，加入采样池<script type="math/tex">\mathcal{P}</script></li>
+</ol>
+<p>每当从<script type="math/tex">\mathcal{P}</script>中选择一条最远loop加入<script type="math/tex">Q</script>中后，需要对采样池<script type="math/tex">\mathcal{P}</script>用方法1重新装填新的loop进去。</p>
+<p>&emsp;&emsp;为提高Topological integrity，从采样池中选取loop不再是简单的选择与<script type="math/tex">\bar Q</script>中最远的loop,而使用新的规则：设<script type="math/tex">\hat Q</script>为<script type="math/tex">Q</script>的子集且不满足Topological integrity条件，我们使采样池<script type="math/tex">\mathcal{P}</script>中与<script type="math/tex">\hat Q</script>中相交的loop具有更大的优先度被选择，即除了距离因素外加入相交次数作为优先度来快速提高拓扑完整性。根据以上规则在采样池中选择与<script type="math/tex">\bar Q</script>最远的loop<script type="math/tex">\ell</script> 加入<script type="math/tex">Q</script>,然后在采样池<script type="math/tex">\mathcal{P}</script>中移除所有与<script type="math/tex">\ell</script>正切相交的loop,并重新跟踪它们的源点<script type="math/tex">p \in \mathrm{P}</script>的两条正交loop(满足与新更新的<script type="math/tex">\bar Q</script>中的loop不正切相交)</p>
+<img src="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/image-20200905013318085.png" srcset="/img/loading.gif" class="" title="image-20200905013318085">
+<h3 id="6-输出"><a href="#6-输出" class="headerlink" title="6. 输出"></a>6. 输出</h3><p>&emsp;&emsp;输出由两部分组成：队列<script type="math/tex">Q</script>与凸特征<script type="math/tex">C\mathcal{F}</script>。其中每个loop都以<script type="math/tex">((p_1,n_1)\dots(p_h,n_h))</script>形式给出，<script type="math/tex">p</script>为点，<script type="math/tex">n</script>为法向量。</p>
+<p>&emsp;&emsp;需要注意不是每个非闭合的feature都可以拓展成闭合loop，在拓展feature loop时也可能产生自相交的loop(这种类型舍弃)，而那些无法闭合的feature我们把它们称为incomplete loop并加入<script type="math/tex">Q</script>，在下一个阶段进行处理。</p>
+<h3 id="附1-Tracing-loops"><a href="#附1-Tracing-loops" class="headerlink" title="附1.Tracing loops"></a>附1.Tracing loops</h3><p>&emsp;&emsp;trace loop使用《Tracing Field-Coherent Quad Layouts 》的方法在一个拓展出来的图<script type="math/tex">\mathcal{G}</script>上进行Dijkstra 算法，其中图<script type="math/tex">\mathcal{G}</script>由曲面M上的边和顶点，还有边上的采样得到斯坦纳点（Steiner point）和连接斯坦纳点和顶点的边组成。不同的是，这里的</p>
+<p>&emsp;&emsp;距离测量：对于集合<script type="math/tex">\mathcal{L}</script>中的每条loop,在每条loop上的每个点作为源点跑Dijkstra,从而找到最远的<script type="math/tex">\ell \notin \mathcal{L}</script>（这里很耗时）</p>
+<p>&emsp;&emsp;传播限制：在做Dijkstra时，搜索路径不能与<script type="math/tex">\bar Q</script>正切相交</p>
+<h3 id="附2-相交说明"><a href="#附2-相交说明" class="headerlink" title="附2.相交说明"></a>附2.相交说明</h3><ol>
+<li>正切相交判断：曲线相交，标架平行</li>
+<li>垂直相交判断：曲线相交，标架相交</li>
+</ol>
+<img src="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/image-20200905005822283.png" srcset="/img/loading.gif" class="" title="image-20200905005822283">
+
             </article>
             <hr>
             <div>
@@ -224,7 +263,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%A0%87%E6%9E%B6%E5%9C%BA/">标架场</a>
+                      <a class="hover-with-bg" href="/tags/LoopyCuts/">LoopyCuts</a>
                     
                   </div>
                 
@@ -237,18 +276,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">LoopyCuts-Computer Cutting Loops</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/08/22/2020-08-22-Instant-Meshes-%E6%A0%87%E6%9E%B6%E5%9C%BA%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">Instant Meshes 标架场方法</span>
+                      <a href="/2020/08/28/2020-02-22-Instant-Meshes-%E5%A5%87%E5%BC%82%E7%82%B9%E6%A3%80%E6%B5%8B/">
+                        <span class="hidden-mobile">Instant Meshes 奇异点检测</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -479,7 +512,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Instant Meshes 奇异点检测&nbsp;",
+        "LoopyCuts-Computer Cutting Loops&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
