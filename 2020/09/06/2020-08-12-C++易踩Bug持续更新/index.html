@@ -230,7 +230,7 @@ QByteArray qba = qstr.toLocal8Bit();<span class="hljs-comment">//第一步</span
 
 \\<span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>-&gt;QString
 QString qstr = QString::fromLocal8Bit(std_str);<span class="hljs-comment">//一步</span></code></pre>
-<p>&emsp;&emsp;PS:C++里另一种常见的字符问题是<code>std::string</code>的<code>c_str()</code>方法来转换<code>char*</code>。如果字符串是临时变量也容易被优化掉或者string改变后新得到的<code>char *</code>类型的字符串也会随之改变，因为<code>c_str()</code>返回的是string里封装好的<code>char *</code>指针（当前字符串的首字符的地址，虽然说是<code>const char *</code>类型，但不要想当然的以为指向内容就不会改变了，因为我们只是无法通过它自身改变值，但是可以通过赋值给它的string改变它),因此最好使用<code>strcpy(str1,str2)</code>来拷贝一份。</p>
+<p>&emsp;&emsp;PS:C++里另一种常见的字符问题是<code>std::string</code>的<code>c_str()</code>方法来转换<code>char*</code>。如果字符串是临时变量也容易被优化掉或者string改变后新得到的<code>char *</code>类型的字符串也会随之改变，因为<code>c_str()</code>返回的是string里封装好的<code>char *</code>指针（当前字符串的首字符的地址，虽然说返回的是<code>const char *</code>类型，但不要想当然的以为指向内容就不会改变了，因为我们只是无法通过它自身改变值，但是可以通过赋值给它的string改变它),因此最好使用<code>strcpy(str1,str2)</code>来拷贝一份。</p>
 
             </article>
             <hr>
