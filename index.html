@@ -214,51 +214,6 @@ let \quad \tilde{F}(\alpha)=cos(4\alpha)\quad \alpha \in[0,2\pi]\\
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/14/2020-09-14-Practical-3D-Frame-Field-Generation/">Practical 3D Frame Field Generation-2D</a>
-
-      <a href="/2020/09/14/2020-09-14-Practical-3D-Frame-Field-Generation/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言&emsp;&emsp;该文首先以2D下说明了使用基函数作为参考标架的可行性进而引出3D形式下的基函数——球谐函数(Spherical harmonics)。
-1. 定义&emsp;&emsp;该文采用基函数来表示标架：
-
-\begin{gather}
-let \quad \tilde{F}(\alpha)=cos(4\alpha)\quad \alpha \in[0,2\pi]\\
-\the</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-14
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E6%A0%87%E6%9E%B6%E5%9C%BA/">标架场</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/09/06/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/">C++易踩Bug持续更新</a>
 
       <a href="/2020/09/06/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" class="index-excerpt">
@@ -593,6 +548,51 @@ RoSy fields: rotationally-symmetric direction fields，对称角度为\frac{2\pi
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6/">图形学</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/">记一个QT中QOpenGLWidget 与 QGLWidget的坑</a>
+
+      <a href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/" class="index-excerpt">
+        
+        
+          
+        
+        <div>&emsp;&emsp;因为QGLWidget在文档中显示过时，就采用了QOpenGLWidget,因为要用到多重采样来抗锯齿
+QSurfaceFormat format;
+format.setSamples(4);
+QSurfaceFormat::setDefaultFormat(format);
+结果造成像素深度winz无法读取
+glReadPixels((int)winx, (int)win</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bug/">bug</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/bug/">bug</a>
             
           </div>
         
