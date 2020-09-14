@@ -170,6 +170,95 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/">记一个QT中QOpenGLWidget 与 QGLWidget的坑</a>
+
+      <a href="/2020/08/07/2020-08-07-%E8%AE%B0%E4%B8%80%E4%B8%AAQT%E4%B8%ADQOpenGLWidget-%E4%B8%8E-QGLWidget%E7%9A%84%E5%9D%91/" class="index-excerpt">
+        
+        
+          
+        
+        <div>&emsp;&emsp;因为QGLWidget在文档中显示过时，就采用了QOpenGLWidget,因为要用到多重采样来抗锯齿
+QSurfaceFormat format;
+format.setSamples(4);
+QSurfaceFormat::setDefaultFormat(format);
+结果造成像素深度winz无法读取
+glReadPixels((int)winx, (int)win</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-08-07
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/bug/">bug</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/bug/">bug</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/">Mathematics for 3D Game Programming and Computer Graphics 1-4章笔记</a>
+
+      <a href="/2020/07/19/Mathematics-for-3D-Game-Programming-and-Computer-Graphics/" class="index-excerpt">
+        
+        
+          
+        
+        <div>3D游戏与计算机图形学中的数学方法第一章 渲染管线1.1 图形处理器CPU-GPU通信：
+​        内存&lt;——&gt;CPU——&gt;应用程序——&gt;渲染库(如OpenGL)——&gt;图形卡驱动——&gt;GPU&lt;——&gt;显存
+显存主要缓冲区：
+
+前后图像缓冲区切换,前：用户可见；后：用户不可见。切换要与屏幕刷新率同步，否则会画面撕裂，即不同时刻的画面出现在屏幕上，</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-07-19
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Graphics/">Graphics</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/07/14/2020-07-14-Quadric-error-metric/">Quadric error metric</a>
 
       <a href="/2020/07/14/2020-07-14-Quadric-error-metric/" class="index-excerpt">
@@ -554,94 +643,6 @@ l_i(x_j)=\delta_{ij}=\begin{cases}
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E4%B9%A0%E9%A2%98/">习题</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/05/26/Tree/">LeetCodeのTree</a>
-
-      <a href="/2020/05/26/Tree/" class="index-excerpt">
-        
-        
-          
-        
-        <div>关于树简单100 相同的树给定两个二叉树，编写一个函数来检验它们是否相同。
-如果两个树在结构上相同，并且节点具有相同的值，则认为它们是相同的。
-class Solution &#123;
-public:
-    bool isSameTree(TreeNode* p, TreeNode* q) &#123;
-        if(!p&amp;&amp;!q)return true; //都为空返</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-05-26
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/C/">C++</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E4%B9%A0%E9%A2%98/">习题</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/">通过可逆运算交换变量的值</a>
-
-      <a href="/2020/05/23/%E9%80%9A%E8%BF%87%E5%8F%AF%E9%80%86%E8%BF%90%E7%AE%97%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/" class="index-excerpt">
-        
-        
-          
-        
-        <div>通过可逆运算交换变量的值1 介绍​        交换两个变量的值除了引入临时变量，还有通过加减或异或等奇淫技巧来完成，现在来介绍其原理并且推广它们。
-2 交换的原理​        加减、异或都是可逆运算，现在定义一种可逆运算规则$f$,它的逆运算是$f^{-1}$，不妨设$f(a,b)=c$,则有$f^{-1}(c,a)=b$，则有如下推导,注意我用:=来表示赋值：
-
-\begin{align</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-05-23
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
             
           </div>
         
