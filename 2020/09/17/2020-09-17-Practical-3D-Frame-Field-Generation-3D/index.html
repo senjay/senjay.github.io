@@ -284,8 +284,13 @@ h_{8} &= R_{B} (0,0,0,0,0,0,0,0,1)^{\top}\\
 A_{9n_l\times(9n_v+2n_l)}=\left\{
 \begin{aligned}&a_{i+d}^{9i+d}=\lambda,\quad a_{i+d}^{9 n_v+2i}=\lambda h_0[d],\quad a_{i+d}^{9n_v+2i+1}=\lambda h_8[d] \ \ \ &&i\in \mathcal{n_l}, d \in[0,8]\\&0  &&other
 \end{aligned}
-\right.</script><script type="math/tex; mode=display">b$$为$$(9\mathcal{E}+9n_l)$$维向量，其前$$9\mathcal{E}$$维为$$0$$,后$$9n_l$$由约束决定，如下</script><p>b_{9\mathcal{E}+9n_l}=\left{<br>\begin{aligned}&amp;b_i=0  \quad &amp;&amp; i \in[0,9\mathcal{E})\<br>&amp;b_i=\lambda \sqrt{\frac{7}{12}}h_4[d]  &amp;&amp;i \in[9\mathcal{E},9\mathcal{E}+9n_l]<br>\end{aligned}<br>\right.</p>
-<p><script type="math/tex">注意到</script>b<script type="math/tex">中的非零项中的</script>h_4<script type="math/tex">和</script>A<script type="math/tex">中的约束项一一对应的，即矩阵</script>A<script type="math/tex">和</script>b$$都是动态生成的，分成了两个block:表面约束点和自由点。另据作者的说法，在这两个block中做一个Hilbert sort会提升大约30%的效率。</p>
+\right.</script><p>&emsp;&emsp;<script type="math/tex">b</script>为<script type="math/tex">(9\mathcal{E}+9n_l)</script>维向量，其前<script type="math/tex">9\mathcal{E}</script>维为<script type="math/tex">0</script>,后<script type="math/tex">9n_l</script>由约束决定，如下</p>
+<script type="math/tex; mode=display">
+b_{9\mathcal{E}+9n_l}=\left\{
+\begin{aligned}&b_i=0  \quad && i \in[0,9\mathcal{E})\\
+&b_i=\lambda \sqrt{\frac{7}{12}}h_4[d]  &&i \in[9\mathcal{E},9\mathcal{E}+9n_l]
+\end{aligned}
+\right.</script><p>注意到<script type="math/tex">b</script>中的非零项中的<script type="math/tex">h_4</script>和<script type="math/tex">A</script>中的约束项一一对应的，即矩阵<script type="math/tex">A</script>和<script type="math/tex">b</script>都是动态生成的，分成了两个block:表面约束点和自由点。另据作者的说法，在这两个block中做一个Hilbert sort会提升大约30%的效率。</p>
 <p>&emsp;&emsp;至此，可通过求解<script type="math/tex">A^{\top}AX=A^{\top}X</script>得到位于顶点的嵌入到九维空间的标架表示（不再像2D中那样只需标准化就行了）。</p>
 
             </article>
