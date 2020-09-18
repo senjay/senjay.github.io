@@ -266,8 +266,10 @@ R_{B}^{x}(\alpha)=R_{B}^{y}(\pi / 2)^{\top} \times R_{B}^{z}(\alpha) \times R_{B
 <script type="math/tex; mode=display">
 R_{B}(\alpha, \beta, \gamma)=R_{B}^{x}(\alpha) \times R_{B}^{y}(\beta) \times R_{B}^{z}(\gamma)</script><h4 id="4-矩阵化"><a href="#4-矩阵化" class="headerlink" title="4.矩阵化"></a>4.矩阵化</h4><p>&emsp;&emsp;求解采用最小二乘<script type="math/tex">||AX-b||</script>，其中标架<script type="math/tex">a^i</script>和约束<script type="math/tex">c^i</script>存储于<script type="math/tex">X</script>向量（<script type="math/tex">(9n_v+2n_l)</script>维，<script type="math/tex">n_v</script>为不带约束的顶点，<script type="math/tex">n_l</script>是带约束的顶点）</p>
 <script type="math/tex; mode=display">
+\begin{aligned}
 X[9i+d]=a_d^i ,\quad \quad i \in[0,n_v],d \in [0,8]\\ 
-X[9n_v+2i+d]=c_{d}^{i},\quad \quad i \in [0,n_l],d \in [0,1]\\</script><p>&emsp;&emsp;系数矩阵<script type="math/tex">A_{(9\mathcal{E}+9n_l)\times(9n_v+2n_l)}</script>（<script type="math/tex">\mathcal{E}</script>为边数）下标是行，上标是列，设置如下：</p>
+X[9n_v+2i+d]=c_{d}^{i},\quad \quad i \in [0,n_l],d \in [0,1]\\
+\end{aligned}</script><p>&emsp;&emsp;系数矩阵<script type="math/tex">A_{(9\mathcal{E}+9n_l)\times(9n_v+2n_l)}</script>（<script type="math/tex">\mathcal{E}</script>为边数）下标是行，上标是列，设置如下：</p>
 <script type="math/tex; mode=display">
 A_{9\mathcal{E}\times (9n_v+2n_l)}=\left\{
 \begin{aligned}&a_{\mathcal{E}_{ij}+d}^{9i+d}=1,a_{\mathcal{E}_{ij}+d}^{9j+d}=-1 &&edge(v_i,v_j)\in \mathcal{E}, d \in[0,8]\\
