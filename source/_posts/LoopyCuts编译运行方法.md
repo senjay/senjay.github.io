@@ -86,7 +86,7 @@ tags:
    this->update_quality();//415
    ```
 
-3. `draw_lines_tris.cpp`160行`glGenerateMimap(GL_TEXTURE_2D)`报错，未找到相关解决方法，注释掉后能在linux中运行,有个commit也是注释掉该方法，可是在下一个commit又取消了该注释,[链接](https://github.com/mlivesu/cinolib/commit/2d9f95ccc8f63a0bc0a0a17989cdfec5649e41c0#diff-3fd1c919d023c8ba52b7932fc71fa5c9)，具体效果未知
+3. `draw_lines_tris.cpp`160行`glGenerateMimap(GL_TEXTURE_2D)`报错，未找到相关解决方法，注释掉后能运行,有个为了兼容msvc的[commit](https://github.com/mlivesu/cinolib/commit/8a41a44642d75cc1725157effef222b8c27488a4)也是注释掉该方法，可是在后续commit又取消了该注释,[链接](https://github.com/mlivesu/cinolib/commit/2d9f95ccc8f63a0bc0a0a17989cdfec5649e41c0#diff-3fd1c919d023c8ba52b7932fc71fa5c9)，具体效果未知。ps:在linux中不注释该方法也无法运行，当前版本都是高于这两个commit的按理说不应该有这个问题。
 
 4. 以上步骤能在linux下编译，如果使用windows,还需以下步骤：
 
