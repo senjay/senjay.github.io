@@ -269,8 +269,8 @@ R_{B}(\alpha, \beta, \gamma)=R_{B}^{x}(\alpha) \times R_{B}^{y}(\beta) \times R_
 X[9i+d]=a_d^i ,\quad \quad i \in[0,n_v],d \in [0,8]\\ 
 X[9n_v+2i+d]=c_{d}^{i},\quad \quad i \in [0,n_l],d \in [0,1]\\</script><p>&emsp;&emsp;系数矩阵<script type="math/tex">A_{(9\mathcal{E}+9n_l)\times(9n_v+2n_l)}</script>（<script type="math/tex">\mathcal{E}</script>为边数）下标是行，上标是列，设置如下：</p>
 <script type="math/tex; mode=display">
-A_{9\mathcal{E}\times (9n_v+2n_l)}=\left\
-{\begin{aligned}&a_{\mathcal{E}_{ij}+d}^{9i+d}=1,a_{\mathcal{E}_{ij}+d}^{9j+d}=-1 &&edge(v_i,v_j)\in \mathcal{E}, d \in[0,8]\\
+A_{9\mathcal{E}\times (9n_v+2n_l)}=\left\{
+\begin{aligned}&a_{\mathcal{E}_{ij}+d}^{9i+d}=1,a_{\mathcal{E}_{ij}+d}^{9j+d}=-1 &&edge(v_i,v_j)\in \mathcal{E}, d \in[0,8]\\
 &0  &&other\end{aligned}\right.</script><p>注意到上面的<script type="math/tex">A</script>还不完整，还需在下面加入一个描述约束的block(<script type="math/tex">9n_l\times(9n_v+2n_l)</script>)</p>
 <p>&emsp;&emsp;对于有约束点，计算得到其将z轴旋转到法向方向的9x9旋转矩阵<script type="math/tex">R_B</script>,并定义如下值</p>
 <script type="math/tex; mode=display">
