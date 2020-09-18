@@ -280,7 +280,7 @@ h_{8} &= R_{B} (0,0,0,0,0,0,0,0,1)^{\top}\\
 \end{aligned}</script><p>其中<script type="math/tex">\lambda</script>是惩罚系数，则矩阵A剩余部分为</p>
 <script type="math/tex; mode=display">
 A_{9n_l\times(9n_v+2n_l)}=\left\{
-\begin{aligned}&a_{i+d}^{9i+d}=\lambda,\quad a_{i+d}^{9n_v+2i}=\lambda h_0[d],\quad a_{i+d}^{9n_v+2i+1}=\lambda h_8[d] \ \ \ &&i\in \mathcal{n_l}, d \in[0,8]\\&0  &&other
+\begin{aligned}&a_{i+d}^{9i+d}=\lambda,\quad a_{i+d}^{9 n_v+2i}=\lambda h_0[d],\quad a_{i+d}^{9n_v+2i+1}=\lambda h_8[d] \ \ \ &&i\in \mathcal{n_l}, d \in[0,8]\\&0  &&other
 \end{aligned}
 \right.</script><script type="math/tex; mode=display">b$$为$$(9\mathcal{E}+9n_l)$$维向量，其前$$9\mathcal{E}$$维为$$0$$,后$$9n_l$$由约束决定，如下</script><p>b_{9\mathcal{E}+9n_l}=\left{<br>\begin{aligned}&amp;b_i=0  \quad &amp;&amp; i \in[0,9\mathcal{E})\<br>&amp;b_i=\lambda \sqrt{\frac{7}{12}}h_4[d]  &amp;&amp;i \in[9\mathcal{E},9\mathcal{E}+9n_l]<br>\end{aligned}<br>\right.</p>
 <p><script type="math/tex">注意到</script>b<script type="math/tex">中的非零项中的</script>h_4<script type="math/tex">和</script>A<script type="math/tex">中的约束项一一对应的，即矩阵</script>A<script type="math/tex">和</script>b$$都是动态生成的，分成了两个block:表面约束点和自由点。另据作者的说法，在这两个block中做一个Hilbert sort会提升大约30%的效率。</p>
