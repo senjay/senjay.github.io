@@ -135,8 +135,10 @@ $$
 
 &emsp;&emsp;求解采用最小二乘$$||AX-b||$$，其中标架$$a^i$$和约束$$c^i$$存储于$$X$$向量（$$(9n_v+2n_l)$$维，$$n_v$$为不带约束的顶点，$$n_l$$是带约束的顶点）
 $$
+\begin{aligned}
 X[9i+d]=a_d^i ,\quad \quad i \in[0,n_v],d \in [0,8]\\ 
 X[9n_v+2i+d]=c_{d}^{i},\quad \quad i \in [0,n_l],d \in [0,1]\\
+\end{aligned}
 $$
 &emsp;&emsp;系数矩阵$$A_{(9\mathcal{E}+9n_l)\times(9n_v+2n_l)}$$（$$\mathcal{E}$$为边数）下标是行，上标是列，设置如下：
 $$
@@ -162,7 +164,9 @@ A_{9n_l\times(9n_v+2n_l)}=\left\{
 \end{aligned}
 \right.
 $$
-$$b$$为$$(9\mathcal{E}+9n_l)$$维向量，其前$$9\mathcal{E}$$维为$$0$$,后$$9n_l$$由约束决定，如下
+
+
+&emsp;&emsp;$$b$$为$$(9\mathcal{E}+9n_l)$$维向量，其前$$9\mathcal{E}$$维为$$0$$,后$$9n_l$$由约束决定，如下
 $$
 b_{9\mathcal{E}+9n_l}=\left\{
 \begin{aligned}&b_i=0  \quad && i \in[0,9\mathcal{E})\\
@@ -173,4 +177,3 @@ $$
 注意到$$b$$中的非零项中的$$h_4$$和$$A$$中的约束项一一对应的，即矩阵$$A$$和$$b$$都是动态生成的，分成了两个block:表面约束点和自由点。另据作者的说法，在这两个block中做一个Hilbert sort会提升大约30%的效率。
 
 &emsp;&emsp;至此，可通过求解$$A^{\top}AX=A^{\top}X$$得到位于顶点的嵌入到九维空间的标架表示（不再像2D中那样只需标准化就行了）。
-

@@ -19,7 +19,7 @@ $$
 let \quad \tilde{F}(\alpha)=cos(4\alpha)\quad \alpha \in[0,2\pi]\\
 \therefore  F(\alpha)=\tilde{F}(\alpha-\theta)=cos(4\alpha-4\theta)=cos(4\theta)cos(4\alpha)+sin(4\theta)sin(4\alpha)
  \\
-let\quad B=(cos(4\alpha),sin(4\alpha)),a=(cos(4\theta),sin(4\theta))\\
+let\quad B=(cos(4\alpha),sin(4\alpha)),a=(cos(4\theta),sin(4\theta))^{\top}\\
 \therefore F=Ba
 \end{gather}
 $$
