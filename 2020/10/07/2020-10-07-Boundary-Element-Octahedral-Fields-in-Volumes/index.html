@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Practical 3D Frame Field Generation-3D - SenayのBlog</title>
+  <title>Boundary Element Octahedral Fields in Volumes - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-09-17 20:27">
-                    2020年9月17日 晚上
+                  <time datetime="2020-10-07 14:06">
+                    2020年10月7日 下午
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.8k 字
+                    2.8k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    27
+                    39
                      分钟
                   </span>
                 
@@ -195,105 +195,110 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>&emsp;&emsp;作者在前文的2d形式下引入的基函数其实是傅里叶基底，而在3d下，根据《Boundary aligned smooth 3D cross-frame field》的启发，使用了球谐函数作为基函数。不同的是该文使用了不同的多项式<script type="math/tex">x^4+y^4+z^4</script>来在球上展开。（而前文是<script type="math/tex">x^2y^2+y^2z^2+z^2x^2</script>，其实优化后式子是一样的）</p>
-<h3 id="二、3D"><a href="#二、3D" class="headerlink" title="二、3D"></a>二、3D</h3><h4 id="1-标架表示"><a href="#1-标架表示" class="headerlink" title="1. 标架表示"></a>1. 标架表示</h4><p>&emsp;&emsp;如果<script type="math/tex">\tilde{F}</script>为参考标架函数，那么它为：</p>
+              <h3 id="1-概括"><a href="#1-概括" class="headerlink" title="1.概括"></a>1.概括</h3><p>&emsp;&emsp;将3D中的标架场描述为Octahedral Fields：三维中所有旋转构成群特殊正交群<script type="math/tex">SO(3)</script>,但由于若只用向量表示，一个标架可有24个表示，其恰构成好八面体群<script type="math/tex">O</script>，因此若想唯一的标识标架，应该为<script type="math/tex">SO(3)/O</script>，而球谐基函数恰好可为其作代数表示。不同的是采用了边界元的思想，故而在求解中输入的网格只需要边界即可，如三角形网格，而不再是四面体网格。同时对于约束问题，之前采用对每个表面法向量对齐的方式，在这松弛为表面约束积分为面积常数。采用边界元后，输入网格不再需要四面体网格，同时可通过采样获取任意精度的内部标架。不过由于奇异提取也是通过采样，因此最终获得的是采样于奇异图的”奇异点云“，而这些采样在靠近边界处非常难获得(因为需要一个loop来包围它)。</p>
+<h3 id="2-解空间约束及松弛"><a href="#2-解空间约束及松弛" class="headerlink" title="2.解空间约束及松弛"></a>2.解空间约束及松弛</h3><p>&emsp;&emsp;标架表示还是沿用球谐函数及九维向量表示。不同的是采用了边界元思想和新的约束表示。定义球谐基函数的系数集合如下，</p>
+<script type="math/tex; mode=display">
+\Gamma:=\left\{c \in \mathbb{R}^{9}: c=W_{4}(R) a_{0} \text { for some } R \in \mathrm{SO}(3)\right\} \subseteq \mathbb{R}^{9}</script><p>其中<script type="math/tex">\{W\in\mathbb{R}^{9 \times 9}: W^{\top} W=I_{9 \times 9}\}</script>，为Wigner-D matrix，因此<script type="math/tex">\Gamma</script>是单位化的。为了后续目标函数的优化，松弛归一化条件，将<script type="math/tex">\Gamma</script>中的元素设置成可缩放，如下</p>
+<script type="math/tex; mode=display">
+\bar{\Gamma}:=\{\beta c \in \Gamma: \beta \in \mathbb{R}\} \subseteq \mathbb{R}^{9}</script><p>不过需要注意的是<script type="math/tex">\bar{\Gamma}</script>是非线性，因此在使用边界元求解内部标架场过程中可能脱离<script type="math/tex">\bar \Gamma</script>，这意味着可能某些元素并不代表着正确的旋转，因此这时还需映射回（还是使用《Practical 3D Frame Field Generation》中的梯度下降法）<script type="math/tex">\bar{\Gamma}</script>。最后再通过归一化映射回<script type="math/tex">\Gamma</script>。</p>
+<div class="note note-warning">
+            <p>可以注意到不是所有<script type="math/tex">\left\{c \in \mathbb{R}^{9}:\|c\|_{2}=1\right\}</script>中的向量都属于解空间<script type="math/tex">\Gamma</script>,如果不松弛这个条件，优化是非线性非凸的。</p>
+          </div>
+<h3 id="3-表面特征约束及松弛"><a href="#3-表面特征约束及松弛" class="headerlink" title="3.表面特征约束及松弛"></a>3.表面特征约束及松弛</h3><p>&emsp;&emsp;以上还是很抽象的解释，下面具体的约束表述。沿用过去球谐函数表示标架场的表面法向约束条件，定义如下</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-\tilde{F}&=\sqrt{\frac{7}{12}}Y_{4}^{0}+\sqrt{\frac{5}{12}}Y_{4}^{4}\\&=B\tilde{a}\\&=\left(Y_{4}^{-4},Y_{4}^{-3},Y_{4}^{-2},Y_{4}^{-1}, Y_{4}^{0}, Y_{4}^{1},Y_{4}^{2},Y_{4}^{3}, Y_{4}^{4}\right)\left(0,0,0,0, \sqrt{\frac{7}{12}}, 0,0,0, \sqrt{\frac{5}{12}}\right)^{\top}
-\end{aligned}</script><p>其中<script type="math/tex">Y_{l}^{m}</script>是实球谐基函数，其中<script type="math/tex">l</script>称为degree/band,<script type="math/tex">m</script>称为order，<script type="math/tex">m\in[-l,l]</script>。</p>
-<p>（球谐函数在图形学中先是被用于光照渲染《<em>Spherical harmonic lighting: The gritty details</em>》，<a href="https://zhuanlan.zhihu.com/p/51179426" target="_blank" rel="noopener">一个通俗的介绍球谐函数的系列文章</a>）</p>
-<p>ps:为什么选择球谐函数？因为它具有以下性质：</p>
-<ul>
-<li><p>标准正交性，它是一组正交基</p>
-</li>
-<li><p>旋转不变性，比如用矩阵<script type="math/tex">R</script>旋转<script type="math/tex">f(x)</script>后变为<script type="math/tex">g(x)</script>,即<script type="math/tex">g(x)=Rf(x)</script>,根据旋转不变性有<script type="math/tex">g(x)=f(Rx)</script></p>
-</li>
-<li><p><strong>函数乘积的积分等于其球谐系数向量的点积</strong>，<script type="math/tex">\int_{S} L(s) t(s) d s=\sum_{i=0}^{\infty} L_{i} t_{i}</script></p>
-</li>
-</ul>
-<p>由旋转不变性，任意标架可表示为<script type="math/tex">F=BR\tilde{a}</script>，其中<script type="math/tex">R</script>是<script type="math/tex">9\times 9</script>旋转矩阵，可由Wigner D-matrices  给出。</p>
-<h4 id="2-能量函数"><a href="#2-能量函数" class="headerlink" title="2. 能量函数"></a>2. 能量函数</h4><script type="math/tex; mode=display">
-E=\sum_{i j} \int_{S^{2}}\left(F^{j}(\alpha)-F^{i}(\alpha)\right)^{2} d \alpha=\sum_{i j}\left\|a^{j}-a^{i}\right\|^{2}</script><p>相比于2d,3d中的能量函数其实是类似的，不同的是<script type="math/tex">a</script>，不再相同，因为引入了球谐函数作为基函数。可以注意到<script type="math/tex">a</script>是一个九维向量，而我们要得到的是一个三维向量（即<script type="math/tex">a</script>是一个嵌入到九维空间的三维流形），所以后面还需要用其他方法求解其投影在三维中对应的向量，文章中赋予了一个随机初值并使用梯度下降来求解（We do not have a formal proof, but we conjecture that there is a single minimum of the L2 norm ）</p>
-<h4 id="3-约束"><a href="#3-约束" class="headerlink" title="3. 约束"></a>3. 约束</h4><p>&emsp;&emsp;一些顶点上的标架需要满足约束条件，如下</p>
-<h5 id="3-1法向量对齐z轴"><a href="#3-1法向量对齐z轴" class="headerlink" title="3.1法向量对齐z轴"></a>3.1法向量对齐z轴</h5><p>&emsp;&emsp;根据<script type="math/tex">a=R_z\tilde{a}</script>可得到</p>
+v_{c} &:=\sqrt{\frac{5}{12}}(0, \ldots, 0,1) \\
+v_{s} &:=\sqrt{\frac{5}{12}(1,0, \ldots, 0)} \\
+v_{n} &:=\sqrt{\frac{7}{12}}(0,0,0,0,1,0,0,0,0)\\
+u_{\hat{n}}(\theta)&:=W_{4}\left(R_{\hat{n}}\right)\left[v_{n}+v_{c} \cos \theta+v_{s} \sin \theta\right]
+\end{aligned}</script><p>其中<script type="math/tex">W_{4}\left(R_{\hat{n}}\right)</script>是Wigner D-matrices，<script type="math/tex">R_{\hat{n}}</script>为将法向量旋转至Z轴的角度。进一步的，将边界约束写为如下形式，</p>
 <script type="math/tex; mode=display">
-a=\left(\sqrt{\frac{5}{12}} \sin 4 \theta, 0,0,0, \sqrt{\frac{7}{12}}, 0,0,0, \sqrt{\frac{5}{12}} \cos 4 \theta\right)^{\top}</script><p>其中<script type="math/tex">R_z</script>是绕z轴的旋转矩阵。引入向量<script type="math/tex">c=(c_0,c_1)</script>,可写成以下形式</p>
+u(x):=W_{4}\left(R_{\hat{n}(x)}\right)\left[v_{n}+v_{c} c(x)+v_{s} s(x)\right]\\
+c^2(x)+s^2(x)=1</script><p>&emsp;&emsp;该文的关键一步——将对每个标架的约束<script type="math/tex">c^2(x)+s^2(x)=1</script>，进一步松弛为表面积分形式，</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-a &=\sqrt{\frac{7}{12}}(0,0,0,0,1,0,0,0,0)^{\top} \\
-&+c_{0}(0,0,0,0,0,0,0,0,1)^{\top} \\
-&+c_{1}(1,0,0,0,0,0,0,0,0)^{\top}
-\end{aligned}</script><p>其中<script type="math/tex">cc^{\top}=\frac{5}{12}</script></p>
-<h5 id="3-2法向量不与z轴对齐"><a href="#3-2法向量不与z轴对齐" class="headerlink" title="3.2法向量不与z轴对齐"></a>3.2法向量不与z轴对齐</h5><p>&emsp;&emsp;策略是先将z轴转到法向量方向，即乘一个旋转矩阵<script type="math/tex">R</script>，则<script type="math/tex">a</script>变成以下形式</p>
+\int_{\partial \Omega}\left[c(x)^{2}+s(x)^{2}\right] \mathrm{d} x=A</script><h3 id="4-能量函数"><a href="#4-能量函数" class="headerlink" title="4.能量函数"></a>4.能量函数</h3><p>&emsp;&emsp;使用Dirichlet energy来平滑标架场，</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-a &=\sqrt{\frac{7}{12}}R(0,0,0,0,1,0,0,0,0)^{\top} \\
-& +c_{0}R(0,0,0,0,0,0,0,0,1)^{\top} \\
-& +c_{1}R(1,0,0,0,0,0,0,0,0)^{\top}\\
-\end{aligned}</script><h5 id="3-3尖锐、角点"><a href="#3-3尖锐、角点" class="headerlink" title="3.3尖锐、角点"></a>3.3尖锐、角点</h5><p>&emsp;&emsp;该类顶点上的标架需要符合两个法向量，选择两个大致正交的法向量作为它的特征，然后通过旋转让它们正交，然后将z轴转到它们的叉积方向，方法同3.2</p>
-<h5 id="3-4-旋转矩阵"><a href="#3-4-旋转矩阵" class="headerlink" title="3.4 旋转矩阵"></a>3.4 旋转矩阵</h5><p>&emsp;&emsp;旋转矩阵为9x9矩阵，为Wigner D-matrices </p>
+E[u]:=\int_{\Omega}\|\nabla u(x)\|_{2}^{2} \mathrm{d} x=\int_{\partial \Omega}u\frac{\partial u}{\partial \hat n}</script><p>上述第二个等号的由来为：假设在内部<script type="math/tex">\Delta u=0</script>，使用格林第一恒等式。至此，可将能量函数的积分区域由<script type="math/tex">\Omega</script>转换为<script type="math/tex">\partial \Omega</script>。而对于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>,如果能从边界区域<script type="math/tex">\partial \Omega</script>得到，再加上边界上的约束条件，则能量函数可被我们真正计算出来。</p>
+<p>&emsp;&emsp;对于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>,使用边界元的公式获得其与<script type="math/tex">u</script>的关系，</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-&R_{B}^{z}(\gamma)=\left[\begin{array}{ccccccccc}
-\cos (4 \gamma) & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \sin (4 \gamma) \\
-0 & \cos (3 \gamma) & 0 & 0 & 0 & 0 & 0 & \sin (3 \gamma) & 0 \\
-0 & 0 & \cos (2 \gamma) & 0 & 0 & 0 & \sin (2 \gamma) & 0 & 0 \\
-0 & 0 & 0 & \cos (\gamma) & 0 & \sin (\gamma) & 0 & 0 & 0 \\
-0 & 0 & 0 &0 & 1 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 &  -\sin (\gamma) & 0 & \cos ( \gamma) & 0 & 0 & 0 & 0 \\
-0 & 0 & -\sin (2 \gamma) & 0 & 0 & 0 & \cos (2 \gamma) & 0 & 0 & 0 \\
-0 & -\sin (3 \gamma) & 0 & 0 & 0 & 0 & 0 & \cos (3 \gamma) & 0 \\
--\sin (4 \gamma) & 0 & 0 & 0 & 0 & 0 & 0 & 0 & \cos (4 \gamma)
-\end{array}\right]
-\end{aligned}</script><script type="math/tex; mode=display">
-\begin{aligned}
-&R_{B}^{x}(\pi / 2)=\left[\begin{array}{cccccccc}
-0 & 0 & 0 & 0 & 0 & \sqrt{14} / 4 & 0 & -\sqrt{2} / 4 & 0 \\
-0 & -3 / 4 & 0 & \sqrt{7} / 4 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 0 & \sqrt{2} / 4 & 0 & \sqrt{14} / 4 & 0 \\
-0 & \sqrt{7} / 4 & 0 & 3 / 4 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & 3 / 8 & 0 & \sqrt{5} / 4 & 0 & \sqrt{35} / 8 \\
--\sqrt{14} / 4 & 0 & -\sqrt{2} / 4 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & \sqrt{5} / 4 & 0 & 1 / 2 & 0 & -\sqrt{7} / 4 \\
-\sqrt{2} / 4 & 0 & -\sqrt{14} / 4 & 0 & 0 & 0 & 0 & 0 & 0 \\
-0 & 0 & 0 & 0 & \sqrt{35} / 8 & 0 & -\sqrt{7} / 4 & 0 & 1 / 8
-\end{array}\right]
-\end{aligned}</script><script type="math/tex; mode=display">
+\frac{1}{2} u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y \quad\quad x\in \partial \Omega</script><p>其中<script type="math/tex">G(x)</script>是格林函数<script type="math/tex">\frac{1}{4\pi||x||}</script>。</p>
+<div class="note note-warning">
+            <ol><li><p>关于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>的计算是否可用<script type="math/tex">\nabla u \cdot \hat n</script>来完成？</p></li><li><p>上面在化简Dirichlet energy到边界上时使用了条件<script type="math/tex">\Delta u=0</script>，而通过该条件也可使用分部积分反推出该能量函数。是否可直接使用拉普拉斯算子来平滑场？<script type="math/tex">\min_{x} \sum_{i, j} w_{i j}\left\|x_{i}-x_{j}\right\|_{2}^{2}=\min _{X}tr(X^TLX)</script></p></li></ol>
+          </div>
+<p>&emsp;&emsp;至此，能量函数归结为如下形式，</p>
+<script type="math/tex; mode=display">
 \begin{array}{l}
-R_{B}^{y}(\beta)=R_{B}^{x}(\pi / 2) \times R_{B}^{z}(\beta) \times R_{B}^{x}(\pi / 2)^{\top} \\
-R_{B}^{x}(\alpha)=R_{B}^{y}(\pi / 2)^{\top} \times R_{B}^{z}(\alpha) \times R_{B}^{y}(\pi / 2)
-\end{array}</script><p>则最终旋转矩阵为</p>
+\min _{u, \frac{\partial u}{\partial \hbar}, c, s} \quad E\left[u, \frac{\partial u}{\partial \hat{n}}\right]=\int_{\Omega}\|\nabla u\|_{2}^{2}=\int_{\partial \Omega} u \frac{\partial u}{\partial \hat{n}}\\
+\text { s.t. }\quad u(x)=W_{4}\left(R_{\hat{n}(x)}\right)\left[v_{n}+v_{c} c(x)+v_{s} s(x)\right] 
+ \quad \forall x \in \partial \Omega \\
+\int_{\partial \Omega}\left[c(x)^{2}+s(x)^{2}\right] \mathrm{d} x=A \\
+\frac{1}{2} u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y \quad \text {holds} \quad \forall x \in \partial \Omega
+\end{array}</script><h3 id="5-离散化"><a href="#5-离散化" class="headerlink" title="5.离散化"></a>5.离散化</h3><p>&emsp;&emsp;假设网格为三角形网格，边界有<script type="math/tex">n</script>个面。每个面上有一个<script type="math/tex">u_k \in \mathbb{R}^{9}</script>，即表面上的标架存在于面上。定义<script type="math/tex">u\in \mathbb{R}^{9n}</script>为表面上的所有未知标架；定义<script type="math/tex">\bar{u}_{m} \in \mathbb{R}^{n}</script>为所有<script type="math/tex">u_k</script>的第<script type="math/tex">m</script>个系数,。根据已有的BEM方法(C. Pozrikidis - A Practical Guide to Boundary Element Methods with the Software Library BEMLIB §5.1.4 )可获得一个矩阵<script type="math/tex">B \in \mathbb{R}^{n\times n}</script>，则<script type="math/tex">\frac{\partial \bar{u}}{\partial \hat{n}}</script>可写成如下形式</p>
 <script type="math/tex; mode=display">
-R_{B}(\alpha, \beta, \gamma)=R_{B}^{x}(\alpha) \times R_{B}^{y}(\beta) \times R_{B}^{z}(\gamma)</script><h4 id="4-矩阵化"><a href="#4-矩阵化" class="headerlink" title="4.矩阵化"></a>4.矩阵化</h4><p>&emsp;&emsp;求解采用最小二乘<script type="math/tex">||AX-b||</script>，其中标架<script type="math/tex">a^i</script>和约束<script type="math/tex">c^i</script>存储于<script type="math/tex">X</script>向量（<script type="math/tex">(9n_v+2n_l)</script>维，<script type="math/tex">n_v</script>为不带约束的顶点，<script type="math/tex">n_l</script>是带约束的顶点）</p>
+B \bar{u}_{m} \approx\left(\frac{\partial \bar{u}}{\partial \hat{n}}\right)_{m}</script><p>&emsp;&emsp;定义<script type="math/tex">\bar T</script>是一个关于网格单元面积的对角阵，定义<script type="math/tex">\bar L:=\bar T B</script>,在Dirichlet energy可离散化为</p>
+<script type="math/tex; mode=display">
+E\left[\left\{\bar{u}_{m}\right\}_{m=-4}^{4}\right]:=\sum_{m=-4}^{4} \bar{u}_{m}^{\top} \bar{L} \bar{u}_{m}=u^{\top} L u</script><p>其中<script type="math/tex">L \in \mathbb{R}^{9n\times 9n}</script>由<script type="math/tex">\bar L</script>这些分块组成，进一步如果<script type="math/tex">L</script>不对称，使其对称化,<script type="math/tex">L \leftarrow \frac{1}{2}\left(L+L^{\top}\right)</script>。（作者称<script type="math/tex">L</script>为半正定）</p>
+<p>&emsp;&emsp;定义<script type="math/tex">c,s \in \mathbb{R}^n</script>是边界上的约束，<script type="math/tex">u_0\in \mathbb{R}^{9n}</script>由<script type="math/tex">W_{4}\left(R_{\hat{n}_k}\right)v_n</script>分块组成，同时定义约束矩阵<script type="math/tex">H_c,H_s\in \mathbb{R}^{9n\times n}</script>分别为由<script type="math/tex">W_{4}\left(R_{\hat{n}_{k}}\right) v_{c} c_{k}</script>和<script type="math/tex">W_{4}\left(R_{\hat{n}_{k}}\right) v_{s} s_{k}</script>分块组成，则表面标架和表面法向约束变为</p>
+<script type="math/tex; mode=display">
+u=u_{0}+H_{c} c+H_{s} s\\
+c^{\top} \bar{T} c+s^{\top} \bar{T} s=A</script><p>&emsp;&emsp;至此，总的优化目标变为</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-X[9i+d]=a_d^i ,\quad \quad i \in[0,n_v],d \in [0,8]\\ 
-X[9n_v+2i+d]=c_{d}^{i},\quad \quad i \in [0,n_l],d \in [0,1]\\
-\end{aligned}</script><p>&emsp;&emsp;系数矩阵<script type="math/tex">A_{(9\mathcal{E}+9n_l)\times(9n_v+2n_l)}</script>（<script type="math/tex">\mathcal{E}</script>为边数）下标是行，上标是列，设置如下：</p>
+\min _{\{u, c, s\}} & u^{\top} L u \\
+\text { s.t. } & u=u_{0}+H_{c} c+H_{s} s \\
+& c^{\top} \bar{T} c+s^{\top} \bar{T} s=A
+\end{aligned}</script><p>共有<script type="math/tex">9n+2n=11n</script>个变量，<script type="math/tex">9n+1</script>个约束，所以自由度<script type="math/tex">2n-1</script>。</p>
+<h3 id="6-优化"><a href="#6-优化" class="headerlink" title="6.优化"></a>6.优化</h3><p>&emsp;&emsp;定义如下矩阵</p>
 <script type="math/tex; mode=display">
-A_{9\mathcal{E}\times (9n_v+2n_l)}=\left\{
-\begin{aligned}&a_{\mathcal{E}_{ij}+d}^{9i+d}=1,a_{\mathcal{E}_{ij}+d}^{9j+d}=-1 &&edge(v_i,v_j)\in \mathcal{E}, d \in[0,8]\\
-&0  &&other\end{aligned}\right.</script><p>注意到上面的<script type="math/tex">A</script>还不完整，还需在下面加入一个描述约束的block(<script type="math/tex">9n_l\times(9n_v+2n_l)</script>)</p>
-<p>&emsp;&emsp;对于有约束点，计算得到其将z轴旋转到法向方向的9x9旋转矩阵<script type="math/tex">R_B</script>,并定义如下值</p>
+\begin{array}{l}
+Q:=\left(\begin{array}{cc}
+H_{c}^{\top} L H_{c} & H_{c}^{\top} L H_{s} \\
+H_{s}^{\top} L H_{c} & H_{s}^{\top} L H_{s}
+\end{array}\right) \in \mathbb{R}^{2 n \times 2 n} \\
+v:=\left(\begin{array}{c}
+H_{c}^{\top} L u_{0} \\
+H_{s}^{\top} L u_{0}
+\end{array}\right) \in \mathbb{R}^{2 n} \\
+x:=\left(\begin{array}{c}
+c \\
+s
+\end{array}\right) \in \mathbb{R}^{2 n} \\
+T:=\operatorname{diag}(\bar{T}, \bar{T}) \in \mathbb{R}^{2 n \times 2 n}
+\end{array}</script><p>对于前一步得到的矩阵形式优化目标，将<script type="math/tex">u</script>代入能量函数，转置标量，则优化目标变可变为</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-h_{0} & = R_{B} (1,0,0,0,0,0,0,0,0)^{\top} \\
-h_{4} & = R_{B} (0,0,0,0,1,0,0,0,0)^{\top} \\
-h_{8} &= R_{B} (0,0,0,0,0,0,0,0,1)^{\top}\\
-\lambda& =100
-\end{aligned}</script><p>其中<script type="math/tex">\lambda</script>是惩罚系数，则矩阵A剩余部分为</p>
+\begin{array}{rl}
+\min _{x \in \mathbb{R}^{2 n}} & x^{\top} Q x+2 x^{\top} v \\
+\text { s.t. } & x^{\top} T x=A
+\end{array}</script><p>&emsp;&emsp;使用拉格朗日乘子法得到</p>
 <script type="math/tex; mode=display">
-A_{9n_l\times(9n_v+2n_l)}=\left\{
-\begin{aligned}&a_{i+d}^{9i+d}=\lambda,\quad a_{i+d}^{9 n_v+2i}=\lambda h_0[d],\quad a_{i+d}^{9n_v+2i+1}=\lambda h_8[d] \ \ \ &&i\in \mathcal{n_l}, d \in[0,8]\\&0  &&other
-\end{aligned}
-\right.</script><p>&emsp;&emsp;<script type="math/tex">b</script>为<script type="math/tex">(9\mathcal{E}+9n_l)</script>维向量，其前<script type="math/tex">9\mathcal{E}</script>维为<script type="math/tex">0</script>,后<script type="math/tex">9n_l</script>由约束决定，如下</p>
+(Q-\lambda T) x=-v</script><p>将<script type="math/tex">x</script>看成关于<script type="math/tex">\lambda</script>的函数<script type="math/tex">x(\lambda)</script>,定义<script type="math/tex">g(\lambda):=x(\lambda)^{\top} T x(\lambda)-A</script>，则上述乘子应为<script type="math/tex">g(\lambda)=0</script>的根，可使用二分法获得。</p>
+<div class="note note-success">
+            <p>&emsp;&emsp;<strong>证明</strong>：对于方程<script type="math/tex">(Q-\lambda T) x=-v</script>，假设<script type="math/tex">Q-\lambda T</script>不可逆，则必有<script type="math/tex">x</script>使</p><script type="math/tex; mode=display">(Q-\lambda T) x=0\\Qx=\lambda Tx</script><p>问题转化为广义特征值问题，设<script type="math/tex">\lambda_{min}</script>是其最小特征值。假设特征向量不正于方程右边，则对于方程左边，当<script type="math/tex">\lambda \rightarrow \lambda_{\min }</script>时，<script type="math/tex">\|x\| \rightarrow \infty</script>，即<script type="math/tex">\lim _{\lambda \rightarrow \lambda_{\min }} g(\lambda)=\infty</script>。同样的，当<script type="math/tex">\lambda \rightarrow -\infty</script>时，<script type="math/tex">\|x\| \rightarrow 0</script>，即</p><p><script type="math/tex">\lim _{\lambda \rightarrow-\infty} g(\lambda)=-A</script>。又因为<script type="math/tex">g^{\prime}(\lambda)>0</script>,则在<script type="math/tex">\lambda\in(-\infty,\lambda_{min})</script>之间必定存在一个根使<script type="math/tex">g(\lambda) =0</script>。</p>
+          </div>
+<p>&emsp;&emsp;经上述步骤，优化的解为<script type="math/tex">x(\lambda_0)</script>，其中<script type="math/tex">g(\lambda_0) =0</script>。第一步求解<script type="math/tex">\lambda_{min}</script>时间很快，花费最大的是在第二部使用二分法求根(每次都要对一个稠密线性系统逆运算)。</p>
+<h3 id="8-内部场"><a href="#8-内部场" class="headerlink" title="8.内部场"></a>8.内部场</h3><p>&emsp;&emsp;在求解内部场是可先归一化场<script type="math/tex">\frac{u(x)}{||u(x)||_2},x\in \partial \Omega</script>，在优化时是不能归一化的，不过在插值生成内部场时不同大小的<script type="math/tex">u</script>会造成坏的影响,比如<script type="math/tex">u(x)</script>越大，标架对于内部接近边界的奇异点的选择会更加显著。内部标架场可由边界元的公式获得,</p>
 <script type="math/tex; mode=display">
-b_{9\mathcal{E}+9n_l}=\left\{
-\begin{aligned}&b_i=0  \quad && i \in[0,9\mathcal{E})\\
-&b_i=\lambda \sqrt{\frac{7}{12}}h_4[d]  &&i \in[9\mathcal{E},9\mathcal{E}+9n_l]
-\end{aligned}
-\right.</script><p>注意到<script type="math/tex">b</script>中的非零项中的<script type="math/tex">h_4</script>和<script type="math/tex">A</script>中的约束项一一对应的，即矩阵<script type="math/tex">A</script>和<script type="math/tex">b</script>都是动态生成的，分成了两个block:表面约束点和自由点。另据作者的说法，在这两个block中做一个Hilbert sort会提升大约30%的效率。</p>
-<p>&emsp;&emsp;至此，可通过求解<script type="math/tex">A^{\top}AX=A^{\top}X</script>得到位于顶点的嵌入到九维空间的标架表示（不再像2D中那样只需标准化就行了）。</p>
+u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y   \quad \quad x \in \Omega \backslash \partial\Omega</script><p>对于每个三角形单元，定义如下</p>
+<script type="math/tex; mode=display">
+\begin{array}{l}
+\sigma_{k}(x):=\int_{T_{k}} G(y-x) \mathrm{d} y \\
+\rho_{k}(x):=\hat{n}_{k} \cdot \int_{T_{k}} \nabla G(y-x) \mathrm{d} y
+\end{array}</script><p>则</p>
+<script type="math/tex; mode=display">
+u(x)=\sum_{k}\left[u_{k} \sigma_{k}(x)+[B u]_{k} \rho_{k}(x)\right]\\</script><div class="note note-warning">
+            <p>这边貌似转换存在问题？按照定义应该是</p><script type="math/tex; mode=display">u(x)=\sum_{k}\left[ \sigma_{k}(x)[B u]_k-u_{k}\rho_{k}(x)\right]</script><p>否则，按照他给定的式子，则原式变成了</p><script type="math/tex; mode=display">u(x)=\int_{\partial \Omega}\left[u(y)G(y-x)+ \frac{\partial u(y)}{\partial \hat{n}} \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y   \quad \quad x \in \Omega \backslash \partial\Omega</script>
+          </div>
+<h3 id="9-奇异结构"><a href="#9-奇异结构" class="headerlink" title="9.奇异结构"></a>9.奇异结构</h3><p>&emsp;&emsp;奇异结构通过采样细分，对内部采样三个点，若内部有奇异点，则四等分三角形，继续检测奇异点。</p>
+<center>
+
+<img src="/2020/10/07/2020-10-07-Boundary-Element-Octahedral-Fields-in-Volumes/image-20201009135034188.png" srcset="/img/loading.gif" class="" title="image-20201009135034188">
+
+</center>
+
+<h3 id="10-感想"><a href="#10-感想" class="headerlink" title="10.感想"></a>10.感想</h3><ul>
+<li>之前几篇的约束都在表面，而内部的奇异结构对六面体生成也是有影响的，因为这也是六面体相比于四面体网格难生成的原因(比如《Singularity-Constrained Octahedral Fields for Hexahedral Meshing》就有提到内部奇异结构的影响)。所以若要考虑六面体生成，仅保持表面约束法向约束是不是只是必要条件？</li>
+<li>在求解标架场时，遇到的问题其一是非线性非凸约束（约束住<script type="math/tex">u</script>所代表的是基函数旋转后的系数），其二是得到的解需要映射回三维。对于一，大多是松弛约束，对于二，大多是采用梯度下降逆向求解。是否有更好的优化方法而不需要松弛约束和映射？</li>
+</ul>
 
             </article>
             <hr>
@@ -324,18 +329,12 @@ b_{9\mathcal{E}+9n_l}=\left\{
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/07/2020-10-07-Boundary-Element-Octahedral-Fields-in-Volumes/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Boundary Element Octahedral Fields in Volumes</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/16/2020-09-16-Boundary-Aligned-Smooth-3D-Cross-Frame-Field/">
-                        <span class="hidden-mobile">Boundary Aligned Smooth 3D Cross-Frame Field</span>
+                      <a href="/2020/09/17/2020-09-17-Practical-3D-Frame-Field-Generation-3D/">
+                        <span class="hidden-mobile">Practical 3D Frame Field Generation-3D</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -566,7 +565,7 @@ b_{9\mathcal{E}+9n_l}=\left\{
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Practical 3D Frame Field Generation-3D&nbsp;",
+        "Boundary Element Octahedral Fields in Volumes&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

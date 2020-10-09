@@ -220,7 +220,7 @@ E_{a} &=\int_{\partial \Omega}\left\|\left(\hat{R}_{n_{p} \rightarrow z} \hat{f}
 E_{f}=\frac{E_{s}}{\operatorname{volume}(\Omega)^{1 / 3}}+w_{a} \frac{E_{a}}{\operatorname{area}(\partial \Omega)}</script><p>其中<script type="math/tex">w_a</script>是对齐约束的惩罚系数。</p>
 <p>&emsp;&emsp;至此解出<script type="math/tex">\arg \min_{\hat f}{E_f(\hat{f})}</script>,但是它是一个嵌入在九维空间的三维流形，需将它投影到三维，生成一个初始旋转<script type="math/tex">\Phi_{i}</script>,将其映射回九维，并作<script type="math/tex">L^2</script>范数的优化,得到<script type="math/tex">\hat f</script>在三维的近似表示</p>
 <script type="math/tex; mode=display">
-\Phi_{0, i} \leftarrow \arg \min _{\Phi_{i}}\left\|\hat{f}_{0, i}-\hat{R}\left(\Phi_{i}\right) \hat{h}\right\|^{2}</script><p>最后使用L-BFGS迭代使标架场光滑<script type="math/tex">\arg \min _{\Phi} E_{f}\left(\hat{f}_{[R(\Phi)]}\right)</script></p>
+\Phi_{0, i} \leftarrow \arg \min _{\Phi_{i}}\left\|\hat{f}_{0, i}-\hat{R}\left(\Phi_{i}\right) \hat{h}\right\|^{2}</script><p>最后使用L-BFGS迭代使    标架场光滑<script type="math/tex">\arg \min _{\Phi} E_{f}\left(\hat{f}_{[R(\Phi)]}\right)</script></p>
 
             </article>
             <hr>
