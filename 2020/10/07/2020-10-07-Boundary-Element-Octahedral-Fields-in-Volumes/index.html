@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    2.9k 字
+                    3.1k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    41
+                    44
                      分钟
                   </span>
                 
@@ -202,7 +202,7 @@
 <script type="math/tex; mode=display">
 \bar{\Gamma}:=\{\beta c \in \Gamma: \beta \in \mathbb{R}\} \subseteq \mathbb{R}^{9}</script><p>不过需要注意的是<script type="math/tex">\bar{\Gamma}</script>是非线性，因此在使用边界元求解内部标架场过程中可能脱离<script type="math/tex">\bar \Gamma</script>，这意味着可能某些元素并不代表着正确的旋转，因此这时还需映射回（还是使用《Practical 3D Frame Field Generation》中的梯度下降法）<script type="math/tex">\bar{\Gamma}</script>。最后再通过归一化映射回<script type="math/tex">\Gamma</script>。</p>
 <div class="note note-warning">
-            <p>可以注意到不是所有<script type="math/tex">\left\{c \in \mathbb{R}^{9}:\|c\|_{2}=1\right\}</script>中的向量都属于解空间<script type="math/tex">\Gamma</script>,如果不松弛这个条件，优化是非线性非凸的。</p>
+            <p>&emsp;&emsp;可以注意到不是所有<script type="math/tex">\left\{c \in \mathbb{R}^{9}:\|c\|_{2}=1\right\}</script>中的向量都属于解空间<script type="math/tex">\Gamma</script>,如果不松弛这个条件，优化是非线性非凸的，这个是默认松弛了，最后会用梯度下降重新投影回来，即从九维重新映射回三维。</p><p>&emsp;&emsp;至于归一化这个条件也是非凸的，如果用单位化向量去优化Dirichlet energy，如果存在奇异点，能量会blow up,尤其是在细分后，这个在《Globally Optimal Direction Fields》Section 3有提到。</p><p>&emsp;&emsp;所以其实这里默认松弛了两个条件。</p>
           </div>
 <h3 id="3-表面特征约束及松弛"><a href="#3-表面特征约束及松弛" class="headerlink" title="3.表面特征约束及松弛"></a>3.表面特征约束及松弛</h3><p>&emsp;&emsp;以上还是很抽象的解释，下面具体的约束表述。沿用过去球谐函数表示标架场的表面法向约束条件，定义如下</p>
 <script type="math/tex; mode=display">
@@ -226,7 +226,7 @@ E[u]:=\int_{\Omega}\|\nabla u(x)\|_{2}^{2} \mathrm{d} x=\int_{\partial \Omega}u\
 <script type="math/tex; mode=display">
 \frac{1}{2} u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y \quad\quad x\in \partial \Omega</script><p>其中<script type="math/tex">G(x)</script>是格林函数<script type="math/tex">\frac{1}{4\pi||x||}</script>。</p>
 <div class="note note-warning">
-            <ol><li><p>关于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>的计算是否可用<script type="math/tex">\nabla u \cdot \hat n</script>来完成？</p></li><li><p>上面在化简Dirichlet energy到边界上时使用了条件<script type="math/tex">\Delta u=0</script>，而通过该条件也可使用分部积分反推出该能量函数。是否可直接使用拉普拉斯算子来平滑场？<script type="math/tex">\min_{x} \sum_{i, j} w_{i j}\left\|x_{i}-x_{j}\right\|_{2}^{2}=\min _{X}tr(X^TLX)</script></p></li></ol>
+            <ol><li><p>关于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>的计算是否可用<script type="math/tex">\nabla u \cdot \hat n</script>来完成？</p></li><li><p>上面在化简Dirichlet energy到边界上时使用了条件<script type="math/tex">\Delta u=0</script>，而通过该条件也可使用分部积分反推出该能量函数。是否可直接使用拉普拉斯算子来平滑场，进而用拉普拉斯矩阵来优化？<script type="math/tex">\min_{x} \sum_{i, j} w_{i j}\left\|x_{i}-x_{j}\right\|_{2}^{2}=\min _{X}tr(X^TLX)</script></p></li></ol>
           </div>
 <p>&emsp;&emsp;至此，能量函数归结为如下形式，</p>
 <script type="math/tex; mode=display">
@@ -279,7 +279,7 @@ T:=\operatorname{diag}(\bar{T}, \bar{T}) \in \mathbb{R}^{2 n \times 2 n}
             <p>&emsp;&emsp;<strong>证明</strong>：对于方程<script type="math/tex">(Q-\lambda T) x=-v</script>，假设<script type="math/tex">Q-\lambda T</script>不可逆，则必有<script type="math/tex">x</script>使</p><script type="math/tex; mode=display">\begin{aligned}(Q-\lambda T) x&=0\\Qx&=\lambda Tx\end{aligned}</script><p>问题转化为广义特征值问题，设<script type="math/tex">\lambda_{min}</script>是其最小特征值。假设特征向量不正交于方程右边<script type="math/tex">v</script>，则对于方程左边，当<script type="math/tex">\lambda \rightarrow \lambda_{\min }</script>时，<script type="math/tex">\|x\| \rightarrow \infty</script>，即<script type="math/tex">\lim _{\lambda \rightarrow \lambda_{\min }} g(\lambda)=\infty</script>。同样的，当<script type="math/tex">\lambda \rightarrow -\infty</script>时，<script type="math/tex">\|x\| \rightarrow 0</script>，即</p><p><script type="math/tex">\lim _{\lambda \rightarrow-\infty} g(\lambda)=-A</script>。又因为<script type="math/tex">g^{\prime}(\lambda)>0</script>,则在<script type="math/tex">\lambda\in(-\infty,\lambda_{min})</script>之间必定存在一个根使<script type="math/tex">g(\lambda) =0</script>。</p>
           </div>
 <p>&emsp;&emsp;经上述步骤，优化的解为<script type="math/tex">x(\lambda_0)</script>，其中<script type="math/tex">g(\lambda_0) =0</script>。第一步求解<script type="math/tex">\lambda_{min}</script>时间很快，花费最大的是在第二部使用二分法求根(每次都要对一个稠密线性系统逆运算)。</p>
-<h3 id="8-内部场"><a href="#8-内部场" class="headerlink" title="8.内部场"></a>8.内部场</h3><p>&emsp;&emsp;在求解内部场是可先归一化场<script type="math/tex">\frac{u(x)}{||u(x)||_2},x\in \partial \Omega</script>，在优化时是不能归一化的，不过在插值生成内部场时不同大小的<script type="math/tex">u</script>会造成坏的影响,比如<script type="math/tex">u(x)</script>越大，标架对于内部接近边界的奇异点的选择会更加显著。内部标架场可由边界元的公式获得,</p>
+<h3 id="7-内部场"><a href="#7-内部场" class="headerlink" title="7.内部场"></a>7.内部场</h3><p>&emsp;&emsp;在求解内部场是可先归一化场<script type="math/tex">\frac{u(x)}{||u(x)||_2},x\in \partial \Omega</script>，在优化时是不能归一化的，不过在插值生成内部场时不同大小的<script type="math/tex">u</script>会造成坏的影响,比如<script type="math/tex">u(x)</script>越大，标架对于内部接近边界的奇异点的选择会更加显著。内部标架场可由边界元的公式获得,</p>
 <script type="math/tex; mode=display">
 u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y   \quad \quad x \in \Omega \backslash \partial\Omega</script><p>对于每个三角形单元，定义如下</p>
 <script type="math/tex; mode=display">
@@ -291,15 +291,19 @@ u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u
 u(x)=\sum_{k}\left[u_{k} \sigma_{k}(x)+[B u]_{k} \rho_{k}(x)\right]\\</script><div class="note note-warning">
             <p>这边貌似转换存在问题？按照定义应该是</p><script type="math/tex; mode=display">u(x)=\sum_{k}\left[ \sigma_{k}(x)[B u]_k-u_{k}\rho_{k}(x)\right]</script><p>否则，按照他给定的式子，则原式变成了</p><script type="math/tex; mode=display">u(x)=\int_{\partial \Omega}\left[u(y)G(y-x)+ \frac{\partial u(y)}{\partial \hat{n}} \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y   \quad \quad x \in \Omega \backslash \partial\Omega</script>
           </div>
-<h3 id="9-奇异结构"><a href="#9-奇异结构" class="headerlink" title="9.奇异结构"></a>9.奇异结构</h3><p>&emsp;&emsp;奇异结构通过采样细分，对内部采样三个点，若内部有奇异点，则四等分三角形，继续检测奇异点。</p>
+<p>&emsp;&emsp;解出<script type="math/tex">u</script>后，<script type="math/tex">u</script>可能不在解空间<script type="math/tex">\bar\Gamma</script>中，使用《Practical 3D Frame Field Generation》中梯度下降法(closest_frame)映射回<script type="math/tex">\bar \Gamma</script>再归一化。</p>
+<div class="note note-warning">
+            <p>&emsp;&emsp;这里的closest_frame算法用的是<script type="math/tex">L_2</script>模，即欧式距离，能保证在<script type="math/tex">\Gamma</script>中欧式距离能给出很好的测度吗? （<script type="math/tex">\Gamma</script>是一个spherical 3- manifold）</p>
+          </div>
+<h3 id="8-奇异结构"><a href="#8-奇异结构" class="headerlink" title="8.奇异结构"></a>8.奇异结构</h3><p>&emsp;&emsp;奇异结构通过采样细分，对内部采样三个点，若内部有奇异点，则四等分三角形，继续检测奇异点。</p>
 <center>
 
 <img src="/2020/10/07/2020-10-07-Boundary-Element-Octahedral-Fields-in-Volumes/image-20201009135034188.png" srcset="/img/loading.gif" class="" title="image-20201009135034188">
 
 </center>
 
-<h3 id="10-感想"><a href="#10-感想" class="headerlink" title="10.感想"></a>10.感想</h3><ul>
-<li>之前几篇的约束都在表面，而内部的奇异结构对六面体生成也是有影响的，因为这也是六面体相比于四面体网格难生成的原因(比如《Singularity-Constrained Octahedral Fields for Hexahedral Meshing》就有提到内部奇异结构的影响)。所以若要考虑六面体生成，仅保持表面约束法向约束是不是只是必要条件？</li>
+<h3 id="9-感想"><a href="#9-感想" class="headerlink" title="9.感想"></a>9.感想</h3><ul>
+<li>之前几篇(包括这篇)的约束都在表面，而内部的奇异结构对六面体生成也是有影响的，因为这也是六面体相比于四面体网格难生成的原因(比如《Singularity-Constrained Octahedral Fields for Hexahedral Meshing》就有提到内部奇异结构的影响)。所以若要考虑六面体生成，仅保持表面约束法向约束是不是只是必要条件？</li>
 <li>在求解标架场时，遇到的问题其一是非线性非凸约束（约束住<script type="math/tex">u</script>所代表的是基函数旋转后的系数），其二是得到的解需要映射回三维。对于一，大多是松弛约束，对于二，大多是采用梯度下降逆向求解。是否有更好的优化方法而不需要松弛约束和映射？ </li>
 </ul>
 
