@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    2.8k 字
+                    2.9k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    39
+                    41
                      分钟
                   </span>
                 
@@ -219,6 +219,9 @@ c^2(x)+s^2(x)=1</script><p>&emsp;&emsp;该文的关键一步——将对每个�
 \int_{\partial \Omega}\left[c(x)^{2}+s(x)^{2}\right] \mathrm{d} x=A</script><h3 id="4-能量函数"><a href="#4-能量函数" class="headerlink" title="4.能量函数"></a>4.能量函数</h3><p>&emsp;&emsp;使用Dirichlet energy来平滑标架场，</p>
 <script type="math/tex; mode=display">
 E[u]:=\int_{\Omega}\|\nabla u(x)\|_{2}^{2} \mathrm{d} x=\int_{\partial \Omega}u\frac{\partial u}{\partial \hat n}</script><p>上述第二个等号的由来为：假设在内部<script type="math/tex">\Delta u=0</script>，使用格林第一恒等式。至此，可将能量函数的积分区域由<script type="math/tex">\Omega</script>转换为<script type="math/tex">\partial \Omega</script>。而对于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>,如果能从边界区域<script type="math/tex">\partial \Omega</script>得到，再加上边界上的约束条件，则能量函数可被我们真正计算出来。</p>
+<div class="note note-success">
+            <p>&emsp;&emsp;<strong>证明：</strong>根据格林第一恒等式</p><script type="math/tex; mode=display">\int_{\Omega}(\nabla u\cdot \nabla v+u\Delta v)d\Omega=\int_\Gamma u\nabla v\cdot d\Gamma=\int_{\Gamma}u\frac{\partial v}{\partial n}d\Gamma</script><p>用<script type="math/tex">u</script>代替<script type="math/tex">v</script>,则</p><script type="math/tex; mode=display">\int_{\Omega}(\nabla u\cdot \nabla u+u\Delta u)d\Omega=\int_\Gamma u\nabla u\cdot d\Gamma=\int_{\Gamma}u\frac{\partial u}{\partial n}d\Gamma</script><p>即</p><script type="math/tex; mode=display">\int_{\Omega}||\nabla u||_2^{2}d\Omega=\int_{\Gamma}u\frac{\partial u}{\partial n}d\Gamma-\int_{\Omega}(u\Delta u)d\Omega</script><p>令<script type="math/tex">\Delta u=0</script>得到</p><script type="math/tex; mode=display">\int_{\Omega}||\nabla u||_2^{2}d\Omega=\int_{\Gamma}u\frac{\partial u}{\partial n}d\Gamma</script>
+          </div>
 <p>&emsp;&emsp;对于<script type="math/tex">\frac{\partial u}{\partial \hat n}</script>,使用边界元的公式获得其与<script type="math/tex">u</script>的关系，</p>
 <script type="math/tex; mode=display">
 \frac{1}{2} u(x)=\int_{\partial \Omega}\left[G(y-x) \frac{\partial u(y)}{\partial \hat{n}}-u(y) \frac{\partial G(y-x)}{\partial \hat{n}}\right] \mathrm{d} y \quad\quad x\in \partial \Omega</script><p>其中<script type="math/tex">G(x)</script>是格林函数<script type="math/tex">\frac{1}{4\pi||x||}</script>。</p>
@@ -297,7 +300,7 @@ u(x)=\sum_{k}\left[u_{k} \sigma_{k}(x)+[B u]_{k} \rho_{k}(x)\right]\\</script><d
 
 <h3 id="10-感想"><a href="#10-感想" class="headerlink" title="10.感想"></a>10.感想</h3><ul>
 <li>之前几篇的约束都在表面，而内部的奇异结构对六面体生成也是有影响的，因为这也是六面体相比于四面体网格难生成的原因(比如《Singularity-Constrained Octahedral Fields for Hexahedral Meshing》就有提到内部奇异结构的影响)。所以若要考虑六面体生成，仅保持表面约束法向约束是不是只是必要条件？</li>
-<li>在求解标架场时，遇到的问题其一是非线性非凸约束（约束住<script type="math/tex">u</script>所代表的是基函数旋转后的系数），其二是得到的解需要映射回三维。对于一，大多是松弛约束，对于二，大多是采用梯度下降逆向求解。是否有更好的优化方法而不需要松弛约束和映射？</li>
+<li>在求解标架场时，遇到的问题其一是非线性非凸约束（约束住<script type="math/tex">u</script>所代表的是基函数旋转后的系数），其二是得到的解需要映射回三维。对于一，大多是松弛约束，对于二，大多是采用梯度下降逆向求解。是否有更好的优化方法而不需要松弛约束和映射？ </li>
 </ul>
 
             </article>
@@ -331,7 +334,7 @@ u(x)=\sum_{k}\left[u_{k} \sigma_{k}(x)+[B u]_{k} \rho_{k}(x)\right]\\</script><d
                     
                       <a href="/2020/10/09/2020-10-09-Greens-identities/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Green's Identities</span>
+                        <span class="hidden-mobile">Green's Identities And Boundary Element Method</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

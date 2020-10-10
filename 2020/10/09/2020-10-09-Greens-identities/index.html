@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Green&#39;s Identities - SenayのBlog</title>
+  <title>Green&#39;s Identities And Boundary Element Method - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    716 字
+                    933 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    11
+                    15
                      分钟
                   </span>
                 
@@ -221,24 +221,28 @@
 <script type="math/tex; mode=display">
 \int_{\Omega}\nabla u\cdot \nabla vd\Omega=\int_\Gamma v\nabla u\cdot d\Gamma-\int_{\Omega}v\Delta ud\Omega</script><p>再根第一恒等式相减，得到第二恒等式</p>
 <script type="math/tex; mode=display">
-\int_{\Gamma}(u\nabla v-v\nabla u)\cdot d\Gamma=\int_{\Omega}(u\Delta v-v\Delta u)d\Omega</script><h3 id="4-格林第三恒等式（Green’s-Third-Identities）"><a href="#4-格林第三恒等式（Green’s-Third-Identities）" class="headerlink" title="4. 格林第三恒等式（Green’s Third Identities）"></a>4. 格林第三恒等式（Green’s Third Identities）</h3><p>&emsp;&emsp;设函数 <em>G</em> 是拉普拉斯方程式的基本解,</p>
+\int_{\Gamma}(u\nabla v-v\nabla u)\cdot d\Gamma=\int_{\Gamma}(u\frac{\partial v}{\partial n}-v\frac{\partial u}{\partial n}) d\Gamma=\int_{\Omega}(u\Delta v-v\Delta u)d\Omega</script><h3 id="4-格林第三恒等式（Green’s-Third-Identities）"><a href="#4-格林第三恒等式（Green’s-Third-Identities）" class="headerlink" title="4. 格林第三恒等式（Green’s Third Identities）"></a>4. 格林第三恒等式（Green’s Third Identities）</h3><p>&emsp;&emsp;设函数 <em>G</em> 是拉普拉斯方程式的基本解,</p>
 <script type="math/tex; mode=display">
-\Delta G(x,x^{\prime})=\delta(x-x^{\prime})</script><p>其中<script type="math/tex">G</script>是格林函数，<script type="math/tex">\delta</script>是狄拉克<script type="math/tex">\delta</script>函数。两边乘以<script type="math/tex">u(x^{\prime})</script></p>
-<script type="math/tex; mode=display">
-u(x^{\prime})\Delta G(x,x^{\prime})=u(x^{\prime})\delta(x-x^{\prime})</script><p>两边在区域<script type="math/tex">\Omega</script>内积分，若<script type="math/tex">x\in \Omega</script>，根据狄拉克函数的平移特性<script type="math/tex">\int_{\Omega}f(t)\delta(t-T)dt=f(T)</script>,有</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\int_{\Omega}u(x^{\prime})\Delta G(x,x^{\prime})d\Omega=\int_{\Omega}u(x^{\prime})\delta(x-x^{\prime})d\Omega=u(x)
-\end{aligned}</script><p>对等式左边应用第二恒等式，即令<script type="math/tex">v=u(x^{\prime}),u=G(x,x^{\prime})</script>，则有</p>
+\Delta G(P,Q)=\delta(P-Q)</script><p>其中<script type="math/tex">G</script>是格林函数，<script type="math/tex">\delta</script>是狄拉克<script type="math/tex">\delta</script>函数。</p>
+<p>&emsp;&emsp;若<script type="math/tex">P,Q\in \Omega,P^{\prime},Q^{\prime} \in \partial \Omega</script>，将其代入第二恒等式，令<script type="math/tex">v=G</script>，分别对<script type="math/tex">Q^{\prime},Q</script>积分，则</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-u(x)-\int_{\Omega}G(x,x^{\prime})\Delta u(x^{\prime})d\Omega&=\int_{\Gamma}[u(x^{\prime})\nabla G(x,x^{\prime})-G(x,x^{\prime})\nabla u(x^{\prime})]\cdot d\Gamma\\
-&=\int_{\Gamma}[u(x^{\prime})\frac{\partial G(x,x^{\prime}}{\partial n} -G(x,x^{\prime})\frac{\partial  u(x^{\prime})}{\partial n}]d\Gamma  \quad x\in \Omega \\ 
+\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma=\int_{\Omega}[u(Q)\Delta G(P,Q)-G(P,Q)\Delta u(Q)]d\Omega   \quad
+\end{aligned}</script><p>&emsp;&emsp;根据狄拉克<script type="math/tex">\delta</script>函数的平移特性<script type="math/tex">\int_{\Omega}f(t)\delta(t-T)dt=f(T)</script>,有</p>
+<script type="math/tex; mode=display">
+\int_{\Omega}u(Q)\Delta G(P,Q)d \Omega=\int_{\Omega}u(Q)\delta(P-Q)d \Omega=u(P)</script><p>则</p>
+<script type="math/tex; mode=display">
+\begin{aligned}
+u(P)-\int_{\Omega}G(P,Q)\Delta u(Q)d\Omega=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma
 \end{aligned}</script><p>这就是第三恒等式。</p>
-<p>&emsp;&emsp;若<script type="math/tex">\Delta u(x^{\prime})=0</script>,则</p>
+<h3 id="5-边界元-Boundary-Element-Method"><a href="#5-边界元-Boundary-Element-Method" class="headerlink" title="5. 边界元(Boundary Element Method)"></a>5. 边界元(Boundary Element Method)</h3><p>&emsp;&emsp;对于第三恒等式，若<script type="math/tex">\Delta u(Q)=0</script>,则</p>
 <script type="math/tex; mode=display">
-u(x)=\int_{\Gamma}[u(x^{\prime})\frac{\partial G(x,x^{\prime}}{\partial n} )-G(x,x^{\prime})\frac{\partial  u(x^{\prime})}{\partial n}]d\Gamma \quad x\in \Omega</script><p>这就是边界元法的内部的等式，可以看到该方法是在<script type="math/tex">\Delta u(x^{\prime})=0</script>条件下成立的。</p>
-
+u(P)=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P\in \Omega</script><p>这就是边界元法的内部的等式，可以看到该方法是在<script type="math/tex">\Delta u(Q)=0</script>条件下成立的。</p>
+<p>&emsp;&emsp;对于边界元法，当<script type="math/tex">P^{\prime}\in \partial \Omega</script>时，不再适用上式，因为在边界上时，若<script type="math/tex">P^{\prime}</script>与<script type="math/tex">Q^{\prime}</script>重合时，<script type="math/tex">G</script>会奇异，对于这种情况，可用半径为<script type="math/tex">\varepsilon</script>的圆包围<script type="math/tex">Q^{\prime}</script>,然后写成分段形式，并取极限<script type="math/tex">\varepsilon \rightarrow0</script>,可得到</p>
+<script type="math/tex; mode=display">
+c(P^{\prime})u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P\in \Omega</script><p>其中<script type="math/tex">c(P^{\prime})=\frac{\theta(P^{\prime})}{2\pi}</script>，<script type="math/tex">\theta(P^{\prime})</script>是包含<script type="math/tex">P^{\prime}</script>的内部圆弧的角度，通常对于光滑边界，<script type="math/tex">\theta(P^{\prime})=\pi</script>,则就引出我们常见边界上的形式</p>
+<script type="math/tex; mode=display">
+\frac{1}{2}u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P^{\prime}\in \Omega</script>
             </article>
             <hr>
             <div>
@@ -504,7 +508,7 @@ u(x)=\int_{\Gamma}[u(x^{\prime})\frac{\partial G(x,x^{\prime}}{\partial n} )-G(x
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Green's Identities&nbsp;",
+        "Green's Identities And Boundary Element Method&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
