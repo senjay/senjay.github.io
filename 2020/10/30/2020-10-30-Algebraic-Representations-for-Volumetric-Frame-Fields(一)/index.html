@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Green&#39;s Identities And Boundary Element Method - SenayのBlog</title>
+  <title>Algebraic Representations for Volumetric Frame Fields(一) - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-10-09 21:16">
-                    2020年10月9日 晚上
+                  <time datetime="2020-10-30 13:34">
+                    2020年10月30日 下午
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    938 字
+                    1.1k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    15
+                    16
                      分钟
                   </span>
                 
@@ -195,54 +195,59 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h3 id="1-高维分部积分"><a href="#1-高维分部积分" class="headerlink" title="1.高维分部积分"></a>1.高维分部积分</h3><p>&emsp;&emsp;回忆下最基本的分部积分</p>
+              <h4 id="1-解空间"><a href="#1-解空间" class="headerlink" title="1.解空间"></a>1.解空间</h4><p>&emsp;&emsp;定义映射<script type="math/tex">\rho:SO(3)\to SO(9)</script>,定义线性算子<script type="math/tex">H \in \mathbb{R}^{9\times 9}</script>投影至<script type="math/tex">\mathbb{R}^9</script>的子空间（即在八面体群作用下具有不变性的空间）</p>
 <script type="math/tex; mode=display">
-\begin{array}{c}
-\int u(x) v^{\prime}(x) d x=u(x) v(x)-\int u^{\prime}(x) v(x) d x \\
-\int u d v=u v-\int v d u
-\end{array}</script><p>&emsp;&emsp;对于高维，无非是多了基底，对每个基的方向使用分部积分</p>
+H=\frac{1}{|O|}\sum_{o \in O}\rho(o)</script><p>由于</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-\int_{\Omega}\frac{\partial u}{\partial x_i}v_id\Omega&=\int_{\Omega}v_idu
-\\&= \int_\Gamma uv_in_id\Gamma-\int_{\Omega}udv_i\\
-&=\int_\Gamma uv_in_id\Gamma-\int_{\Omega}u\frac{\partial v_i}{x_i}d\Omega\\
-\end{aligned}</script><p>对<script type="math/tex">i</script>求和，写成散度形式，</p>
+\rho\left(o^{\prime}\right) H=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho\left(o^{\prime}\right) \rho(o)=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho\left(o^{\prime} o\right)=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho(o)=H</script><p>所以<script type="math/tex">\forall q \in \mathbb{R}^9</script>,当且仅当<script type="math/tex">q\in Im(H)</script>时,<script type="math/tex">\rho(O)\cdot q=q</script>。</p>
+<p>&emsp;&emsp;说明当映射<script type="math/tex">\rho</script>作用于八面体群时并不改变算子<script type="math/tex">H</script>的作用，根据以上意义，可得出当<script type="math/tex">q\in Im(H)</script>时，<script type="math/tex">q</script>的稳定子<script type="math/tex">stab(q)=O</script></p>
+<p>&emsp;&emsp;定义规范八面体标架，所有其他标架可由其旋转变换得到</p>
 <script type="math/tex; mode=display">
-\int_{\Omega}\nabla u\cdot vd\Omega=\int_\Gamma uv\cdot d\Gamma-\int_{\Omega}u\nabla \cdot vd\Omega\\</script><h3 id="2-格林第一恒等式（Green’s-First-Identities）"><a href="#2-格林第一恒等式（Green’s-First-Identities）" class="headerlink" title="2.格林第一恒等式（Green’s First Identities）"></a>2.格林第一恒等式（Green’s First Identities）</h3><p>&emsp;&emsp;把<script type="math/tex">v</script>用<script type="math/tex">\nabla v</script>代，即用梯度场代替，则变为</p>
+q_{0}=\left(0,0,0,0, \sqrt{\frac{7}{12}}, 0,0,0, \sqrt{\frac{5}{12}}\right)^{\top} \in \mathbb{R}^{9}</script><p>则<script type="math/tex">H=q_0q_0^{\top}</script>。</p>
+<p>&emsp;&emsp;根据轨道与稳定子的关系，可得出解空间位于<script type="math/tex">q</script>的轨道<script type="math/tex">F</script>上,其稳定子为<script type="math/tex">O</script>，将其设为八面体变量(octahedral variety)</p>
 <script type="math/tex; mode=display">
-\begin{aligned}
-\int_{\Omega}\nabla u\cdot \nabla vd\Omega&=\int_\Gamma u\nabla v\cdot d\Gamma-\int_{\Omega}u\nabla \cdot \nabla vd\Omega\\
-&=\int_\Gamma u\nabla v\cdot d\Gamma-\int_{\Omega}u\Delta vd\Omega
-\end{aligned}</script><p>或写成</p>
+F=\rho(\mathrm{SO}(3)) q_{0}=\left\{\rho(r) q_{0} \mid r \in \mathrm{SO}(3)\right\}</script><p>根据轨道-稳定子的理论，存在一个<script type="math/tex">\mathcal{F}\to F</script>的等变微分同胚映射<script type="math/tex">\phi</script>：</p>
+<center>
+
+<img src="/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/image-20201030133609350.png" srcset="/img/loading.gif" class="" title="image-20201030133609350">
+
+</center>
+
+<p>其中<script type="math/tex">\mathcal{F}=SO(3)/O</script>，它是一个spherical 3- manifold。</p>
+<h4 id="2-度量"><a href="#2-度量" class="headerlink" title="2.度量"></a>2.度量</h4><p>&emsp;&emsp;令<script type="math/tex">\alpha=\sqrt{\frac{3}{20}}，F_\alpha=\alpha F=\{\alpha q:q\in F\}</script>,定义映射<script type="math/tex">\pi_a:\mathbb{R}^{9 \times 9}\to\mathbb{R}^9</script>表示矩阵乘以<script type="math/tex">\alpha</script>比例规范标架<script type="math/tex">q_a=\alpha q_0</script>，即<script type="math/tex">\pi_\alpha(A)=Aq_\alpha</script>。</p>
+<p>&emsp;&emsp;由于<strong><script type="math/tex">\pi_\alpha \circ \rho:SO(3)\to F_\alpha</script>是局部等距映射的，根据之前的交换图的结论，故<script type="math/tex">\mathcal{F}\to F_\alpha</script>也是局部等距映射。</strong></p>
+<p>&emsp;&emsp;<strong>证明：</strong></p>
+<p>&emsp;&emsp;用李代数定义<script type="math/tex">\rho</script>在单位阵处的微分</p>
 <script type="math/tex; mode=display">
-\int_{\Omega}(\nabla u\cdot \nabla v+u\Delta v)d\Omega=\int_\Gamma u\nabla v\cdot d\Gamma=\int_{\Gamma}u\frac{\partial v}{\partial n}d\Gamma</script><p>上式第二个等号用了方向导数的定义<script type="math/tex">\nabla v\cdot n=\frac{\partial v}{\partial n}</script>。</p>
-<p>注：若令分部积分中<script type="math/tex">u=1</script>,则变为散度定理。</p>
-<h3 id="3-格林第二恒等式（Green’s-Second-Identities）"><a href="#3-格林第二恒等式（Green’s-Second-Identities）" class="headerlink" title="3. 格林第二恒等式（Green’s Second Identities）"></a>3. 格林第二恒等式（Green’s Second Identities）</h3><p>&emsp;&emsp;根据格林第一恒等式，推导格林第二恒等式。交换格林第一恒等式中的<script type="math/tex">u,v</script>有,</p>
+(D\rho)_{I}: \mathfrak{s o}(3)=T_{I} \mathrm{SO}(3) \rightarrow \mathfrak{s o}(9) \subset \mathbb{R}^{9 \times 9}</script><p>​    <script type="math/tex">(D \rho)_{I}</script>具体为<script type="math/tex">L_i:=(D \rho)_{I}(l_i)</script>,即李代生成元的像，<script type="math/tex">\pi_\alpha</script>是一个线性映射，所以它的微分只要乘以<script type="math/tex">q_\alpha</script>就可以。</p>
+<p>&emsp;&emsp;对每个<script type="math/tex">g\in SO(3)</script>，李代数<script type="math/tex">T_g SO(3)</script>的正交基由李代数生成元的右平移给出</p>
 <script type="math/tex; mode=display">
-\int_{\Omega}\nabla u\cdot \nabla vd\Omega=\int_\Gamma v\nabla u\cdot d\Gamma-\int_{\Omega}v\Delta ud\Omega</script><p>再根第一恒等式相减，得到第二恒等式</p>
-<script type="math/tex; mode=display">
-\int_{\Gamma}(u\nabla v-v\nabla u)\cdot d\Gamma=\int_{\Gamma}(u\frac{\partial v}{\partial n}-v\frac{\partial u}{\partial n}) d\Gamma=\int_{\Omega}(u\Delta v-v\Delta u)d\Omega</script><h3 id="4-格林第三恒等式（Green’s-Third-Identities）"><a href="#4-格林第三恒等式（Green’s-Third-Identities）" class="headerlink" title="4. 格林第三恒等式（Green’s Third Identities）"></a>4. 格林第三恒等式（Green’s Third Identities）</h3><p>&emsp;&emsp;设函数 <em>G</em> 是拉普拉斯方程的基本解,其满足</p>
-<script type="math/tex; mode=display">
-\Delta G(P,Q)=\delta(P-Q)</script><p>其中<script type="math/tex">G</script>是格林函数，<script type="math/tex">\delta</script>是狄拉克<script type="math/tex">\delta</script>函数。</p>
-<p>&emsp;&emsp;若<script type="math/tex">P,Q\in \Omega,P^{\prime},Q^{\prime} \in \partial \Omega</script>，将其代入第二恒等式，令<script type="math/tex">v=G</script>，分别对<script type="math/tex">Q^{\prime},Q</script>积分，则</p>
+\{(D R_g)_{I}l_i\}_{i=1}^{3}</script><p>因此可考虑映射<script type="math/tex">\pi_\alpha \circ \rho</script>的像在<script type="math/tex">T_{\rho(g)q_\alpha}F</script>下的正交基</p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma=\int_{\Omega}[u(Q)\Delta G(P,Q)-G(P,Q)\Delta u(Q)]d\Omega   \quad
-\end{aligned}</script><p>&emsp;&emsp;根据狄拉克<script type="math/tex">\delta</script>函数的平移特性<script type="math/tex">\int_{\Omega}f(t)\delta(t-T)dt=f(T)</script>,有</p>
+D\left(\pi_{\alpha} \circ \rho\right)_{g}\left(D R_{g}\right)_{I} l_{i} &=\left(D \pi_{\alpha}\right)(D \rho)_{g}\left(D R_{g}\right)_{I} l_{i} \\
+&=\left(D \pi_{\alpha}\right)\left(D R_{\rho(g)}\right)_{I}(D \rho)_{I} l_{i} \\
+&=\left(D \pi_{\alpha}\right) L_{i} \rho(g) \\
+&=L_{i} \rho(g) q_{\alpha}
+\end{aligned}</script><p>之后需要验证的是这组对象是否符合以下度量的形式?</p>
 <script type="math/tex; mode=display">
-\int_{\Omega}u(Q)\Delta G(P,Q)d \Omega=\int_{\Omega}u(Q)\delta(P-Q)d \Omega=u(P)</script><p>则</p>
+<L_iq,L_jq>=\delta _{ij},\forall q\in F_{\alpha}</script><p>&emsp;&emsp;由于<script type="math/tex">\rho(g)q_\alpha \in F_\alpha</script></p>
 <script type="math/tex; mode=display">
 \begin{aligned}
-u(P)-\int_{\Omega}G(P,Q)\Delta u(Q)d\Omega=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma
-\end{aligned}</script><p>这就是第三恒等式。</p>
-<h3 id="5-边界元-Boundary-Element-Method"><a href="#5-边界元-Boundary-Element-Method" class="headerlink" title="5. 边界元(Boundary Element Method)"></a>5. 边界元(Boundary Element Method)</h3><p>&emsp;&emsp;对于第三恒等式，若<script type="math/tex">\Delta u(Q)=0</script>,则</p>
+\left\langle L_{i} \rho(g) q_{\alpha}, L_{j} \rho(g) q_{\alpha}\right\rangle &=\left\langle\rho(g)^{\top} L_{i} \rho(g) q_{\alpha}, \rho(g)^{\top} L_{j} \rho(g) q_{\alpha}\right\rangle \\
+&=\left\langle D \rho_{I}\left(g^{\top} l_{i} g\right) q_{\alpha}, D \rho_{I}\left(g^{\top} l_{j} g\right) q_{\alpha}\right\rangle
+\end{aligned}</script><p>其中第一个等号是因为<script type="math/tex">\rho(g) \in SO(9)</script>,具有旋转不变性，第二个等号是可由附录中的一个引理给出:<script type="math/tex">(D\rho)_I(g^{-1}ag)=\rho(g)^{-1}((D\rho)_Ia)\rho(g)</script>。</p>
+<p>&emsp;&emsp;若令<script type="math/tex">a_{ik}=a_{ik}(g)</script>表示<script type="math/tex">SO(3)</script>的伴随表示的系数，即<script type="math/tex">g^{\top}l_ig=\sum_k a_{ik}l_k</script>,这些系数组成了一个正交阵。根据这个定义可以线性化<script type="math/tex">D\rho</script>,则可得到以下</p>
 <script type="math/tex; mode=display">
-u(P)=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P\in \Omega</script><p>这就是边界元法的内部的等式，可以看到该方法是在<script type="math/tex">\Delta u(Q)=0</script>条件下成立的。</p>
-<p>&emsp;&emsp;对于边界元法，当<script type="math/tex">P^{\prime}\in \partial \Omega</script>时，不再适用上式，因为在边界上时，若<script type="math/tex">P^{\prime}</script>与<script type="math/tex">Q^{\prime}</script>重合时，<script type="math/tex">G</script>会<strong>奇异</strong>，对于这种情况，可用半径为<script type="math/tex">\varepsilon</script>的圆包围<script type="math/tex">Q^{\prime}</script>,然后写成分段形式，并取极限<script type="math/tex">\varepsilon \rightarrow0</script>,可得到</p>
-<script type="math/tex; mode=display">
-c(P^{\prime})u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P^{\prime}\in \partial\Omega</script><p>其中<script type="math/tex">c(P^{\prime})=\frac{\theta(P^{\prime})}{2\pi}</script>，<script type="math/tex">\theta(P^{\prime})</script>是包含<script type="math/tex">P^{\prime}</script>的内部圆弧的角度，通常对于光滑边界，<script type="math/tex">\theta(P^{\prime})=\pi</script>,则就引出我们常见边界上的形式</p>
-<script type="math/tex; mode=display">
-\frac{1}{2}u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\prime})}{\partial n} -G(P,Q^{\prime})\frac{\partial  u(Q^{\prime})}{\partial n}]d\Gamma \quad P^{\prime}\in \partial\Omega</script>
+\begin{aligned}
+\left\langle L_{i} \rho(g) q_{\alpha}, L_{j} \rho(g) q_{\alpha}\right\rangle
+&=\left\langle D \rho_{I}\left(g^{\top} l_{i} g\right) q_{\alpha}, D \rho_{I}\left(g^{\top} l_{j} g\right) q_{\alpha}\right\rangle\\
+&=\left\langle\sum_{r} a_{i r} L_{r} q_{\alpha}, \sum_{s} a_{j s} L_{s} q_{\alpha}\right\rangle \\
+&=\sum_{r, s} a_{i r} a_{j s}\left\langle L_{r} q_{\alpha}, L_{s} q_{\alpha}\right\rangle \\
+&=\sum_{k} a_{i k} a_{j k}=\delta_{i j}
+\end{aligned}</script><p><strong>得证。</strong></p>
+<p>&emsp;&emsp;因此，<script type="math/tex">F</script>是浸入在<script type="math/tex">\mathbb{R}^9</script>中的子流形，且等距同构于<script type="math/tex">\mathcal{F}=SO(3)/O</script>。因此，我们可在该浸入的流形上引入流形优化中的方法。</p>
+
             </article>
             <hr>
             <div>
@@ -259,7 +264,7 @@ c(P^{\prime})u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\pri
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/math/">math</a>
+                      <a class="hover-with-bg" href="/tags/%E6%A0%87%E6%9E%B6%E5%9C%BA/">标架场</a>
                     
                   </div>
                 
@@ -272,18 +277,12 @@ c(P^{\prime})u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\pri
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Algebraic Representations for Volumetric Frame Fields(一)</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/07/2020-10-07-Boundary-Element-Octahedral-Fields-in-Volumes/">
-                        <span class="hidden-mobile">Boundary Element Octahedral Fields in Volumes</span>
+                      <a href="/2020/10/09/2020-10-09-Greens-identities/">
+                        <span class="hidden-mobile">Green's Identities And Boundary Element Method</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -514,7 +513,7 @@ c(P^{\prime})u(P^{\prime})=\int_{\Gamma}[u(Q^{\prime})\frac{\partial G(P,Q^{\pri
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Green's Identities And Boundary Element Method&nbsp;",
+        "Algebraic Representations for Volumetric Frame Fields(一)&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
