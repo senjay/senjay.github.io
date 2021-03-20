@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>归档 - SenayのBlog</title>
+  <title>SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -50,7 +50,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -145,6 +145,10 @@
           </div>
 
           
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
       </div>
     </div>
@@ -154,57 +158,68 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="list-group">
-  <p class="h4">共计 51 篇文章</p>
-  <hr>
-  
+
+  <div class="row mx-auto index-card">
     
-      
-      <p class="h5">2020</p>
     
-    <a href="/2020/09/17/2020-09-17-Practical-3D-Frame-Field-Generation-3D/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Practical 3D Frame Field Generation-3D</span>
-      <span style="float: right;">09-17</span>
-    </a>
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/">12306余票及票价查询</a>
+
+      <a href="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/" class="index-excerpt">
+        
+        
+          
+        
+        <div>还原整个思路，遇到的一些问题也会写出来，纯新手向，因为打包在了一个类里，所以单独拷贝一个函数可能会有些问题,后面有完整代码地址，如有错误可以指正- -有问题也可以留言，后面写的有些赶，可以去完整源代码中看看截至2018/10/9   0:15代码还是有效的
+环境：python3.6涉及的库:requestsjsonprettytablerepprint1.url分析    先打开12306的余票查</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2018-10-09
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/python/">python</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/5/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    </span>
+  </nav>
   
-    
-    <a href="/2020/09/16/2020-09-16-Boundary-Aligned-Smooth-3D-Cross-Frame-Field/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Boundary Aligned Smooth 3D Cross-Frame Field</span>
-      <span style="float: right;">09-16</span>
-    </a>
-  
-    
-    <a href="/2020/09/16/2020-09-16-Paper-Introduction/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Paper Introduction</span>
-      <span style="float: right;">09-16</span>
-    </a>
-  
-    
-    <a href="/2020/09/14/2020-09-14-Practical-3D-Frame-Field-Generation-2D/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Practical 3D Frame Field Generation-2D</span>
-      <span style="float: right;">09-14</span>
-    </a>
-  
-    
-    <a href="/2020/09/06/2020-08-12-C++%E6%98%93%E8%B8%A9Bug%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">C++易踩Bug持续更新</span>
-      <span style="float: right;">09-06</span>
-    </a>
-  
-    
-    <a href="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">LoopyCuts-Computer Cutting Loops</span>
-      <span style="float: right;">09-04</span>
-    </a>
-  
-</div>
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 
@@ -368,7 +383,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "生前何必久睡，死后自会长眠&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

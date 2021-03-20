@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Algebraic Representations for Volumetric Frame Fields(一) - SenayのBlog</title>
+  <title>Singularity-Constrained Octahedral Fields for Hexahedral Meshing - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2020-10-30 13:34">
-                    2020年10月30日 下午
+                  <time datetime="2021-03-17 22:48">
+                    2021年3月17日 晚上
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.1k 字
+                    722 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    16
+                    9
                      分钟
                   </span>
                 
@@ -195,58 +195,62 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h4 id="1-解空间"><a href="#1-解空间" class="headerlink" title="1.解空间"></a>1.解空间</h4><p>&emsp;&emsp;定义映射<script type="math/tex">\rho:SO(3)\to SO(9)</script>,定义线性算子<script type="math/tex">H \in \mathbb{R}^{9\times 9}</script>投影至<script type="math/tex">\mathbb{R}^9</script>的子空间（即在八面体群作用下具有不变性的空间）</p>
-<script type="math/tex; mode=display">
-H=\frac{1}{|O|}\sum_{o \in O}\rho(o)</script><p>由于</p>
-<script type="math/tex; mode=display">
-\rho\left(o^{\prime}\right) H=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho\left(o^{\prime}\right) \rho(o)=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho\left(o^{\prime} o\right)=\frac{1}{|\mathrm{O}|} \sum_{o \in \mathrm{O}} \rho(o)=H</script><p>所以<script type="math/tex">\forall q \in \mathbb{R}^9</script>,当且仅当<script type="math/tex">q\in Im(H)</script>时,<script type="math/tex">\rho(O)\cdot q=q</script>。</p>
-<p>&emsp;&emsp;说明当映射<script type="math/tex">\rho</script>作用于八面体群时并不改变算子<script type="math/tex">H</script>的作用，根据以上意义，可得出当<script type="math/tex">q\in Im(H)</script>时，<script type="math/tex">q</script>的稳定子<script type="math/tex">stab(q)=O</script></p>
-<p>&emsp;&emsp;定义规范八面体标架，所有其他标架可由其旋转变换得到</p>
-<script type="math/tex; mode=display">
-q_{0}=\left(0,0,0,0, \sqrt{\frac{7}{12}}, 0,0,0, \sqrt{\frac{5}{12}}\right)^{\top} \in \mathbb{R}^{9}</script><p>则<script type="math/tex">H=q_0q_0^{\top}</script>。</p>
-<p>&emsp;&emsp;根据轨道与稳定子的关系，可得出解空间位于<script type="math/tex">q</script>的轨道<script type="math/tex">F</script>上,其稳定子为<script type="math/tex">O</script>，将其设为八面体变量(octahedral variety)</p>
-<script type="math/tex; mode=display">
-F=\rho(\mathrm{SO}(3)) q_{0}=\left\{\rho(r) q_{0} \mid r \in \mathrm{SO}(3)\right\}</script><p>根据轨道-稳定子的理论，存在一个<script type="math/tex">\mathcal{F}\to F</script>的等变微分同胚映射<script type="math/tex">\phi</script>：</p>
+              <h3 id="1-概括"><a href="#1-概括" class="headerlink" title="1.概括"></a>1.概括</h3><p>&emsp;&emsp;枚举了所有六面体网格中关于边的度的局部属性；推广了Hopf-Poincare index formula至octahedral fields;设计了一个通过求解非线性整形优化从一个预输入的奇异结构图生成一个优化后的octahedral field的算法。</p>
+<h3 id="2-拓扑关系"><a href="#2-拓扑关系" class="headerlink" title="2.拓扑关系"></a>2.拓扑关系</h3><h4 id="2-1-Local-Topology-of-Eages"><a href="#2-1-Local-Topology-of-Eages" class="headerlink" title="2.1 Local Topology  of Eages"></a>2.1 Local Topology  of Eages</h4><center>
+
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210312160618118.png" srcset="/img/loading.gif" class="">
+
+</center>
+$$
+\operatorname{idx}(e)=\left\{\begin{array}{ll}\left(4-\operatorname{val}_{h}(e)\right) / 4 & \text { for interior } e \\ \left(2-\operatorname{val}_{h}(e)\right) / 4 & \text { for boundary } e\end{array}\right.
+$$
+对于内部边，我们希望的是$$I_{interior}=\{\frac{1}{4},0,-\frac{1}{4}\}$$，即边的度为3、4、5；对于外部边，则为$$I_{boundary}=\{\frac{1}{4},0,-\frac{1}{4},-\frac{1}{2}\}$$,即度为1、2、3、4，而对于其他的index,则可以通过插入模板来修改，如下
+
 <center>
 
-<img src="/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/image-20201030133609350.png" srcset="/img/loading.gif" class="" title="image-20201030133609350">
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210312161155180.png" srcset="/img/loading.gif" class="" title="image-20210312161155180">
 
 </center>
 
-<p>其中<script type="math/tex">\mathcal{F}=SO(3)/O</script>，它是一个spherical 3- manifold。</p>
-<h4 id="2-度量"><a href="#2-度量" class="headerlink" title="2.度量"></a>2.度量</h4><p>&emsp;&emsp;令<script type="math/tex">\alpha=\sqrt{\frac{3}{20}}，F_\alpha=\alpha F=\{\alpha q:q\in F\}</script>,定义映射<script type="math/tex">\pi_a:\mathbb{R}^{9 \times 9}\to\mathbb{R}^9</script>表示矩阵乘以<script type="math/tex">\alpha</script>比例规范标架<script type="math/tex">q_a=\alpha q_0</script>，即<script type="math/tex">\pi_\alpha(A)=Aq_\alpha</script>。</p>
-<p>&emsp;&emsp;由于<strong><script type="math/tex">\pi_\alpha \circ \rho:SO(3)\to F_\alpha</script>是局部等距映射的，根据之前的交换图的结论，故<script type="math/tex">\mathcal{F}\to F_\alpha</script>也是局部等距映射。</strong></p>
-<p>&emsp;&emsp;<strong>证明：</strong></p>
-<p>&emsp;&emsp;用李代数定义<script type="math/tex">\rho</script>在单位阵处的微分</p>
+<h4 id="2-2-Local-Topology-of-Vertex"><a href="#2-2-Local-Topology-of-Vertex" class="headerlink" title="2.2 Local Topology of Vertex"></a>2.2 Local Topology of Vertex</h4><p>&emsp;&emsp;在CubeCover的论文中，有提到关于六面体网格中点拓扑的关系式，其用一个球包围该顶点，则连接该点的边在球上相交于一些点，连接这些点，形成三角形，则每个三角形对应一个六面体，如下</p>
+<center>
+
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315190333661.png" srcset="/img/loading.gif" class="" title="image-20210315190333661">
+
+</center>
+
+<p>则根据欧拉公式<script type="math/tex">V-E+F=2</script>,以及面和边的关系<script type="math/tex">3F=2E</script>，以及点的度和边的关系<script type="math/tex">\sum_{v\in V}deg (v)=2E</script>，</p>
+<p>则有如下关系</p>
 <script type="math/tex; mode=display">
-(D\rho)_{I}: \mathfrak{s o}(3)=T_{I} \mathrm{SO}(3) \rightarrow \mathfrak{s o}(9) \subset \mathbb{R}^{9 \times 9}</script><p>​    <script type="math/tex">(D \rho)_{I}</script>具体为<script type="math/tex">L_i:=(D \rho)_{I}(l_i)</script>,即李代生成元的像，<script type="math/tex">\pi_\alpha</script>是一个线性映射，所以它的微分只要乘以<script type="math/tex">q_\alpha</script>就可以。</p>
-<p>&emsp;&emsp;对每个<script type="math/tex">g\in SO(3)</script>，李代数<script type="math/tex">T_g SO(3)</script>的正交基由李代数生成元的右平移给出</p>
-<script type="math/tex; mode=display">
-\{(D R_g)_{I}l_i\}_{i=1}^{3}</script><p>因此可考虑映射<script type="math/tex">\pi_\alpha \circ \rho</script>的像在<script type="math/tex">T_{\rho(g)q_\alpha}F</script>下的正交基</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-D\left(\pi_{\alpha} \circ \rho\right)_{g}\left(D R_{g}\right)_{I} l_{i} &=\left(D \pi_{\alpha}\right)(D \rho)_{g}\left(D R_{g}\right)_{I} l_{i} \\
-&=\left(D \pi_{\alpha}\right)\left(D R_{\rho(g)}\right)_{I}(D \rho)_{I} l_{i} \\
-&=\left(D \pi_{\alpha}\right) L_{i} \rho(g) \\
-&=L_{i} \rho(g) q_{\alpha}
-\end{aligned}</script><p>之后需要验证的是这组对象是否符合以下度量的形式?</p>
-<script type="math/tex; mode=display">
-<L_iq,L_jq>=\delta _{ij},\forall q\in F_{\alpha}</script><p>&emsp;&emsp;由于<script type="math/tex">\rho(g)q_\alpha \in F_\alpha</script></p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\left\langle L_{i} \rho(g) q_{\alpha}, L_{j} \rho(g) q_{\alpha}\right\rangle &=\left\langle\rho(g)^{\top} L_{i} \rho(g) q_{\alpha}, \rho(g)^{\top} L_{j} \rho(g) q_{\alpha}\right\rangle \\
-&=\left\langle D \rho_{I}\left(g^{\top} l_{i} g\right) q_{\alpha}, D \rho_{I}\left(g^{\top} l_{j} g\right) q_{\alpha}\right\rangle
-\end{aligned}</script><p>其中第一个等号是因为<script type="math/tex">\rho(g) \in SO(9)</script>,具有旋转不变性，第二个等号是可由附录中的一个引理给出:<script type="math/tex">(D\rho)_I(g^{-1}ag)=\rho(g)^{-1}((D\rho)_Ia)\rho(g)</script>。</p>
-<p>&emsp;&emsp;若令<script type="math/tex">a_{ik}=a_{ik}(g)</script>表示<script type="math/tex">SO(3)</script>的伴随表示的系数，即<script type="math/tex">g^{\top}l_ig=\sum_k a_{ik}l_k</script>,这些系数组成了一个正交阵。根据这个定义可以线性化<script type="math/tex">D\rho</script>,则可得到以下</p>
-<script type="math/tex; mode=display">
-\begin{aligned}
-\left\langle L_{i} \rho(g) q_{\alpha}, L_{j} \rho(g) q_{\alpha}\right\rangle
-&=\left\langle D \rho_{I}\left(g^{\top} l_{i} g\right) q_{\alpha}, D \rho_{I}\left(g^{\top} l_{j} g\right) q_{\alpha}\right\rangle\\
-&=\left\langle\sum_{r} a_{i r} L_{r} q_{\alpha}, \sum_{s} a_{j s} L_{s} q_{\alpha}\right\rangle \\
-&=\sum_{r, s} a_{i r} a_{j s}\left\langle L_{r} q_{\alpha}, L_{s} q_{\alpha}\right\rangle \\
-&=\sum_{k} a_{i k} a_{j k}=\delta_{i j}
-\end{aligned}</script><p><strong>得证。</strong></p>
-<p>&emsp;&emsp;因此，<script type="math/tex">F</script>是浸入在<script type="math/tex">\mathbb{R}^9</script>中的子流形，且等距同构于<script type="math/tex">\mathcal{F}=SO(3)/O</script>。因此，我们可在该浸入的流形上引入流形优化中的方法。</p>
+\sum_{v \in V }(6-deg(v))=12</script><p>以上关系式中，顶点的度其实对应的是六面体网格中边的度，同时可以观察出，边的度若为6，其不做贡献。若设<script type="math/tex">i,j,k</script>分别为球上度为<script type="math/tex">3、4、5</script>的点的数量，则有<script type="math/tex">3i+2j+k=12</script>,又因为<script type="math/tex">i+j+k=V</script>,则可穷举出如下的11个解</p>
+<center>
+
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315191329857.png" srcset="/img/loading.gif" class="" title="image-20210315191329857">
+
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315203959284.png" srcset="/img/loading.gif" class="" title="image-20210315203959284">
+
+</center>
+
+<p>上图中为11中情况的10种，剩下的未标出1种是标准的立方体块的情况<script type="math/tex">(0,6,0)</script>。</p>
+<h4 id="2-3-全局条件"><a href="#2-3-全局条件" class="headerlink" title="2.3 全局条件"></a>2.3 全局条件</h4><script type="math/tex; mode=display">
+\sum_{v \in \partial V_{S}} \frac{1}{2}\left(1-\frac{\operatorname{val}_{h}(v)}{4}\right)-\sum_{e \in \partial E_{S}^{-}} \mathrm{idx}(e)
++\sum_{v \in{V}^{'}_{S}}\left(1-\frac{\operatorname{val}_{h}(v)}{8}\right)-\sum_{e \in{E}_{S}^{'-}} \operatorname{idx}(e)=0</script><p>其中<script type="math/tex">\partial V_s,\partial V^{'}_{s}</script>分别为边界和内部的奇异图上的点，<script type="math/tex">\partial E^{-}_s,\partial E^{’-}_s</script>分别为不封闭的边界和不封闭的内部边。</p>
+<h3 id="3-Integer-Grid-Maps（IGM）"><a href="#3-Integer-Grid-Maps（IGM）" class="headerlink" title="3.Integer-Grid Maps（IGM）"></a>3.Integer-Grid Maps（IGM）</h3><p>&emsp;&emsp;通常，标架场生成六面体网格的思路是将其映射到一个参数域</p>
+<center>
+
+<img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210317140800265.png" srcset="/img/loading.gif" class="" title="image-20210317140800265">
+
+</center>
+
+<p>这里新的一种观点是，一个IGM可以诱导出一个field,但是相反的，不是任一个field可以转换成一个IGM,如果这个field可以，则说明这个field是globally hex-meshable。</p>
+<h3 id="4-Singularity-Graph-to-Octahedral-Field"><a href="#4-Singularity-Graph-to-Octahedral-Field" class="headerlink" title="4.Singularity Graph to Octahedral Field"></a>4.Singularity Graph to Octahedral Field</h3><h4 id="4-1-Singularity-Graph-Constraints"><a href="#4-1-Singularity-Graph-Constraints" class="headerlink" title="4.1 Singularity Graph Constraints"></a>4.1 Singularity Graph Constraints</h4><h5 id="4-1-1-Boundary-alignment"><a href="#4-1-1-Boundary-alignment" class="headerlink" title="4.1.1 Boundary alignment"></a>4.1.1 Boundary alignment</h5><p>&emsp;&emsp;边界法向对齐标架</p>
+<h5 id="4-1-2-Singular-arc-alignment"><a href="#4-1-2-Singular-arc-alignment" class="headerlink" title="4.1.2 Singular arc alignment"></a>4.1.2 Singular arc alignment</h5><p>&emsp;&emsp;奇异边周围的标架之一与边相切</p>
+<h5 id="4-1-3-Edge-type"><a href="#4-1-3-Edge-type" class="headerlink" title="4.1.3 Edge type"></a>4.1.3 Edge type</h5><p>&emsp;&emsp;edge的one-ring cells 中的标架的matching matrix 的乘积</p>
+<h5 id="4-1-4-Vertex-type"><a href="#4-1-4-Vertex-type" class="headerlink" title="4.1.4 Vertex type"></a>4.1.4 Vertex type</h5><ul>
+<li>Tangent continuity  </li>
+<li>Corner constraint  </li>
+<li>Boundary sector constraint  </li>
+</ul>
 
             </article>
             <hr>
@@ -277,18 +281,12 @@ D\left(\pi_{\alpha} \circ \rho\right)_{g}\left(D R_{g}\right)_{I} l_{i} &=\left(
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Singularity-Constrained Octahedral Fields for Hexahedral Meshing</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/09/2020-10-09-Greens-identities/">
-                        <span class="hidden-mobile">Green's Identities And Boundary Element Method</span>
+                      <a href="/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/">
+                        <span class="hidden-mobile">Algebraic Representations for Volumetric Frame Fields(一)</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -519,7 +517,7 @@ D\left(\pi_{\alpha} \circ \rho\right)_{g}\left(D R_{g}\right)_{I} l_{i} &=\left(
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Algebraic Representations for Volumetric Frame Fields(一)&nbsp;",
+        "Singularity-Constrained Octahedral Fields for Hexahedral Meshing&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

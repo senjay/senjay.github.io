@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>Singularity-Constrained Octahedral Fields for Hexahedral Meshing</title>
+    <link href="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/"/>
+    <url>/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/</url>
+    
+    <content type="html"><![CDATA[<h3 id="1-概括"><a href="#1-概括" class="headerlink" title="1.概括"></a>1.概括</h3><p>&emsp;&emsp;枚举了所有六面体网格中关于边的度的局部属性；推广了Hopf-Poincare index formula至octahedral fields;设计了一个通过求解非线性整形优化从一个预输入的奇异结构图生成一个优化后的octahedral field的算法。</p><h3 id="2-拓扑关系"><a href="#2-拓扑关系" class="headerlink" title="2.拓扑关系"></a>2.拓扑关系</h3><h4 id="2-1-Local-Topology-of-Eages"><a href="#2-1-Local-Topology-of-Eages" class="headerlink" title="2.1 Local Topology  of Eages"></a>2.1 Local Topology  of Eages</h4><center><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210312160618118.png" srcset="/img/loading.gif" class=""></center>$$\operatorname{idx}(e)=\left\{\begin{array}{ll}\left(4-\operatorname{val}_{h}(e)\right) / 4 & \text { for interior } e \\ \left(2-\operatorname{val}_{h}(e)\right) / 4 & \text { for boundary } e\end{array}\right.$$对于内部边，我们希望的是$$I_{interior}=\{\frac{1}{4},0,-\frac{1}{4}\}$$，即边的度为3、4、5；对于外部边，则为$$I_{boundary}=\{\frac{1}{4},0,-\frac{1}{4},-\frac{1}{2}\}$$,即度为1、2、3、4，而对于其他的index,则可以通过插入模板来修改，如下<center><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210312161155180.png" srcset="/img/loading.gif" class="" title="image-20210312161155180"></center><h4 id="2-2-Local-Topology-of-Vertex"><a href="#2-2-Local-Topology-of-Vertex" class="headerlink" title="2.2 Local Topology of Vertex"></a>2.2 Local Topology of Vertex</h4><p>&emsp;&emsp;在CubeCover的论文中，有提到关于六面体网格中点拓扑的关系式，其用一个球包围该顶点，则连接该点的边在球上相交于一些点，连接这些点，形成三角形，则每个三角形对应一个六面体，如下</p><center><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315190333661.png" srcset="/img/loading.gif" class="" title="image-20210315190333661"></center><p>则根据欧拉公式<script type="math/tex">V-E+F=2</script>,以及面和边的关系<script type="math/tex">3F=2E</script>，以及点的度和边的关系<script type="math/tex">\sum_{v\in V}deg (v)=2E</script>，</p><p>则有如下关系</p><script type="math/tex; mode=display">\sum_{v \in V }(6-deg(v))=12</script><p>以上关系式中，顶点的度其实对应的是六面体网格中边的度，同时可以观察出，边的度若为6，其不做贡献。若设<script type="math/tex">i,j,k</script>分别为球上度为<script type="math/tex">3、4、5</script>的点的数量，则有<script type="math/tex">3i+2j+k=12</script>,又因为<script type="math/tex">i+j+k=V</script>,则可穷举出如下的11个解</p><center><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315191329857.png" srcset="/img/loading.gif" class="" title="image-20210315191329857"><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210315203959284.png" srcset="/img/loading.gif" class="" title="image-20210315203959284"></center><p>上图中为11中情况的10种，剩下的未标出1种是标准的立方体块的情况<script type="math/tex">(0,6,0)</script>。</p><h4 id="2-3-全局条件"><a href="#2-3-全局条件" class="headerlink" title="2.3 全局条件"></a>2.3 全局条件</h4><script type="math/tex; mode=display">\sum_{v \in \partial V_{S}} \frac{1}{2}\left(1-\frac{\operatorname{val}_{h}(v)}{4}\right)-\sum_{e \in \partial E_{S}^{-}} \mathrm{idx}(e)+\sum_{v \in{V}^{'}_{S}}\left(1-\frac{\operatorname{val}_{h}(v)}{8}\right)-\sum_{e \in{E}_{S}^{'-}} \operatorname{idx}(e)=0</script><p>其中<script type="math/tex">\partial V_s,\partial V^{'}_{s}</script>分别为边界和内部的奇异图上的点，<script type="math/tex">\partial E^{-}_s,\partial E^{’-}_s</script>分别为不封闭的边界和不封闭的内部边。</p><h3 id="3-Integer-Grid-Maps（IGM）"><a href="#3-Integer-Grid-Maps（IGM）" class="headerlink" title="3.Integer-Grid Maps（IGM）"></a>3.Integer-Grid Maps（IGM）</h3><p>&emsp;&emsp;通常，标架场生成六面体网格的思路是将其映射到一个参数域</p><center><img src="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/image-20210317140800265.png" srcset="/img/loading.gif" class="" title="image-20210317140800265"></center><p>这里新的一种观点是，一个IGM可以诱导出一个field,但是相反的，不是任一个field可以转换成一个IGM,如果这个field可以，则说明这个field是globally hex-meshable。</p><h3 id="4-Singularity-Graph-to-Octahedral-Field"><a href="#4-Singularity-Graph-to-Octahedral-Field" class="headerlink" title="4.Singularity Graph to Octahedral Field"></a>4.Singularity Graph to Octahedral Field</h3><h4 id="4-1-Singularity-Graph-Constraints"><a href="#4-1-Singularity-Graph-Constraints" class="headerlink" title="4.1 Singularity Graph Constraints"></a>4.1 Singularity Graph Constraints</h4><h5 id="4-1-1-Boundary-alignment"><a href="#4-1-1-Boundary-alignment" class="headerlink" title="4.1.1 Boundary alignment"></a>4.1.1 Boundary alignment</h5><p>&emsp;&emsp;边界法向对齐标架</p><h5 id="4-1-2-Singular-arc-alignment"><a href="#4-1-2-Singular-arc-alignment" class="headerlink" title="4.1.2 Singular arc alignment"></a>4.1.2 Singular arc alignment</h5><p>&emsp;&emsp;奇异边周围的标架之一与边相切</p><h5 id="4-1-3-Edge-type"><a href="#4-1-3-Edge-type" class="headerlink" title="4.1.3 Edge type"></a>4.1.3 Edge type</h5><p>&emsp;&emsp;edge的one-ring cells 中的标架的matching matrix 的乘积</p><h5 id="4-1-4-Vertex-type"><a href="#4-1-4-Vertex-type" class="headerlink" title="4.1.4 Vertex type"></a>4.1.4 Vertex type</h5><ul><li>Tangent continuity  </li><li>Corner constraint  </li><li>Boundary sector constraint  </li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>笔记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>标架场</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Algebraic Representations for Volumetric Frame Fields(一)</title>
     <link href="/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/"/>
     <url>/2020/10/30/2020-10-30-Algebraic-Representations-for-Volumetric-Frame-Fields(%E4%B8%80)/</url>
