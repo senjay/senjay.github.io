@@ -210,11 +210,11 @@
 <span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"pch.h"</span></span></code></pre>
 </li>
 <li><p>在vs项目属性中<code>C/C++</code>的预编译头中设置使用预编译头</p>
-<p><img src="F:\Blog\source\_posts\C++PCH提升编译速度\image-20210930130804619.png" srcset="/img/loading.gif" alt=""></p>
+<p><img src="C++PCH提升编译速度\image-20210930130804619.png" srcset="/img/loading.gif" alt=""></p>
 </li>
-<li><p>在【解决方案资源管理器】中右键选中<code>pch.cpp</code>文件属性设置创建预编译头<br><img src="F:\Blog\source\_posts\C++PCH提升编译速度\image-20210930131307993.png" srcset="/img/loading.gif" alt=""></p>
+<li><p>在【解决方案资源管理器】中右键选中<code>pch.cpp</code>文件属性设置创建预编译头<br><img src="C++PCH提升编译速度\image-20210930131307993.png" srcset="/img/loading.gif" alt=""></p>
 </li>
-<li><p>在所有源文件中第一个包含该预编译头文件<code>pch.cpp</code>。重复地向所有源文件添加预编译头会很繁琐，可在项目的属性设置中的<code>C/C++</code>下的<code>高级</code>中设置强制包含文件<br><img src="F:\Blog\source\_posts\C++PCH提升编译速度\image-20210930131857997.png" srcset="/img/loading.gif" alt=""></p>
+<li><p>在所有源文件中第一个包含该预编译头文件<code>pch.cpp</code>。重复地向所有源文件添加预编译头会很繁琐，可在项目的属性设置中的<code>C/C++</code>下的<code>高级</code>中设置强制包含文件<br><img src="C++PCH提升编译速度\image-20210930131857997.png" srcset="/img/loading.gif" alt=""></p>
 </li>
 </ol>
 <p><strong>ps</strong>:C++的预编译头是不能用在C上的，反之亦然。也就是说，假如预编译头是通过.cpp源文件生成的，那么在.c源文件中使用了这个预编译头就会导致编译出错,简单的做法是把源文件的扩展名改成.cpp，统一使用C++即可。</p>
