@@ -170,6 +170,64 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2021/09/30/C++%20PCH%E6%8F%90%E5%8D%87%E7%BC%96%E8%AF%91%E9%80%9F%E5%BA%A6/">C++ PCH提升编译速度</a>
+
+      <a href="/2021/09/30/C++%20PCH%E6%8F%90%E5%8D%87%E7%BC%96%E8%AF%91%E9%80%9F%E5%BA%A6/" class="index-excerpt">
+        
+        
+          
+        
+        <div>C++ PCH流程
+创建pch.h,pch.cpp
+//pch.h
+#ifndef __PCH_H__
+#define __PCH_H__
+//include your header file (not likely to change)
+//...
+//...
+#endif
+
+
+//pch.cpp
+#include "pch.h"
+
+在vs项目属性中C/C++的预编译头中设置使用预编译头
+
+
+
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2021-09-30
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/C/">C++</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BC%96%E8%AF%91/">编译</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/">Singularity-Constrained Octahedral Fields for Hexahedral Meshing</a>
 
       <a href="/2021/03/17/2020-03-09-Singularity-Constrained-Octahedral-Fields-for-Hexahedral-Meshing/" class="index-excerpt">
@@ -541,50 +599,6 @@ Wenzel</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/C/">C++</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/">LoopyCuts-Computer Cutting Loops</a>
-
-      <a href="/2020/09/04/2020-09-04-LoopyCuts-Computer-Cutting-Loops/" class="index-excerpt">
-        
-        
-          
-        
-        <div>1.基本概念&emsp;&emsp;feature line分为flat、concave、convex三种，由integrated curvature的\theta根据阈值\bar \theta判定:
-
-\left\{
-\begin{aligned}
-&\mathrm{flat},\ \ \ \ \ \ \ \ \ \ \ |\theta|</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-09-04
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E7%AC%94%E8%AE%B0/">笔记</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/LoopyCuts/">LoopyCuts</a>
             
           </div>
         
