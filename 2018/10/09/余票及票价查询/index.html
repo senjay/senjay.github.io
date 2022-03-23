@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    1.6k 字
+                    1.9k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    21
+                    26
                      分钟
                   </span>
                 
@@ -196,132 +196,132 @@
             
             <article class="markdown-body">
               <p>还原整个思路，遇到的一些问题也会写出来，纯新手向，因为打包在了一个类里，所以单独拷贝一个函数可能会有些问题,后面有完整代码地址，如有错误可以指正- -有问题也可以留言，后面写的有些赶，可以去完整源代码中看看<br>截至2018/10/9   0:15代码还是有效的</p>
-<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>json<br>prettytable<br>re<br>pprint<br><strong>1.url分析</strong><br>    先打开<a href="https://kyfw.12306.cn/otn/leftTicket/init" target="_blank" rel="noopener">12306的余票查询</a>，我用的是火狐浏览器，按F12打开调试工具选择network（网络）选项，选择出发地，目的地，日期，点击查询<br>    <img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008211309564.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>（小白问题：调试窗口里啥也没有是因为 你一番操作猛如虎，结果完事后想起：哎？调试窗口没打开！）<br>右上角有一排选项，咱选js，xhr 然后从这一条条里找出我们需要的链接（点的时候在右边选择响应，可以看到这条请求返回啥）哇塞！你找到一串data，里面还有各种车票的信息，好了，就是你了：<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008212636116.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>PS</strong>：找json链接这种活就看经验了，老手可能马上就能找到，新手可能就要一条条点（汗~~）我这给一个快速的方法：进入余票查询界面，选择好出发地和目的地及日期，点击查询，好！然后再打开F12调试界面在点查询！哇塞只有1条而且就是我们需要的！（深入原因的话就是在你打开了调试界面后你只进行了这一条查询的post请求，而返回的当然就是你要的了）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008213803841.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好,继续正题,我们来观察这条json的链接,很容易明白那些参数吧,如下:<br><a href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT" target="_blank" rel="noopener">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br>leftTicketDTO.train_date=日期<br>leftTicketDTO.from_station=出发点的地点码<br>leftTicketDTO.to_station=目的地的地点码<br>purpose_codes=票的种类<br><strong>2.获取车站对照字典</strong><br>上文链接中有两个参数是地点码,即一个地名对应一个值,一开始我是直接下载了网上(baidu喽)的一个字典,然后最后写完.不对!我靠!而且调试半天定位到字典错了!(这么多的地名偏偏被窝测试到错误的也是没谁了…）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008220408892.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好!自己动手!</p>
+<h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>json<br>prettytable<br>re<br>pprint<br><strong>1.url分析</strong><br>    先打开<a target="_blank" rel="noopener" href="https://kyfw.12306.cn/otn/leftTicket/init">12306的余票查询</a>，我用的是火狐浏览器，按F12打开调试工具选择network（网络）选项，选择出发地，目的地，日期，点击查询<br>    <img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008211309564.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>（小白问题：调试窗口里啥也没有是因为 你一番操作猛如虎，结果完事后想起：哎？调试窗口没打开！）<br>右上角有一排选项，咱选js，xhr 然后从这一条条里找出我们需要的链接（点的时候在右边选择响应，可以看到这条请求返回啥）哇塞！你找到一串data，里面还有各种车票的信息，好了，就是你了：<br><a target="_blank" rel="noopener" href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008212636116.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>PS</strong>：找json链接这种活就看经验了，老手可能马上就能找到，新手可能就要一条条点（汗~~）我这给一个快速的方法：进入余票查询界面，选择好出发地和目的地及日期，点击查询，好！然后再打开F12调试界面在点查询！哇塞只有1条而且就是我们需要的！（深入原因的话就是在你打开了调试界面后你只进行了这一条查询的post请求，而返回的当然就是你要的了）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008213803841.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好,继续正题,我们来观察这条json的链接,很容易明白那些参数吧,如下:<br><a target="_blank" rel="noopener" href="https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT">https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=2018-10-23&amp;leftTicketDTO.from_station=HZH&amp;leftTicketDTO.to_station=RZH&amp;purpose_codes=ADULT</a><br>leftTicketDTO.train_date=日期<br>leftTicketDTO.from_station=出发点的地点码<br>leftTicketDTO.to_station=目的地的地点码<br>purpose_codes=票的种类<br><strong>2.获取车站对照字典</strong><br>上文链接中有两个参数是地点码,即一个地名对应一个值,一开始我是直接下载了网上(baidu喽)的一个字典,然后最后写完.不对!我靠!而且调试半天定位到字典错了!(这么多的地名偏偏被窝测试到错误的也是没谁了…）<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008220408892.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>好!自己动手!</p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span> requests
 <span class="hljs-keyword">import</span> re
 <span class="hljs-comment">#生成字典 运行一次后抛弃之~~~</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">new_dictionary</span><span class="hljs-params">()</span>:</span>
-    url=<span class="hljs-string">"https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9069"</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">new_dictionary</span>():
+    url=<span class="hljs-string">&quot;https://kyfw.12306.cn/otn/resources/js/framework/station_name.js?station_version=1.9069&quot;</span>
     station_namesweb=requests.get(url)
-    stationdic = re.findall(<span class="hljs-string">r'([\u4e00-\u9fa5]+)\|([a-zA-Z]+)'</span>, station_namesweb.text)
-    stationdic=dict(stationdic)
-    print(stationdic)
+    stationdic = re.findall(<span class="hljs-string">r&#x27;([\u4e00-\u9fa5]+)\|([a-zA-Z]+)&#x27;</span>, station_namesweb.text)
+    stationdic=<span class="hljs-built_in">dict</span>(stationdic)
+    <span class="hljs-built_in">print</span>(stationdic)
 new_dictionary()</code></pre>
 <p>requests请求,json打包,正则提取,over!<br>打印出一个字典复制然后在一个文件里就ok了(上面代码中的url其实也是一样找的,可以试试手去找找看)哈哈,其实这也是今天整个工程的浓缩版吧,思路也是差不多的<br><strong>3.输入出发点,目的地,时间,获得需要的查询链接</strong><br>废多看码!!!</p>
-<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getUrl</span><span class="hljs-params">(self)</span>:</span>
+<pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">getUrl</span>(<span class="hljs-params">self</span>):
     startflag = <span class="hljs-literal">False</span>
     endflag = <span class="hljs-literal">False</span>
     <span class="hljs-keyword">while</span> startflag == <span class="hljs-literal">False</span>:
-        start = input(<span class="hljs-string">"请输入始发地：\n"</span>)
+        start = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入始发地：\n&quot;</span>)
         startflag = stations.__contains__(start)
         <span class="hljs-keyword">if</span> startflag == <span class="hljs-literal">False</span>:
-            print(<span class="hljs-string">'始发地输入错误！'</span>)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;始发地输入错误！&#x27;</span>)
     <span class="hljs-keyword">while</span> endflag == <span class="hljs-literal">False</span>:
-        end = input(<span class="hljs-string">"请输入目的地：\n"</span>)
+        end = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入目的地：\n&quot;</span>)
         endflag = stations.__contains__(end)
         <span class="hljs-keyword">if</span> endflag == <span class="hljs-literal">False</span>:
-            print(<span class="hljs-string">'目的地输入错误！'</span>)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;目的地输入错误！&#x27;</span>)
 
-    self.date = input(<span class="hljs-string">"请输入日期(格式为xxxx-xx-xx)：\n"</span>)
+    self.date = <span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入日期(格式为xxxx-xx-xx)：\n&quot;</span>)
 
-    url = <span class="hljs-string">'https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date='</span> \
-          + self.date + <span class="hljs-string">'&amp;leftTicketDTO.from_station='</span> \
-          + stations[start] + <span class="hljs-string">'&amp;leftTicketDTO.to_station='</span> \
-          + stations[end] + <span class="hljs-string">'&amp;purpose_codes=ADULT'</span>
+    url = <span class="hljs-string">&#x27;https://kyfw.12306.cn/otn/leftTicket/queryA?leftTicketDTO.train_date=&#x27;</span> \
+          + self.date + <span class="hljs-string">&#x27;&amp;leftTicketDTO.from_station=&#x27;</span> \
+          + stations[start] + <span class="hljs-string">&#x27;&amp;leftTicketDTO.to_station=&#x27;</span> \
+          + stations[end] + <span class="hljs-string">&#x27;&amp;purpose_codes=ADULT&#x27;</span>
     <span class="hljs-keyword">return</span> url</code></pre>
 <p><strong>4.获取车辆信息</strong><br>因为12306在这里没做啥验证所以可以直接请求,不妨直接在浏览器里看一下,emmm是不是头都大了!!!!<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008233255654.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>车辆的信息都在这里了,用|分隔开,我们要做的就是从里面提取出我们想要的信息,emmm其实我花的时间最多的是在这里,因为要一一对应知道每个信息代表什么,而我又找不到那么一辆每个信息都齐全的车来让我对照…只能用好几辆的信息来对比喽（还不一定是对的，眼力有限）…我的眼睛!!!<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008234420942.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
 <blockquote>
 <p><code>乱码|预订|030000K5540E|K551|MDB|RZH|HZH|RZH|02:31|10:50|08:19|Y|乱码|20181021|3|B2|44|52|0|0||||无|||无||有|10|||||10401030|1413|0</code></p>
-<p>上代码:<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getData</span><span class="hljs-params">(self,url)</span>:</span>
+<p>上代码:<br><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">getData</span>(<span class="hljs-params">self,url</span>):
     dataweb = requests.get(url)
     datajson = json.loads(dataweb.text)
-    datatrains = datajson[<span class="hljs-string">'data'</span>][<span class="hljs-string">'result'</span>]
-    restations=datajson[<span class="hljs-string">'data'</span>][<span class="hljs-string">'map'</span>]<span class="hljs-comment">#地点缩写：地点全称的字典</span>
+    datatrains = datajson[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;result&#x27;</span>]
+    restations=datajson[<span class="hljs-string">&#x27;data&#x27;</span>][<span class="hljs-string">&#x27;map&#x27;</span>]<span class="hljs-comment">#地点缩写：地点全称的字典</span>
     dataans = []
     <span class="hljs-keyword">for</span> train <span class="hljs-keyword">in</span> datatrains:
         per = &#123;
-            <span class="hljs-string">'train_no'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'from_station_no'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'to_station_no'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'seat_types'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'chufazhan'</span>:<span class="hljs-string">''</span>,
-            <span class="hljs-string">'dadaozhan'</span>:<span class="hljs-string">''</span>,
-            <span class="hljs-string">'checi'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'chufasj'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'didasj'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'lishi'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'erdeng'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'yideng'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'shangwu'</span>: <span class="hljs-string">''</span>,
-            <span class="hljs-string">'wuzuo'</span>:<span class="hljs-string">''</span>
+            <span class="hljs-string">&#x27;train_no&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;from_station_no&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;to_station_no&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;seat_types&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;chufazhan&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;dadaozhan&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;checi&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;chufasj&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;didasj&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;lishi&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;erdeng&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;yideng&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;shangwu&#x27;</span>: <span class="hljs-string">&#x27;&#x27;</span>,
+            <span class="hljs-string">&#x27;wuzuo&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>
         &#125;
-        train = train.split(<span class="hljs-string">'|'</span>)
-        per[<span class="hljs-string">'train_no'</span>] = train[<span class="hljs-number">2</span>]
-        per[<span class="hljs-string">'from_station_no'</span>] = train[<span class="hljs-number">16</span>]
-        per[<span class="hljs-string">'to_station_no'</span>] = train[<span class="hljs-number">17</span>]
-        per[<span class="hljs-string">'seat_types'</span>] = train[<span class="hljs-number">35</span>]
-        per[<span class="hljs-string">'chufazhan'</span>]=train[<span class="hljs-number">6</span>]
-        per[<span class="hljs-string">'dadaozhan'</span>]=train[<span class="hljs-number">7</span>]
+        train = train.split(<span class="hljs-string">&#x27;|&#x27;</span>)
+        per[<span class="hljs-string">&#x27;train_no&#x27;</span>] = train[<span class="hljs-number">2</span>]
+        per[<span class="hljs-string">&#x27;from_station_no&#x27;</span>] = train[<span class="hljs-number">16</span>]
+        per[<span class="hljs-string">&#x27;to_station_no&#x27;</span>] = train[<span class="hljs-number">17</span>]
+        per[<span class="hljs-string">&#x27;seat_types&#x27;</span>] = train[<span class="hljs-number">35</span>]
+        per[<span class="hljs-string">&#x27;chufazhan&#x27;</span>]=train[<span class="hljs-number">6</span>]
+        per[<span class="hljs-string">&#x27;dadaozhan&#x27;</span>]=train[<span class="hljs-number">7</span>]
 
         <span class="hljs-comment">#将得到站点名字由缩写转换全称</span>
-        per[<span class="hljs-string">'chufazhan'</span>]=restations[per[<span class="hljs-string">'chufazhan'</span>]]
-        per[<span class="hljs-string">'dadaozhan'</span>]=restations[per[<span class="hljs-string">'dadaozhan'</span>]]
+        per[<span class="hljs-string">&#x27;chufazhan&#x27;</span>]=restations[per[<span class="hljs-string">&#x27;chufazhan&#x27;</span>]]
+        per[<span class="hljs-string">&#x27;dadaozhan&#x27;</span>]=restations[per[<span class="hljs-string">&#x27;dadaozhan&#x27;</span>]]
 
-        per[<span class="hljs-string">'checi'</span>] = train[<span class="hljs-number">3</span>]
-        per[<span class="hljs-string">'chufasj'</span>] = train[<span class="hljs-number">8</span>]
-        per[<span class="hljs-string">'didasj'</span>] = train[<span class="hljs-number">9</span>]
-        per[<span class="hljs-string">'lishi'</span>] = train[<span class="hljs-number">10</span>]
-        per[<span class="hljs-string">'erdeng'</span>] = train[<span class="hljs-number">30</span>]
-        per[<span class="hljs-string">'yideng'</span>] = train[<span class="hljs-number">31</span>]
-        per[<span class="hljs-string">'shangwu'</span>] = train[<span class="hljs-number">32</span>]
-        per[<span class="hljs-string">'wuzuo'</span>]=train[<span class="hljs-number">26</span>]
+        per[<span class="hljs-string">&#x27;checi&#x27;</span>] = train[<span class="hljs-number">3</span>]
+        per[<span class="hljs-string">&#x27;chufasj&#x27;</span>] = train[<span class="hljs-number">8</span>]
+        per[<span class="hljs-string">&#x27;didasj&#x27;</span>] = train[<span class="hljs-number">9</span>]
+        per[<span class="hljs-string">&#x27;lishi&#x27;</span>] = train[<span class="hljs-number">10</span>]
+        per[<span class="hljs-string">&#x27;erdeng&#x27;</span>] = train[<span class="hljs-number">30</span>]
+        per[<span class="hljs-string">&#x27;yideng&#x27;</span>] = train[<span class="hljs-number">31</span>]
+        per[<span class="hljs-string">&#x27;shangwu&#x27;</span>] = train[<span class="hljs-number">32</span>]
+        per[<span class="hljs-string">&#x27;wuzuo&#x27;</span>]=train[<span class="hljs-number">26</span>]
         <span class="hljs-keyword">for</span> value <span class="hljs-keyword">in</span> per:
-            <span class="hljs-keyword">if</span> (per[value] == <span class="hljs-string">''</span>):
-                per[value] = <span class="hljs-string">'-'</span>
+            <span class="hljs-keyword">if</span> (per[value] == <span class="hljs-string">&#x27;&#x27;</span>):
+                per[value] = <span class="hljs-string">&#x27;-&#x27;</span>
         dataans.append(per)
-    <span class="hljs-keyword">return</span> dataans</code></pre><br>PS：这里有个问题要说明下：比如我朋友温州-金华，而金华有两个站，他只要其中一个站的，所以我们得显示出出发站和抵达站到底是哪个，但是在信息中我们获得地点是一个码而不是一个站的名字，而我们的字典中是 {名字：码}，一开始我想要不干脆再做个反转的字典，后来往上翻的时候发现：原来上面已经给我们了！解决！计划通~<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181009004354618.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>5.获取票价信息</strong><br>票价的url是另外一条了,获取方式同上上,老方法请求,解析,打包<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GetPrice</span><span class="hljs-params">(self,train_no,from_station_no,to_station_no,seat_types,date,price)</span>:</span>
-    url = <span class="hljs-string">'https://kyfw.12306.cn/otn/leftTicket/queryTicketPrice?train_no='</span> \
-          + train_no + <span class="hljs-string">'&amp;from_station_no='</span> \
-          + from_station_no + <span class="hljs-string">'&amp;to_station_no='</span> \
-          + to_station_no + <span class="hljs-string">'&amp;seat_types='</span> \
-          + seat_types + <span class="hljs-string">'&amp;train_date='</span> + date
+    <span class="hljs-keyword">return</span> dataans</code></pre><br>PS：这里有个问题要说明下：比如我朋友温州-金华，而金华有两个站，他只要其中一个站的，所以我们得显示出出发站和抵达站到底是哪个，但是在信息中我们获得地点是一个码而不是一个站的名字，而我们的字典中是 {名字：码}，一开始我想要不干脆再做个反转的字典，后来往上翻的时候发现：原来上面已经给我们了！解决！计划通~<br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181009004354618.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br><strong>5.获取票价信息</strong><br>票价的url是另外一条了,获取方式同上上,老方法请求,解析,打包<br><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">GetPrice</span>(<span class="hljs-params">self,train_no,from_station_no,to_station_no,seat_types,date,price</span>):
+    url = <span class="hljs-string">&#x27;https://kyfw.12306.cn/otn/leftTicket/queryTicketPrice?train_no=&#x27;</span> \
+          + train_no + <span class="hljs-string">&#x27;&amp;from_station_no=&#x27;</span> \
+          + from_station_no + <span class="hljs-string">&#x27;&amp;to_station_no=&#x27;</span> \
+          + to_station_no + <span class="hljs-string">&#x27;&amp;seat_types=&#x27;</span> \
+          + seat_types + <span class="hljs-string">&#x27;&amp;train_date=&#x27;</span> + date
     priceweb=requests.get(url)
     pricejson=json.loads(priceweb.text)
-    pricedata=pricejson[<span class="hljs-string">'data'</span>]
-    shangwu=pricedata.__contains__(<span class="hljs-string">'A9'</span>)<span class="hljs-comment">#商务</span>
-    yideng=pricedata.__contains__(<span class="hljs-string">'M'</span>)<span class="hljs-comment">#一等</span>
-    erdeng=pricedata.__contains__(<span class="hljs-string">'O'</span>)<span class="hljs-comment">#二等</span>
-    wuzuo=pricedata.__contains__(<span class="hljs-string">'WZ'</span>)<span class="hljs-comment">#无座</span>
+    pricedata=pricejson[<span class="hljs-string">&#x27;data&#x27;</span>]
+    shangwu=pricedata.__contains__(<span class="hljs-string">&#x27;A9&#x27;</span>)<span class="hljs-comment">#商务</span>
+    yideng=pricedata.__contains__(<span class="hljs-string">&#x27;M&#x27;</span>)<span class="hljs-comment">#一等</span>
+    erdeng=pricedata.__contains__(<span class="hljs-string">&#x27;O&#x27;</span>)<span class="hljs-comment">#二等</span>
+    wuzuo=pricedata.__contains__(<span class="hljs-string">&#x27;WZ&#x27;</span>)<span class="hljs-comment">#无座</span>
     <span class="hljs-keyword">if</span> shangwu:
-        price[<span class="hljs-string">'shangwu'</span>]=pricedata[<span class="hljs-string">'A9'</span>]
+        price[<span class="hljs-string">&#x27;shangwu&#x27;</span>]=pricedata[<span class="hljs-string">&#x27;A9&#x27;</span>]
     <span class="hljs-keyword">else</span> :
-        price[<span class="hljs-string">'shangwu'</span>]=<span class="hljs-string">''</span>
+        price[<span class="hljs-string">&#x27;shangwu&#x27;</span>]=<span class="hljs-string">&#x27;&#x27;</span>
     <span class="hljs-keyword">if</span> yideng:
-        price[<span class="hljs-string">'yideng'</span>]=pricedata[<span class="hljs-string">'M'</span>]
+        price[<span class="hljs-string">&#x27;yideng&#x27;</span>]=pricedata[<span class="hljs-string">&#x27;M&#x27;</span>]
     <span class="hljs-keyword">else</span> :
-        price[<span class="hljs-string">'yideng'</span>]=<span class="hljs-string">''</span>
+        price[<span class="hljs-string">&#x27;yideng&#x27;</span>]=<span class="hljs-string">&#x27;&#x27;</span>
     <span class="hljs-keyword">if</span> erdeng:
-        price[<span class="hljs-string">'erdeng'</span>]=pricedata[<span class="hljs-string">'O'</span>]
+        price[<span class="hljs-string">&#x27;erdeng&#x27;</span>]=pricedata[<span class="hljs-string">&#x27;O&#x27;</span>]
     <span class="hljs-keyword">else</span> :
-        price[<span class="hljs-string">'erdeng'</span>]=<span class="hljs-string">''</span>
+        price[<span class="hljs-string">&#x27;erdeng&#x27;</span>]=<span class="hljs-string">&#x27;&#x27;</span>
     <span class="hljs-keyword">if</span> wuzuo:
-        price[<span class="hljs-string">'wuzuo'</span>]=pricedata[<span class="hljs-string">'WZ'</span>]
+        price[<span class="hljs-string">&#x27;wuzuo&#x27;</span>]=pricedata[<span class="hljs-string">&#x27;WZ&#x27;</span>]
     <span class="hljs-keyword">else</span> :
-        price[<span class="hljs-string">'wuzuo'</span>]=<span class="hljs-string">''</span>
-    <span class="hljs-keyword">return</span> price</code></pre><br><strong>6.输出</strong><br>用了prettytable库输出表格<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Print</span><span class="hljs-params">(self)</span>:</span>
+        price[<span class="hljs-string">&#x27;wuzuo&#x27;</span>]=<span class="hljs-string">&#x27;&#x27;</span>
+    <span class="hljs-keyword">return</span> price</code></pre><br><strong>6.输出</strong><br>用了prettytable库输出表格<br><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">Print</span>(<span class="hljs-params">self</span>):
     price=&#123;
-        <span class="hljs-string">'shangwu'</span>:<span class="hljs-string">''</span>,
-        <span class="hljs-string">'yideng'</span>:<span class="hljs-string">''</span>,
-        <span class="hljs-string">'erdeng'</span>:<span class="hljs-string">''</span>,
-        <span class="hljs-string">'wuzuo'</span>:<span class="hljs-string">''</span>,
+        <span class="hljs-string">&#x27;shangwu&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-string">&#x27;yideng&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-string">&#x27;erdeng&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
+        <span class="hljs-string">&#x27;wuzuo&#x27;</span>:<span class="hljs-string">&#x27;&#x27;</span>,
     &#125;
     table = prettytable.PrettyTable()
-    table.field_names = [<span class="hljs-string">"车次"</span>,<span class="hljs-string">"出发站"</span>,<span class="hljs-string">"达到站"</span> ,<span class="hljs-string">"出发时间"</span>, <span class="hljs-string">"抵达时间"</span>, <span class="hljs-string">"历时"</span>, <span class="hljs-string">"二等座"</span>, <span class="hljs-string">"一等座"</span>, <span class="hljs-string">"商务座"</span>,<span class="hljs-string">"无座"</span>]
+    table.field_names = [<span class="hljs-string">&quot;车次&quot;</span>,<span class="hljs-string">&quot;出发站&quot;</span>,<span class="hljs-string">&quot;达到站&quot;</span> ,<span class="hljs-string">&quot;出发时间&quot;</span>, <span class="hljs-string">&quot;抵达时间&quot;</span>, <span class="hljs-string">&quot;历时&quot;</span>, <span class="hljs-string">&quot;二等座&quot;</span>, <span class="hljs-string">&quot;一等座&quot;</span>, <span class="hljs-string">&quot;商务座&quot;</span>,<span class="hljs-string">&quot;无座&quot;</span>]
     <span class="hljs-keyword">for</span> per <span class="hljs-keyword">in</span> self.data:
-        price=self.GetPrice(per[<span class="hljs-string">'train_no'</span>],per[<span class="hljs-string">'from_station_no'</span>],per[<span class="hljs-string">'to_station_no'</span>],per[<span class="hljs-string">'seat_types'</span>],self.date,price)
-        table.add_row([per[<span class="hljs-string">'checi'</span>],per[<span class="hljs-string">'chufazhan'</span>],per[<span class="hljs-string">'dadaozhan'</span>], per[<span class="hljs-string">'chufasj'</span>], per[<span class="hljs-string">'didasj'</span>], per[<span class="hljs-string">'lishi'</span>], per[<span class="hljs-string">'erdeng'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'erdeng'</span>], per[<span class="hljs-string">'yideng'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'yideng'</span>],
-                       per[<span class="hljs-string">'shangwu'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'shangwu'</span>],per[<span class="hljs-string">'wuzuo'</span>]+<span class="hljs-string">'\n'</span>+price[<span class="hljs-string">'wuzuo'</span>]])
-    print(table)</code></pre><br><strong>7.演示</strong><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008235639135.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>8.完整代码<br><a href="https://github.com/senjay/12306tickets_and_price_search" target="_blank" rel="noopener">https://github.com/senjay/12306tickets_and_price_search</a></p>
+        price=self.GetPrice(per[<span class="hljs-string">&#x27;train_no&#x27;</span>],per[<span class="hljs-string">&#x27;from_station_no&#x27;</span>],per[<span class="hljs-string">&#x27;to_station_no&#x27;</span>],per[<span class="hljs-string">&#x27;seat_types&#x27;</span>],self.date,price)
+        table.add_row([per[<span class="hljs-string">&#x27;checi&#x27;</span>],per[<span class="hljs-string">&#x27;chufazhan&#x27;</span>],per[<span class="hljs-string">&#x27;dadaozhan&#x27;</span>], per[<span class="hljs-string">&#x27;chufasj&#x27;</span>], per[<span class="hljs-string">&#x27;didasj&#x27;</span>], per[<span class="hljs-string">&#x27;lishi&#x27;</span>], per[<span class="hljs-string">&#x27;erdeng&#x27;</span>]+<span class="hljs-string">&#x27;\n&#x27;</span>+price[<span class="hljs-string">&#x27;erdeng&#x27;</span>], per[<span class="hljs-string">&#x27;yideng&#x27;</span>]+<span class="hljs-string">&#x27;\n&#x27;</span>+price[<span class="hljs-string">&#x27;yideng&#x27;</span>],
+                       per[<span class="hljs-string">&#x27;shangwu&#x27;</span>]+<span class="hljs-string">&#x27;\n&#x27;</span>+price[<span class="hljs-string">&#x27;shangwu&#x27;</span>],per[<span class="hljs-string">&#x27;wuzuo&#x27;</span>]+<span class="hljs-string">&#x27;\n&#x27;</span>+price[<span class="hljs-string">&#x27;wuzuo&#x27;</span>]])
+    <span class="hljs-built_in">print</span>(table)</code></pre><br><strong>7.演示</strong><br><img src="/2018/10/09/%E4%BD%99%E7%A5%A8%E5%8F%8A%E7%A5%A8%E4%BB%B7%E6%9F%A5%E8%AF%A2/20181008235639135.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>8.完整代码<br><a target="_blank" rel="noopener" href="https://github.com/senjay/12306tickets_and_price_search">https://github.com/senjay/12306tickets_and_price_search</a></p>
 </blockquote>
 
             </article>
@@ -346,7 +346,7 @@ new_dictionary()</code></pre>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

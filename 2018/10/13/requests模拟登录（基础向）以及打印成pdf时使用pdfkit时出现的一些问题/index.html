@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    898 字
+                    941 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    11
+                    12
                      分钟
                   </span>
                 
@@ -197,10 +197,10 @@
             <article class="markdown-body">
               <p>需求时这样的：学校有一个判题网，当期末的时候要把提交的结果一页一页的打印成pdf交给老师<br>因为是内网，模拟登录十分简单我就简单写一下，但是我在使用pdfkit时出现了一些问题（强迫症问题），最终也没找到很好的解决方法，如果有dalao有想法恳请告诉 - -！</p>
 <h2 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h2><p>python3.6<br><strong>涉及的库:</strong><br>requests<br>pdfkit<br>re<br><strong>1.模拟登录</strong><br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013013638153.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>登录的url如上 我们关注hearder里最后几个就行，先构造出来header</p>
-<pre><code class="hljs plain">header&#x3D;&#123;
-&#39;uer-aGent&#39;:&#39;Mozilla&#x2F;5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko&#x2F;20100101 Firefox&#x2F;61.0&#39;,
-&#39;Referer&#39;:&#39;http:&#x2F;&#x2F;**.***.***.***&#x2F;&#39;,
-&#39;Host&#39;:&#39;**.***.***.***&#39;
+<pre><code class="hljs plaintext">header=&#123;
+&#x27;uer-aGent&#x27;:&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0&#x27;,
+&#x27;Referer&#x27;:&#x27;http://**.***.***.***/&#x27;,
+&#x27;Host&#x27;:&#x27;**.***.***.***&#x27;
 &#125;</code></pre>
 <img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013014502706.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
 <p>这是需要post的参数，第一个参数csrfmid…啥的我们发现就是cookie中的一个</p>
@@ -210,27 +210,27 @@
 <span class="hljs-keyword">import</span> pdfkit
 
 postdata=&#123;
-<span class="hljs-string">'password'</span>:<span class="hljs-string">'******'</span>,
-<span class="hljs-string">'username'</span>:	<span class="hljs-string">'*******'</span>
+<span class="hljs-string">&#x27;password&#x27;</span>:<span class="hljs-string">&#x27;******&#x27;</span>,
+<span class="hljs-string">&#x27;username&#x27;</span>:	<span class="hljs-string">&#x27;*******&#x27;</span>
 &#125;
 session = requests.Session()
 <span class="hljs-comment">#登录</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Getcookiesandlogin</span><span class="hljs-params">()</span>:</span>
-    posturl = <span class="hljs-string">'http://**.***.***.***/user/logincheck/'</span>
-    session.get(<span class="hljs-string">'http://**.***.***.***/'</span>,headers=header)<span class="hljs-comment">#通过这次来获取cookie</span>
-    postdata[<span class="hljs-string">'csrfmiddlewaretoken'</span>]=session.cookies.get_dict()[<span class="hljs-string">'csrftoken'</span>]<span class="hljs-comment">#把cookie加入表单参数中</span>
-    session.post(posturl, data=postdata,headers=header)</code></pre><br><strong>2.pdfkit</strong><br>pdfkit依赖于<a href="https://wkhtmltopdf.org/downloads.html" target="_blank" rel="noopener">wkhtmltopdf</a>，链接为下载地址，我下的是windos的MXE (MinGW-w64)，直接解压就行，使用的时候设置一下路径参数就ok<br><pre><code class="hljs python">path=<span class="hljs-string">'E:/wkhtmltopdf/wkhtmltox/bin/wkhtmltopdf.exe'</span><span class="hljs-comment">#你解压后的路径</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">Getcookiesandlogin</span>():
+    posturl = <span class="hljs-string">&#x27;http://**.***.***.***/user/logincheck/&#x27;</span>
+    session.get(<span class="hljs-string">&#x27;http://**.***.***.***/&#x27;</span>,headers=header)<span class="hljs-comment">#通过这次来获取cookie</span>
+    postdata[<span class="hljs-string">&#x27;csrfmiddlewaretoken&#x27;</span>]=session.cookies.get_dict()[<span class="hljs-string">&#x27;csrftoken&#x27;</span>]<span class="hljs-comment">#把cookie加入表单参数中</span>
+    session.post(posturl, data=postdata,headers=header)</code></pre><br><strong>2.pdfkit</strong><br>pdfkit依赖于<a target="_blank" rel="noopener" href="https://wkhtmltopdf.org/downloads.html">wkhtmltopdf</a>，链接为下载地址，我下的是windos的MXE (MinGW-w64)，直接解压就行，使用的时候设置一下路径参数就ok<br><pre><code class="hljs python">path=<span class="hljs-string">&#x27;E:/wkhtmltopdf/wkhtmltox/bin/wkhtmltopdf.exe&#x27;</span><span class="hljs-comment">#你解压后的路径</span>
 config = pdfkit.configuration(wkhtmltopdf=path)</code></pre></p>
 <p>先说最后都没有解决的问题吧，看两幅图片的对比<br>1.<br><img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013021751279.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>2.<img src="/2018/10/13/requests%E6%A8%A1%E6%8B%9F%E7%99%BB%E5%BD%95%EF%BC%88%E5%9F%BA%E7%A1%80%E5%90%91%EF%BC%89%E4%BB%A5%E5%8F%8A%E6%89%93%E5%8D%B0%E6%88%90pdf%E6%97%B6%E4%BD%BF%E7%94%A8pdfkit%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84%E4%B8%80%E4%BA%9B%E9%97%AE%E9%A2%98/20181013015556342.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"><br>emmm，就是空白（红框圈出），打印pdf的时候会出现空白，而且这些空白是有些pdf有，有些pdf没有的，而这些空白也不仅仅是出现在页与页的分隔之间。。。<br><em>只截取关于pdfkit的一段代码吧（这是最后的）</em></p>
 <pre><code class="hljs python">text=session.get(url)
-css=[<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shCore.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\shThemeDefault.css'</span>,
-     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\global.css'</span>,<span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\group.css'</span>,
-     <span class="hljs-string">'E:\Pycharm\MyProjects\monidenglupanti\css\printstyle.css'</span>]
-name=re.findall(<span class="hljs-string">r'&lt;title&gt;(.*) &lt;/title&gt;'</span>,text.text)[<span class="hljs-number">0</span>].replace(<span class="hljs-string">' '</span>,<span class="hljs-string">''</span>)
-name=name.replace(<span class="hljs-string">':'</span>,<span class="hljs-string">'_'</span>)
-path=<span class="hljs-string">'E:/Pycharm/MyProjects/monidenglupanti/'</span>+name+<span class="hljs-string">'.pdf'</span>
-h=text.text.replace(<span class="hljs-string">'/js/media/js/scripts/'</span>,<span class="hljs-string">'js/'</span>)
-h = text.text.replace(<span class="hljs-string">'/js/media/js/'</span>, <span class="hljs-string">'js/'</span>)
+css=[<span class="hljs-string">&#x27;E:\Pycharm\MyProjects\monidenglupanti\css\shCore.css&#x27;</span>,<span class="hljs-string">&#x27;E:\Pycharm\MyProjects\monidenglupanti\css\shThemeDefault.css&#x27;</span>,
+     <span class="hljs-string">&#x27;E:\Pycharm\MyProjects\monidenglupanti\css\global.css&#x27;</span>,<span class="hljs-string">&#x27;E:\Pycharm\MyProjects\monidenglupanti\css\group.css&#x27;</span>,
+     <span class="hljs-string">&#x27;E:\Pycharm\MyProjects\monidenglupanti\css\printstyle.css&#x27;</span>]
+name=re.findall(<span class="hljs-string">r&#x27;&lt;title&gt;(.*) &lt;/title&gt;&#x27;</span>,text.text)[<span class="hljs-number">0</span>].replace(<span class="hljs-string">&#x27; &#x27;</span>,<span class="hljs-string">&#x27;&#x27;</span>)
+name=name.replace(<span class="hljs-string">&#x27;:&#x27;</span>,<span class="hljs-string">&#x27;_&#x27;</span>)
+path=<span class="hljs-string">&#x27;E:/Pycharm/MyProjects/monidenglupanti/&#x27;</span>+name+<span class="hljs-string">&#x27;.pdf&#x27;</span>
+h=text.text.replace(<span class="hljs-string">&#x27;/js/media/js/scripts/&#x27;</span>,<span class="hljs-string">&#x27;js/&#x27;</span>)
+h = text.text.replace(<span class="hljs-string">&#x27;/js/media/js/&#x27;</span>, <span class="hljs-string">&#x27;js/&#x27;</span>)
 <span class="hljs-comment">#这里外链的路径变成‘C:\Users\76083\AppData\Local\Temp\’，改成其他路径失效，没解决- -！</span>
 pdfkit.from_string(h,output_path=path,configuration=config,css=css)</code></pre>
 <p>苦逼历程：<br>1.一开始，发现打印的pdf没有样式，好，把网页的样式下载下来，添加进去，<br>后来发现，打印出来的pdf还是有些小地方不一样，想破脑袋，此处省略万字。。。<br>2.突然想到有些应该是javascript动态生成的！好，咱再把他也全部下载下来<br>（下载方法：Internet选项-常规-先点删除-选择临时文件(全清了也ok就当清理垃圾了)-删除后刷新一下你要下载的网页-再点设置-再点查看文件，好，里面就全是这个网站的css和js文件了）。<br>3.然后加载javascritpt，把网页中js的相对路径改成我需要的觉得路径，发现又发现设置其他盘无用（它还是会ignore）只能设置在‘C:\Users\76083\AppData\Local\Temp\’？？？算了，屈服<br>4.满心欢心运行效果，样式啥的全对了，看到空白，强迫症卒</p>
@@ -257,7 +257,7 @@ pdfkit.from_string(h,output_path=path,configuration=config,css=css)</code></pre>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

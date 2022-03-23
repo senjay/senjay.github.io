@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    606 字
+                    637 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    8
+                    9
                      分钟
                   </span>
                 
@@ -202,34 +202,34 @@
 <span class="hljs-keyword">import</span> pymysql
 <span class="hljs-keyword">from</span> bs4 <span class="hljs-keyword">import</span> BeautifulSoup
 <span class="hljs-keyword">import</span> random
-hottime=<span class="hljs-string">''</span><span class="hljs-comment">#时间</span>
-sql = <span class="hljs-string">"insert into hottop(time,top)values(%s,%s)"</span>
-db = pymysql.connect(<span class="hljs-string">"数据库的ip"</span>,<span class="hljs-string">"数据库用户名"</span>,<span class="hljs-string">"密码"</span>,<span class="hljs-string">"weibohot"</span>)
+hottime=<span class="hljs-string">&#x27;&#x27;</span><span class="hljs-comment">#时间</span>
+sql = <span class="hljs-string">&quot;insert into hottop(time,top)values(%s,%s)&quot;</span>
+db = pymysql.connect(<span class="hljs-string">&quot;数据库的ip&quot;</span>,<span class="hljs-string">&quot;数据库用户名&quot;</span>,<span class="hljs-string">&quot;密码&quot;</span>,<span class="hljs-string">&quot;weibohot&quot;</span>)
 cursor = db.cursor()
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Gethot</span><span class="hljs-params">()</span>:</span>
-    url = <span class="hljs-string">'https://s.weibo.com/top/summary?cate=realtimehot'</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">Gethot</span>():
+    url = <span class="hljs-string">&#x27;https://s.weibo.com/top/summary?cate=realtimehot&#x27;</span>
     <span class="hljs-comment">#这里为了稳定,可以添加一个user-Agent的池,然后每次用的时候随机一个,也可以添加ip池</span>
     header=&#123;
-        <span class="hljs-string">'User-Agent'</span>:<span class="hljs-string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0'</span>
+        <span class="hljs-string">&#x27;User-Agent&#x27;</span>:<span class="hljs-string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0) Gecko/20100101 Firefox/61.0&#x27;</span>
     &#125;
     <span class="hljs-keyword">try</span>:
         <span class="hljs-comment"># global 声明接下来用的hottime是全局变量,</span>
         <span class="hljs-comment"># 如果不加这个,它会变成局部变量,即使你在函数外声明了一个hottime</span>
         <span class="hljs-keyword">global</span> hottime
-        hottime = datetime.datetime.now().strftime(<span class="hljs-string">"%Y-%m-%d %H:%M:%S"</span>)
+        hottime = datetime.datetime.now().strftime(<span class="hljs-string">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)
         hotweb = requests.get(url, headers=header, timeout=<span class="hljs-number">10</span>)
     <span class="hljs-keyword">except</span>:
-        print(hottime+<span class="hljs-string">':http Error'</span>)
+        <span class="hljs-built_in">print</span>(hottime+<span class="hljs-string">&#x27;:http Error&#x27;</span>)
     <span class="hljs-keyword">else</span>:
-        soup = BeautifulSoup(hotweb.text, <span class="hljs-string">"html.parser"</span>)
-        ans = soup.find_all(<span class="hljs-string">'td'</span>)
-        top = <span class="hljs-string">''</span>
+        soup = BeautifulSoup(hotweb.text, <span class="hljs-string">&quot;html.parser&quot;</span>)
+        ans = soup.find_all(<span class="hljs-string">&#x27;td&#x27;</span>)
+        top = <span class="hljs-string">&#x27;&#x27;</span>
         <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> ans:
-            a = i.find(<span class="hljs-string">'a'</span>)  <span class="hljs-comment"># a标签内容，即热搜内容</span>
-            span = i.find(<span class="hljs-string">'span'</span>)  <span class="hljs-comment"># span标签内的的热度</span>
+            a = i.find(<span class="hljs-string">&#x27;a&#x27;</span>)  <span class="hljs-comment"># a标签内容，即热搜内容</span>
+            span = i.find(<span class="hljs-string">&#x27;span&#x27;</span>)  <span class="hljs-comment"># span标签内的的热度</span>
             <span class="hljs-keyword">if</span> (a != <span class="hljs-literal">None</span> <span class="hljs-keyword">and</span> span != <span class="hljs-literal">None</span>):
-                top += a.get_text() + <span class="hljs-string">'__'</span> + span.get_text() + <span class="hljs-string">'\n'</span>
+                top += a.get_text() + <span class="hljs-string">&#x27;__&#x27;</span> + span.get_text() + <span class="hljs-string">&#x27;\n&#x27;</span>
         <span class="hljs-keyword">return</span> top
 
 errorcount=<span class="hljs-number">0</span><span class="hljs-comment">#5次错误跳出循环</span>
@@ -240,7 +240,7 @@ errorcount=<span class="hljs-number">0</span><span class="hljs-comment">#5次错
     <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> e:
         errorcount+=<span class="hljs-number">1</span>
         db.rollback()
-        print(hottime+<span class="hljs-string">":执行MySQL: %s 时出错：%s"</span> % (sql, e))
+        <span class="hljs-built_in">print</span>(hottime+<span class="hljs-string">&quot;:执行MySQL: %s 时出错：%s&quot;</span> % (sql, e))
         <span class="hljs-keyword">if</span>(errorcount==<span class="hljs-number">5</span>):
             <span class="hljs-keyword">break</span>
         <span class="hljs-keyword">else</span>:
@@ -266,12 +266,12 @@ errorcount=<span class="hljs-number">0</span><span class="hljs-comment">#5次错
 </tbody>
 </table>
 </div>
-<p>DDL语句:(不设置utf-8可能会出错- -)<br><pre><code class="hljs mysql">CREATE TABLE &#96;hottop&#96; (
-  &#96;time&#96; datetime NOT NULL,
-  &#96;top&#96; varchar(2000) NOT NULL
-)DEFAULT CHARSET&#x3D;utf8;</code></pre><br><strong>3.部署到服务器</strong><br>如果你是在本地写的代码,先把文件上传到服务器(可以通过ftp啥的,方法多多),<br>关于运行,weibohot.py是代码文件, log.file是通过print输出的日志文件(可以不必先创建,运行下面命令它自己也会创建)</p>
+<p>DDL语句:(不设置utf-8可能会出错- -)<br><pre><code class="hljs mysql">CREATE TABLE `hottop` (
+  `time` datetime NOT NULL,
+  `top` varchar(2000) NOT NULL
+)DEFAULT CHARSET=utf8;</code></pre><br><strong>3.部署到服务器</strong><br>如果你是在本地写的代码,先把文件上传到服务器(可以通过ftp啥的,方法多多),<br>关于运行,weibohot.py是代码文件, log.file是通过print输出的日志文件(可以不必先创建,运行下面命令它自己也会创建)</p>
 <pre><code class="hljs shell">nohup python3 -u weibohot.py &gt; log.file 2&gt;&amp;1 &amp;</code></pre>
-<p>nohup命令可以看<a href="https://blog.csdn.net/liuyanfeier/article/details/62422742" target="_blank" rel="noopener">这篇文章</a>,我觉得介绍的很精简明要,现在市面上的云服务基本都给你装好了python2和3环境,直接用python命令的话一开始都应该默认为2,-u参数是不启用缓冲(否则你print出来的东西可能不会马上输出到log.file日志中)<br>其实仅仅如此还是不够的,它在运行中可能还会遇到各种问题之类的,因此想要更好的可以写个shell脚本,断线邮件提醒啊,重连啊…<br><strong>4.结果</strong><br><img src="/2018/10/19/%E7%88%AC%E5%8F%96%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E6%A6%9C%E5%8D%95%E5%AD%98%E5%85%A5mysql%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/20181019001055507.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
+<p>nohup命令可以看<a target="_blank" rel="noopener" href="https://blog.csdn.net/liuyanfeier/article/details/62422742">这篇文章</a>,我觉得介绍的很精简明要,现在市面上的云服务基本都给你装好了python2和3环境,直接用python命令的话一开始都应该默认为2,-u参数是不启用缓冲(否则你print出来的东西可能不会马上输出到log.file日志中)<br>其实仅仅如此还是不够的,它在运行中可能还会遇到各种问题之类的,因此想要更好的可以写个shell脚本,断线邮件提醒啊,重连啊…<br><strong>4.结果</strong><br><img src="/2018/10/19/%E7%88%AC%E5%8F%96%E5%BE%AE%E5%8D%9A%E7%83%AD%E6%90%9C%E6%A6%9C%E5%8D%95%E5%AD%98%E5%85%A5mysql%E5%B9%B6%E9%83%A8%E7%BD%B2%E5%9C%A8%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/20181019001055507.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
 
             </article>
             <hr>
@@ -295,7 +295,7 @@ errorcount=<span class="hljs-number">0</span><span class="hljs-comment">#5次错
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

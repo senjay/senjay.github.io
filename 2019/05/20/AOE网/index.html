@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -208,12 +208,12 @@
 <p>活动<code>a[i]</code>的最早开始时间<code>e[i]</code>:       活动a[i]用边<code>(V[k],V[j])</code>表示</p>
 <pre><code class="hljs c++">e[i]=ve[k]</code></pre>
 <p>活动<code>a[i]</code>的最迟开始时间<code>l[i]</code>:</p>
-<pre><code class="hljs c++">l[i]=vl[j]-Weight(V[k],V[j])</code></pre>
+<pre><code class="hljs c++">l[i]=vl[j]-<span class="hljs-built_in">Weight</span>(V[k],V[j])</code></pre>
 <p>一个活动a[i]的松弛时间：<br><code>d[i]=l[i]-e[i]</code>或者<code>d[i]=关键路径长度-包含a[i]活动的最长路径</code></p>
 <p><strong>3.计算</strong><br><img src="/2019/05/20/AOE%E7%BD%91/20190519214237921.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
 <p><strong>3.1 计算事件的最早和最迟发生时间</strong></p>
-<p>ve的计算方法为从前往后计算，取最大值，例如对于F,<code>ve(F)=max{ve(B)+a5,ve(E)+a7,ve(G)+a8}</code> ,只有一个的话就只取一个，多个的话，多个中取最大值</p>
-<p>vl的计算方法为从后往前计算，首先另终点J的vl值为其ve，即vl(J)=ve(J)=18，然后多个中取最小值，例如对于B,<code>vl(B)=min{vl(C)-a2,vl(F)-a5,vl(D)-a3}=2</code>;若只有一个，例如对于H,<code>vl(H)=vl(J)-a12=14</code></p>
+<p>ve的计算方法为从前往后计算，取最大值，例如对于F,<code>ve(F)=max&#123;ve(B)+a5,ve(E)+a7,ve(G)+a8&#125;</code> ,只有一个的话就只取一个，多个的话，多个中取最大值</p>
+<p>vl的计算方法为从后往前计算，首先另终点J的vl值为其ve，即vl(J)=ve(J)=18，然后多个中取最小值，例如对于B,<code>vl(B)=min&#123;vl(C)-a2,vl(F)-a5,vl(D)-a3&#125;=2</code>;若只有一个，例如对于H,<code>vl(H)=vl(J)-a12=14</code></p>
 <p>最终算出各个顶点的最早和最迟发生时间如下<br>|V|ve（事件最早发生时间）| vl（事件最迟发生事件）|<br>|—|—|—|<br>|  A| 0 |0|<br>|  B| 2 |2|<br>| C| 5 |5|<br>|  D|  4|4|<br>| E| 10 |10|<br>|  F|13 |13|<br>| G| 7 |7|<br>|  H| 12 |14|<br>|  I| 13 |16|<br>|  J|18  |18|</p>
 <p>有以上可以得出ve==vl的点即为关键路径上的事件，即A,B,C,D,E,F,G,J，则有以上点连接的边所代表的活动a1,a2,a3,a4,a6,a7,a8,a10疑似为关键活动<br>注意：<br>关键路径可能不只有一条，计算到这里只能得出关键路径上的事件，具体怎么走还等计算活动的最早和最迟开始时间，如果仅仅需要计算出关键路径，则只需计算几个疑似关键活动的最早和最迟发生时间，为了清楚，我们这里就把全部活动的都计算出来</p>
 <p><strong>3.2活动的最早和最迟开始时间</strong><br>活动最早开始时间：  例如a1,为边（A,B），则<code>a1=ve(A)=0</code>;例如a2,为边（B,C），则a2=ve(B)=2</p>
@@ -324,7 +324,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

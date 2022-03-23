@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -197,19 +197,19 @@
             <article class="markdown-body">
               <p>&emsp;&emsp;因为QGLWidget在文档中显示过时，就采用了QOpenGLWidget,因为要用到多重采样来抗锯齿</p>
 <pre><code class="hljs c++">QSurfaceFormat format;
-format.setSamples(<span class="hljs-number">4</span>);
-QSurfaceFormat::setDefaultFormat(format);</code></pre>
+format.<span class="hljs-built_in">setSamples</span>(<span class="hljs-number">4</span>);
+QSurfaceFormat::<span class="hljs-built_in">setDefaultFormat</span>(format);</code></pre>
 <p>结果造成像素深度<code>winz</code>无法读取</p>
-<pre><code class="hljs c++">glReadPixels((<span class="hljs-keyword">int</span>)winx, (<span class="hljs-keyword">int</span>)winy, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, GL_DEPTH_COMPONENT, GL_FLOAT,&amp;winz);</code></pre>
+<pre><code class="hljs c++"><span class="hljs-built_in">glReadPixels</span>((<span class="hljs-type">int</span>)winx, (<span class="hljs-type">int</span>)winy, <span class="hljs-number">1</span>, <span class="hljs-number">1</span>, GL_DEPTH_COMPONENT, GL_FLOAT,&amp;winz);</code></pre>
 <p><code>winz</code>一直不会改变。</p>
 <p>&emsp;&emsp;这个bug找了两天多，最终才确定是QOpenGLWidget的多重采样造成的。在QT文档中有</p>
 <pre><code class="hljs c++">QOpenGLWidget always renders offscreen, <span class="hljs-keyword">using</span> framebuffer objects. QGLWidget on the other hand uses a native window <span class="hljs-keyword">and</span> surface.</code></pre>
 <p>同时关于Multisampling的记录是</p>
 <pre><code class="hljs C++">Multisampling
-	To enable multisampling, set the number of requested samples on the QSurfaceFormat that is passed to setFormat(). On systems that do not support it the request may get ignored.
-	Multisampling support <span class="hljs-keyword">requires</span> support <span class="hljs-keyword">for</span> multisampled renderbuffers <span class="hljs-keyword">and</span> framebuffer blits. On OpenGL ES <span class="hljs-number">2.0</span> implementations it is likely that these will <span class="hljs-keyword">not</span> be present. This means that multisampling will <span class="hljs-keyword">not</span> be <span class="hljs-built_in">available</span>. With modern OpenGL versions <span class="hljs-keyword">and</span> OpenGL ES <span class="hljs-number">3.0</span> <span class="hljs-keyword">and</span> up <span class="hljs-keyword">this</span> is usually <span class="hljs-keyword">not</span> a problem anymore.</code></pre>
+	To enable multisampling, <span class="hljs-function">set the number of requested samples on the QSurfaceFormat that is passed to <span class="hljs-title">setFormat</span><span class="hljs-params">()</span>. On systems that <span class="hljs-keyword">do</span> <span class="hljs-keyword">not</span> support it the request may get ignored.</span>
+<span class="hljs-function">	Multisampling support <span class="hljs-keyword">requires</span> support <span class="hljs-keyword">for</span> multisampled renderbuffers <span class="hljs-keyword">and</span> framebuffer blits. On OpenGL ES 2.0 implementations it is likely that these will <span class="hljs-keyword">not</span> be present. This means that multisampling will <span class="hljs-keyword">not</span> be available. With modern OpenGL versions <span class="hljs-keyword">and</span> OpenGL ES 3.0 <span class="hljs-keyword">and</span> up <span class="hljs-keyword">this</span> is usually <span class="hljs-keyword">not</span> a problem anymore. </span></code></pre>
 <p>&emsp;&emsp;可以看到它是<strong>离屏渲染（offscreen）</strong>的，要求使用<code>multisampled renderbuffers</code>和<code>framebuffer</code>,这是一个很大的不同，所以如果坚持要使用它并且要用到读取深度之类的可行思路是重新绑定FBO后去读取。而在QGLWidget中只需要在构造函数的初始化列表中用</p>
-<pre><code class="hljs c++">:QGLWidget(QGLFormat(QGL::SampleBuffers | QGL::AlphaChannel), parent)</code></pre>
+<pre><code class="hljs c++">:<span class="hljs-built_in">QGLWidget</span>(<span class="hljs-built_in">QGLFormat</span>(QGL::SampleBuffers | QGL::AlphaChannel), parent)</code></pre>
 
             </article>
             <hr>
@@ -233,7 +233,7 @@ QSurfaceFormat::setDefaultFormat(format);</code></pre>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

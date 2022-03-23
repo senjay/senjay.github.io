@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -213,21 +213,21 @@ l_i(x)&=\frac{(x-x_1)(x-x_2)(x-x_3)\dots(x-x_{i-1})(x-x_{i+1})\dots(x_i-x_n)}{(x
 &=\prod_{j\not=i}^{ 1\le j\le n }\frac{x-x_j}{x_i-x_j}
 \end{align}</script><p>这里的$l_i(x)$称为插值基函数。</p>
 <p>​        以下是代码实现</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-keyword">float</span> x[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.20</span>, <span class="hljs-number">1.24</span>, <span class="hljs-number">1.28</span>, <span class="hljs-number">1.32</span>, <span class="hljs-number">1.36</span>, <span class="hljs-number">1.40</span>&#125;;
-<span class="hljs-keyword">float</span> y1[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.09545</span>, <span class="hljs-number">1.11355</span>, <span class="hljs-number">1.13137</span>,<span class="hljs-number">1.14891</span>, <span class="hljs-number">1.16619</span>, <span class="hljs-number">1.18322</span>&#125;;
-<span class="hljs-keyword">float</span> y2[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">0.07918</span>, <span class="hljs-number">0.09342</span>, <span class="hljs-number">0.10721</span>, <span class="hljs-number">0.12057</span>, <span class="hljs-number">0.13354</span>, <span class="hljs-number">0.14613</span>&#125;;
-<span class="hljs-keyword">float</span> xi[<span class="hljs-number">6</span>] = &#123;<span class="hljs-number">1.22</span>, <span class="hljs-number">1.26</span>, <span class="hljs-number">1.30</span>, <span class="hljs-number">1.34</span>, <span class="hljs-number">1.38</span>&#125;;
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-type">float</span> x[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.20</span>, <span class="hljs-number">1.24</span>, <span class="hljs-number">1.28</span>, <span class="hljs-number">1.32</span>, <span class="hljs-number">1.36</span>, <span class="hljs-number">1.40</span>&#125;;
+<span class="hljs-type">float</span> y1[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.09545</span>, <span class="hljs-number">1.11355</span>, <span class="hljs-number">1.13137</span>,<span class="hljs-number">1.14891</span>, <span class="hljs-number">1.16619</span>, <span class="hljs-number">1.18322</span>&#125;;
+<span class="hljs-type">float</span> y2[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">0.07918</span>, <span class="hljs-number">0.09342</span>, <span class="hljs-number">0.10721</span>, <span class="hljs-number">0.12057</span>, <span class="hljs-number">0.13354</span>, <span class="hljs-number">0.14613</span>&#125;;
+<span class="hljs-type">float</span> xi[<span class="hljs-number">6</span>] = &#123;<span class="hljs-number">1.22</span>, <span class="hljs-number">1.26</span>, <span class="hljs-number">1.30</span>, <span class="hljs-number">1.34</span>, <span class="hljs-number">1.38</span>&#125;;
 
-<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">Lagrange</span><span class="hljs-params">(<span class="hljs-keyword">float</span> *y,<span class="hljs-keyword">float</span> cx)</span></span>
+<span class="hljs-function"><span class="hljs-type">float</span> <span class="hljs-title">Lagrange</span><span class="hljs-params">(<span class="hljs-type">float</span> *y,<span class="hljs-type">float</span> cx)</span></span>
 <span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">int</span> n=<span class="hljs-number">6</span>;
-    <span class="hljs-keyword">float</span> temp[<span class="hljs-number">10</span>],ans=<span class="hljs-number">0</span>;
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)
+    <span class="hljs-type">int</span> n=<span class="hljs-number">6</span>;
+    <span class="hljs-type">float</span> temp[<span class="hljs-number">10</span>],ans=<span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)
     &#123;
         temp[i] = y[i];
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;j&lt;n;j++)
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;n;j++)
         <span class="hljs-keyword">if</span>(j!=i)
             temp[i] *= (cx - x[j]) / (x[i] - x[j]);
         ans += temp[i];
@@ -235,11 +235,11 @@ l_i(x)&=\frac{(x-x_1)(x-x_2)(x-x_3)\dots(x-x_{i-1})(x-x_{i+1})\dots(x_i-x_n)}{(x
     <span class="hljs-keyword">return</span> ans;
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"当x=%.2f,y1=%.5f,y2=%.5f\n"</span>, xi[i], Lagrange(y1,xi[i]),Lagrange(y2,xi[i]));
-    system(<span class="hljs-string">"pause"</span>);
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;当x=%.2f,y1=%.5f,y2=%.5f\n&quot;</span>, xi[i], <span class="hljs-built_in">Lagrange</span>(y1,xi[i]),<span class="hljs-built_in">Lagrange</span>(y2,xi[i]));
+    <span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;pause&quot;</span>);
     <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
 <p>​        我们可以发现假如新加入一个点,就必须得重新计算,这是它的缺点.</p>
@@ -275,58 +275,58 @@ N(x)=& f\left(x_{1}\right)+\\
 & f\left[x_{1}, \ldots, x_{4}\right]\left(x-x_{1}\right)\left(x-x_{2}\right)\left(x-x_{3}\right)+\\
 & \ldots
 \end{aligned}</script><p>以下是代码,可想而知，虽然Newton插值效率提高了，但是也要多出一部分来计算差商</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-keyword">float</span> x[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.20</span>, <span class="hljs-number">1.24</span>, <span class="hljs-number">1.28</span>, <span class="hljs-number">1.32</span>, <span class="hljs-number">1.36</span>, <span class="hljs-number">1.40</span>&#125;;
-<span class="hljs-keyword">float</span> y1[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.09545</span>, <span class="hljs-number">1.11355</span>, <span class="hljs-number">1.13137</span>,<span class="hljs-number">1.14891</span>, <span class="hljs-number">1.16619</span>, <span class="hljs-number">1.18322</span>&#125;;
-<span class="hljs-keyword">float</span> y2[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">0.07918</span>, <span class="hljs-number">0.09342</span>, <span class="hljs-number">0.10721</span>, <span class="hljs-number">0.12057</span>, <span class="hljs-number">0.13354</span>, <span class="hljs-number">0.14613</span>&#125;;
-<span class="hljs-keyword">float</span> xi[<span class="hljs-number">6</span>] = &#123;<span class="hljs-number">1.22</span>, <span class="hljs-number">1.26</span>, <span class="hljs-number">1.30</span>, <span class="hljs-number">1.34</span>, <span class="hljs-number">1.38</span>&#125;;
-<span class="hljs-keyword">float</span> diff[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];<span class="hljs-comment">//差商值表</span>
-<span class="hljs-keyword">float</span> phi[<span class="hljs-number">10</span>];<span class="hljs-comment">//基函数值</span>
-<span class="hljs-keyword">int</span> n=<span class="hljs-number">6</span>;
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-type">float</span> x[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.20</span>, <span class="hljs-number">1.24</span>, <span class="hljs-number">1.28</span>, <span class="hljs-number">1.32</span>, <span class="hljs-number">1.36</span>, <span class="hljs-number">1.40</span>&#125;;
+<span class="hljs-type">float</span> y1[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">1.09545</span>, <span class="hljs-number">1.11355</span>, <span class="hljs-number">1.13137</span>,<span class="hljs-number">1.14891</span>, <span class="hljs-number">1.16619</span>, <span class="hljs-number">1.18322</span>&#125;;
+<span class="hljs-type">float</span> y2[<span class="hljs-number">7</span>] = &#123;<span class="hljs-number">0.07918</span>, <span class="hljs-number">0.09342</span>, <span class="hljs-number">0.10721</span>, <span class="hljs-number">0.12057</span>, <span class="hljs-number">0.13354</span>, <span class="hljs-number">0.14613</span>&#125;;
+<span class="hljs-type">float</span> xi[<span class="hljs-number">6</span>] = &#123;<span class="hljs-number">1.22</span>, <span class="hljs-number">1.26</span>, <span class="hljs-number">1.30</span>, <span class="hljs-number">1.34</span>, <span class="hljs-number">1.38</span>&#125;;
+<span class="hljs-type">float</span> diff[<span class="hljs-number">10</span>][<span class="hljs-number">10</span>];<span class="hljs-comment">//差商值表</span>
+<span class="hljs-type">float</span> phi[<span class="hljs-number">10</span>];<span class="hljs-comment">//基函数值</span>
+<span class="hljs-type">int</span> n=<span class="hljs-number">6</span>;
 
 <span class="hljs-comment">//求差商表，有点像动态规划</span>
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DifferenceQuotient</span><span class="hljs-params">(<span class="hljs-keyword">float</span> *y)</span></span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">DifferenceQuotient</span><span class="hljs-params">(<span class="hljs-type">float</span> *y)</span></span>
 <span class="hljs-function"></span>&#123;
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n;i++)
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n;i++)
     diff[i][<span class="hljs-number">0</span>] = y[i];
     
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n;i++)
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n;i++)
   &#123;
-    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span> ; j &lt; i+<span class="hljs-number">1</span>;j++)
+    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">1</span> ; j &lt; i+<span class="hljs-number">1</span>;j++)
       diff[i][j] = (diff[i][j - <span class="hljs-number">1</span>] - diff[i<span class="hljs-number">-1</span>][j - <span class="hljs-number">1</span>]) / (x[i] - x[i-j]);
   &#125;
 
 &#125;
 
 
-<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">Newton</span><span class="hljs-params">(<span class="hljs-keyword">float</span> *y,<span class="hljs-keyword">float</span> cx)</span></span>
+<span class="hljs-function"><span class="hljs-type">float</span> <span class="hljs-title">Newton</span><span class="hljs-params">(<span class="hljs-type">float</span> *y,<span class="hljs-type">float</span> cx)</span></span>
 <span class="hljs-function"></span>&#123;
   phi[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;
-  <span class="hljs-keyword">float</span> ans = <span class="hljs-number">0</span>;
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt; n;i++) <span class="hljs-comment">//其基函数的值</span>
+  <span class="hljs-type">float</span> ans = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">1</span>; i &lt; n;i++) <span class="hljs-comment">//其基函数的值</span>
     phi[i] = phi[i<span class="hljs-number">-1</span>]*(cx - x[i<span class="hljs-number">-1</span>]);
   
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n;i++)
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n;i++)
     ans += phi[i] * diff[i][i];<span class="hljs-comment">//多项式求和为最终结果</span>
   
   <span class="hljs-keyword">return</span> ans;
 &#125;
 
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
-  DifferenceQuotient(y1);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"当x=%.2f,y1=%.5f\n"</span>, xi[i], Newton(y1,xi[i]));
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;
+  <span class="hljs-built_in">DifferenceQuotient</span>(y1);
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;当x=%.2f,y1=%.5f\n&quot;</span>, xi[i], <span class="hljs-built_in">Newton</span>(y1,xi[i]));
 
-  <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+  cout &lt;&lt; endl;
 
-  DifferenceQuotient(y2);
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
-        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"当x=%.2f,y2=%.5f\n"</span>, xi[i],Newton(y2,xi[i]));
+  <span class="hljs-built_in">DifferenceQuotient</span>(y2);
+  <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>;i++)
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;当x=%.2f,y2=%.5f\n&quot;</span>, xi[i],<span class="hljs-built_in">Newton</span>(y2,xi[i]));
 
-  system(<span class="hljs-string">"pause"</span>);
+  <span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;pause&quot;</span>);
 &#125;</code></pre>
 <p>​        如果要新增节点，可以增量更新差商表</p>
 <h2 id="两者关系"><a href="#两者关系" class="headerlink" title="两者关系"></a>两者关系</h2><p>​        其实我们可以发现两个方法都是通过$n$个点确定了一组$n$个方程的方程组:</p>
@@ -364,7 +364,7 @@ y_n&=a_0+a_1x_n+a_2x_n^2+\dots+a_nx_n^n\\
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

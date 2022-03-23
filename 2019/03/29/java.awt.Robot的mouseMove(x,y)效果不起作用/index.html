@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -197,10 +197,10 @@
             <article class="markdown-body">
               <p><code>mouseMove(x,y)</code>，此函数是使鼠标移动到<code>（x,y）</code>位置<br>测试发现它是一个逐渐逼近的过程，所以外面套个循环，就能移动到想要的位置了<br>原因未知，不知是不是win10的锅</p>
 <pre><code class="hljs java"><span class="hljs-keyword">import</span> java.awt.Robot;
-Robot robot=<span class="hljs-keyword">new</span> Robot();
-<span class="hljs-keyword">int</span> k=<span class="hljs-number">10</span>;
-<span class="hljs-keyword">int</span> x=<span class="hljs-number">666</span>;
-<span class="hljs-keyword">int</span> y=<span class="hljs-number">666</span>;
+Robot robot=<span class="hljs-keyword">new</span> <span class="hljs-title class_">Robot</span>();
+<span class="hljs-type">int</span> k=<span class="hljs-number">10</span>;
+<span class="hljs-type">int</span> x=<span class="hljs-number">666</span>;
+<span class="hljs-type">int</span> y=<span class="hljs-number">666</span>;
 <span class="hljs-keyword">while</span>((--k)&gt;<span class="hljs-number">0</span>)
 &#123;
 	robot.mouseMove(x,y);
@@ -227,7 +227,7 @@ Robot robot=<span class="hljs-keyword">new</span> Robot();
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

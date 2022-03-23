@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    474 字
+                    484 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    6
+                    7
                      分钟
                   </span>
                 
@@ -196,10 +196,10 @@
             
             <article class="markdown-body">
               <p><strong>描述</strong><br>&emsp;&emsp;给定一个字符串 s，找到 s 中最长的回文子串。你可以假设 s 的最大长度为 1000。</p>
-<pre><code class="hljs c++">输入: <span class="hljs-string">"babad"</span>
-输出: <span class="hljs-string">"bab"</span>(注意: <span class="hljs-string">"aba"</span> 也是一个有效答案。)
-输入: <span class="hljs-string">"cbbd"</span>
-输出: <span class="hljs-string">"bb"</span></code></pre>
+<pre><code class="hljs c++">输入: <span class="hljs-string">&quot;babad&quot;</span>
+输出: <span class="hljs-string">&quot;bab&quot;</span>(注意: <span class="hljs-string">&quot;aba&quot;</span> 也是一个有效答案。)
+输入: <span class="hljs-string">&quot;cbbd&quot;</span>
+输出: <span class="hljs-string">&quot;bb&quot;</span></code></pre>
 <p>&emsp;&emsp;dp,除此之外还有一些很炫的解法，这里只讲dp这是一道很好的入门题。<br>&emsp;&emsp;我一向认为dp第一步不是写状态转移方程，而是把状态设对。涉及到字符串的子串起码应该想到二维数组$dp<em>{ij}$,至于这个代表什么，就是手感了，设的好方程<del>推</del> （猜）的轻松，否则基本gg；<br>&emsp;&emsp;这里直接给答案，$dp</em>{ij}$表示以$s<em>i开头至以s_j$结尾的串.如果$s_i…s_j$为回文串，那么$s</em>{i-1}…s<em>{j+1}$为回文串的条件就是$s</em>{i-1}==s_{j+1}$。</p>
 <pre><code class="hljs c++">初始状态：dp[i][i]==<span class="hljs-literal">true</span>;           i∈<span class="hljs-number">1.</span>..n
 dp[i][j]=dp[i+<span class="hljs-number">1</span>]d[j<span class="hljs-number">-1</span>]&amp;&amp;(s[i]==s[j])</code></pre>
@@ -249,24 +249,24 @@ dp[i][j]=dp[i+<span class="hljs-number">1</span>]d[j<span class="hljs-number">-1
 </div>
 <img src="/2020/03/11/%E6%B1%82%E8%A7%A3%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/20200311204401984.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">上代码
 
-<pre><code class="hljs c++"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> &#123;</span>
+<pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;
 <span class="hljs-keyword">public</span>:
-    <span class="hljs-function"><span class="hljs-built_in">string</span> <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(<span class="hljs-built_in">string</span> s)</span> </span>&#123;
-        <span class="hljs-keyword">int</span> len=s.length();
-        <span class="hljs-function"><span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;&gt; <span class="hljs-title">d</span><span class="hljs-params">(len, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">bool</span>&gt;(len))</span></span>;
-        <span class="hljs-keyword">int</span> <span class="hljs-built_in">max</span>=<span class="hljs-number">1</span>,p=<span class="hljs-number">0</span>,flag=<span class="hljs-number">1</span>;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<span class="hljs-comment">//初始化</span>
+    <span class="hljs-function">string <span class="hljs-title">longestPalindrome</span><span class="hljs-params">(string s)</span> </span>&#123;
+        <span class="hljs-type">int</span> len=s.<span class="hljs-built_in">length</span>();
+        vector&lt;vector&lt;<span class="hljs-type">bool</span>&gt;&gt; <span class="hljs-built_in">d</span>(len, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">bool</span>&gt;(len));
+        <span class="hljs-type">int</span> max=<span class="hljs-number">1</span>,p=<span class="hljs-number">0</span>,flag=<span class="hljs-number">1</span>;
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)<span class="hljs-comment">//初始化</span>
             d[i][i]=<span class="hljs-literal">true</span>;
-        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">1</span>;j&lt;len;j++)
+        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">1</span>;j&lt;len;j++)
         &#123;
-            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len-j;i++)
+            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len-j;i++)
             &#123;
                 <span class="hljs-keyword">if</span>(j==<span class="hljs-number">1</span>)<span class="hljs-comment">//长度为2的串</span>
                 &#123;
                     d[i][j+i]=(s[i]==s[i+<span class="hljs-number">1</span>]);
                     <span class="hljs-keyword">if</span>(d[i][i+<span class="hljs-number">1</span>]&amp;&amp;flag)<span class="hljs-comment">//flag用于只记录第一个长度为2的回文串，不用也没关系</span>
                     &#123;
-                        <span class="hljs-built_in">max</span>=<span class="hljs-number">2</span>;
+                        max=<span class="hljs-number">2</span>;
                         p=i;
                         flag=<span class="hljs-number">0</span>;
                     &#125;
@@ -274,15 +274,15 @@ dp[i][j]=dp[i+<span class="hljs-number">1</span>]d[j<span class="hljs-number">-1
                 <span class="hljs-keyword">else</span><span class="hljs-comment">//长度大与2的串</span>
                 &#123;
                     d[i][j+i]=d[i+<span class="hljs-number">1</span>][i+j<span class="hljs-number">-1</span>]&amp;&amp;(s[i]==s[i+j]);<span class="hljs-comment">//转移方程</span>
-                    <span class="hljs-keyword">if</span>(d[i][j+i]&amp;&amp;j+<span class="hljs-number">1</span>&gt;<span class="hljs-built_in">max</span>)
+                    <span class="hljs-keyword">if</span>(d[i][j+i]&amp;&amp;j+<span class="hljs-number">1</span>&gt;max)
                     &#123;
-                        <span class="hljs-built_in">max</span>=j+<span class="hljs-number">1</span>;
+                        max=j+<span class="hljs-number">1</span>;
                         p=i;
                     &#125;
                 &#125;
             &#125;
         &#125;
-        <span class="hljs-keyword">return</span> s.substr(p, <span class="hljs-built_in">max</span>);<span class="hljs-comment">//从p开始切割max位</span>
+        <span class="hljs-keyword">return</span> s.<span class="hljs-built_in">substr</span>(p, max);<span class="hljs-comment">//从p开始切割max位</span>
     &#125;
 &#125;;</code></pre>
             </article>
@@ -307,7 +307,7 @@ dp[i][j]=dp[i+<span class="hljs-number">1</span>]d[j<span class="hljs-number">-1
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

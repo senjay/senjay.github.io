@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    608 字
+                    575 字
                   </span>
                 
 
@@ -195,96 +195,96 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"><a href="#Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息" class="headerlink" title="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"></a>Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息</h2><p><strong>1.环境</strong><br>&emsp;&emsp;Unity2018<br><strong>2.前述</strong><br>&emsp;&emsp;第一个想到的方法是使用Socket,也实现了功能,但是我想Unity应该有自带的API用来实现,可是查阅了好多资料,发现大多是使用NetWorkManager,鉴于我的项目对网络的要求十分微小,因此我选择了较为低级NetworkServer和NetWorkClient类<br><strong>3.实现</strong><br>&emsp;&emsp;create一个Emty GameOjbect,挂载以下脚本,注意一下开启客户端方法setClient需要绑定在一个button上,服务端发送信息sendMessage也要绑定在一个button上。<br>&emsp;&emsp;注意，这是从我项目中直接拷贝过来稍微改了一下，可能并不能直接使用，但是应该可以很好的帮助理解这两个类的大致用法,下面是两个文档，好像需要翻墙<br><a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkServer.html" target="_blank" rel="noopener">NetworkServer文档</a><br><a href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkClient.html" target="_blank" rel="noopener">NetworkClient文档</a></p>
-<p>服务端与客户端的实现<br><pre><code class="hljs c#">using System.Net;
-using System.Net.Sockets;
-using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
+              <h2 id="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"><a href="#Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息" class="headerlink" title="Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息"></a>Unity使用NetworkServer与NetWorkClient实现服务端与客户端传递消息</h2><p><strong>1.环境</strong><br>&emsp;&emsp;Unity2018<br><strong>2.前述</strong><br>&emsp;&emsp;第一个想到的方法是使用Socket,也实现了功能,但是我想Unity应该有自带的API用来实现,可是查阅了好多资料,发现大多是使用NetWorkManager,鉴于我的项目对网络的要求十分微小,因此我选择了较为低级NetworkServer和NetWorkClient类<br><strong>3.实现</strong><br>&emsp;&emsp;create一个Emty GameOjbect,挂载以下脚本,注意一下开启客户端方法setClient需要绑定在一个button上,服务端发送信息sendMessage也要绑定在一个button上。<br>&emsp;&emsp;注意，这是从我项目中直接拷贝过来稍微改了一下，可能并不能直接使用，但是应该可以很好的帮助理解这两个类的大致用法,下面是两个文档，好像需要翻墙<br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkServer.html">NetworkServer文档</a><br><a target="_blank" rel="noopener" href="https://docs.unity3d.com/2018.1/Documentation/ScriptReference/Networking.NetworkClient.html">NetworkClient文档</a></p>
+<p>服务端与客户端的实现<br><pre><code class="hljs c#"><span class="hljs-keyword">using</span> System.Net;
+<span class="hljs-keyword">using</span> System.Net.Sockets;
+<span class="hljs-keyword">using</span> UnityEngine;
+<span class="hljs-keyword">using</span> UnityEngine.Networking;
+<span class="hljs-keyword">using</span> UnityEngine.UI;
 
-public class MyNetWork : MonoBehaviour
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MyNetWork</span> : <span class="hljs-title">MonoBehaviour</span>
 &#123;
 
-    public Text ipText;
-    private NetworkClient myClient;
+    <span class="hljs-keyword">public</span> Text ipText;
+    <span class="hljs-keyword">private</span> NetworkClient myClient;
 
-    void Start()
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Start</span>()</span>
     &#123;
         getIp();      
     &#125;
 
-    void Update()
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>()</span>
     &#123;        
     &#125;
 
-    public void getIp()&#x2F;&#x2F;获取本机IP
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getIp</span>()<span class="hljs-comment">//获取本机IP</span></span>
     &#123;
-        try
+        <span class="hljs-keyword">try</span>
         &#123;
-            IPHostEntry IpEntry &#x3D; Dns.GetHostEntry(Dns.GetHostName());
-            foreach (IPAddress item in IpEntry.AddressList)
+            IPHostEntry IpEntry = Dns.GetHostEntry(Dns.GetHostName());
+            <span class="hljs-keyword">foreach</span> (IPAddress item <span class="hljs-keyword">in</span> IpEntry.AddressList)
             &#123;
-                &#x2F;&#x2F;AddressFamily.InterNetwork  ipv4
-                if (item.AddressFamily &#x3D;&#x3D; AddressFamily.InterNetwork)
+                <span class="hljs-comment">//AddressFamily.InterNetwork  ipv4</span>
+                <span class="hljs-keyword">if</span> (item.AddressFamily == AddressFamily.InterNetwork)
                 &#123;
-                    ipText.text &#x3D; &quot;IP:&quot; + item.ToString();
-                    MyMessage.ipAddress &#x3D; item.ToString();
-                    &#x2F;&#x2F;开启服务端
-                    if(NetworkServer.active)
+                    ipText.text = <span class="hljs-string">&quot;IP:&quot;</span> + item.ToString();
+                    MyMessage.ipAddress = item.ToString();
+                    <span class="hljs-comment">//开启服务端</span>
+                    <span class="hljs-keyword">if</span>(NetworkServer.active)
                     &#123;
                         NetworkServer.Shutdown();
                     &#125;
-                    else
+                    <span class="hljs-keyword">else</span>
                     &#123;
                         starServer();
                     &#125;
-                    return;
+                    <span class="hljs-keyword">return</span>;
                 &#125;
             &#125;
-            return ;
+            <span class="hljs-keyword">return</span> ;
         &#125;
-        catch &#123; return; &#125;
+        <span class="hljs-keyword">catch</span> &#123; <span class="hljs-keyword">return</span>; &#125;
     &#125;
 
-    private void starServer()&#x2F;&#x2F;开启服务器
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">starServer</span>()<span class="hljs-comment">//开启服务器</span></span>
     &#123;
-        NetworkServer.Listen(MyMessage.ipAddress, MyMessage.serverPort);&#x2F;&#x2F;参数为IP和Port
+        NetworkServer.Listen(MyMessage.ipAddress, MyMessage.serverPort);<span class="hljs-comment">//参数为IP和Port</span>
         Debug.Log(NetworkServer.active);    
     &#125;
-  public void sendMessage()&#x2F;&#x2F;服务端发送消息
+  <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">sendMessage</span>()<span class="hljs-comment">//服务端发送消息</span></span>
     &#123;
-        if(NetworkServer.connections.Count&gt;0)
-        NetworkServer.SendToAll(MyMessage.msgTypeSend, new MessageInfo(isWalking, steps));
+        <span class="hljs-keyword">if</span>(NetworkServer.connections.Count&gt;<span class="hljs-number">0</span>)
+        NetworkServer.SendToAll(MyMessage.msgTypeSend, <span class="hljs-keyword">new</span> MessageInfo(isWalking, steps));
     &#125;
-    public void setClient()&#x2F;&#x2F;开启客户端
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setClient</span>()<span class="hljs-comment">//开启客户端</span></span>
     &#123;
-        myClient &#x3D; new NetworkClient();
-        myClient.RegisterHandler(503, receiveMessage);&#x2F;&#x2F;注册回调函数,参数1为消息类型,数字可以自定义,用于识别回调函数,参数2为回调函数
-        myClient.Connect(MyMessage.ipAddress, MyMessage.serverPort);&#x2F;&#x2F;连接服务端,参数分别为IP和Port
+        myClient = <span class="hljs-keyword">new</span> NetworkClient();
+        myClient.RegisterHandler(<span class="hljs-number">503</span>, receiveMessage);<span class="hljs-comment">//注册回调函数,参数1为消息类型,数字可以自定义,用于识别回调函数,参数2为回调函数</span>
+        myClient.Connect(MyMessage.ipAddress, MyMessage.serverPort);<span class="hljs-comment">//连接服务端,参数分别为IP和Port</span>
     &#125;
 
-    private void receiveMessage(NetworkMessage netMsg)&#x2F;&#x2F;客户端接收信息的回调函数的实现
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">receiveMessage</span>(<span class="hljs-params">NetworkMessage netMsg</span>)<span class="hljs-comment">//客户端接收信息的回调函数的实现</span></span>
     &#123;
-        MessageInfo hostMessage &#x3D; netMsg.ReadMessage&lt;MessageInfo&gt;();
+        MessageInfo hostMessage = netMsg.ReadMessage&lt;MessageInfo&gt;();
 
-        bool isWalking&#x3D; hostMessage.isWalking;
-        long steps  &#x3D; hostMessage.stepCount;
+        <span class="hljs-built_in">bool</span> isWalking= hostMessage.isWalking;
+        <span class="hljs-built_in">long</span> steps  = hostMessage.stepCount;
 
-        &#x2F;&#x2F;Output the Player name and comment
-        Debug.Log(&quot;isWalking: &quot; + isWalking);
-        Debug.Log(&quot;steps  : &quot; + steps);
+        <span class="hljs-comment">//Output the Player name and comment</span>
+        Debug.Log(<span class="hljs-string">&quot;isWalking: &quot;</span> + isWalking);
+        Debug.Log(<span class="hljs-string">&quot;steps  : &quot;</span> + steps);
     &#125;
-&#125;</code></pre><br>MessgafeInfo类是封装的用来发送信息的自定义实体类,继承MessageBase<br><pre><code class="hljs c#">using UnityEngine.Networking;
+&#125;</code></pre><br>MessgafeInfo类是封装的用来发送信息的自定义实体类,继承MessageBase<br><pre><code class="hljs c#"><span class="hljs-keyword">using</span> UnityEngine.Networking;
 
-public class MessageInfo : MessageBase
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">MessageInfo</span> : <span class="hljs-title">MessageBase</span>
 &#123;
-    public bool isWalking;
-    public long stepCount;
-    public MessageInfo() &#123; &#125;
-    public MessageInfo(bool iswalk,long stepcount)
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> isWalking;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">long</span> stepCount;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MessageInfo</span>()</span> &#123; &#125;
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">MessageInfo</span>(<span class="hljs-params"><span class="hljs-built_in">bool</span> iswalk,<span class="hljs-built_in">long</span> stepcount</span>)</span>
     &#123;
-        this.isWalking &#x3D; iswalk;
-        this.stepCount &#x3D; stepcount;
+        <span class="hljs-keyword">this</span>.isWalking = iswalk;
+        <span class="hljs-keyword">this</span>.stepCount = stepcount;
     &#125;
 &#125;</code></pre></p>
 
@@ -310,7 +310,7 @@ public class MessageInfo : MessageBase
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

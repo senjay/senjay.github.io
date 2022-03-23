@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    381 字
+                    383 字
                   </span>
                 
 
@@ -244,7 +244,7 @@
 <h3 id="传值"><a href="#传值" class="headerlink" title="传值"></a>传值</h3><p>&emsp;&emsp;通过opengl向uniform变量传值。用<code>glGetUniformLocation</code>查询uniform <code>ourColor</code>的位置值。如果返回<code>-1</code>就代表没有找到这个位置值。最后，我们可以通过glUniform4f函数设置uniform值。注意，查询uniform地址不要求你之前使用过着色器程序，但是更新一个unform之前你<strong>必须</strong>先使用程序（调用glUseProgram)，因为它是在当前激活的着色器程序中设置unform的。</p>
 <pre><code class="hljs glsl">GLfloat timeValue = glfwGetTime();
 GLfloat greenValue = (<span class="hljs-built_in">sin</span>(timeValue) / <span class="hljs-number">2</span>) + <span class="hljs-number">0.5</span>;
-GLint vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+GLint vertexColorLocation = glGetUniformLocation(shaderProgram, &quot;ourColor&quot;);
 glUseProgram(shaderProgram);<span class="hljs-comment">//必须先使用程序</span>
 glUniform4f(vertexColorLocation, <span class="hljs-number">0.0</span>f, greenValue, <span class="hljs-number">0.0</span>f, <span class="hljs-number">1.0</span>f);</code></pre>
 
@@ -272,7 +272,7 @@ glUniform4f(vertexColorLocation, <span class="hljs-number">0.0</span>f, greenVal
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

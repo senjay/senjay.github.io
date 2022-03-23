@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    542 字
+                    534 字
                   </span>
                 
 
@@ -198,13 +198,13 @@
               <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>python 3.6<br>numpy<br><strong>1.背景</strong><br>    今天有人问我numpy中[1:3,None]是啥意思,一开始讲得云里雾里,后来终于理清了，我们逐步深入研究♂(滑稽)<br><strong>2.一维情况</strong></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> np
 a=np.array([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>])
-print(a[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>:<span class="hljs-number">2</span>])</code></pre>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">0</span>:<span class="hljs-number">3</span>:<span class="hljs-number">2</span>])</code></pre>
 <p>输出</p>
 <pre><code class="hljs python">[<span class="hljs-number">1</span> <span class="hljs-number">3</span>]</code></pre>
-<p>一维应该都知道吧 跟list差不多 [Start:End:Step] 注意是不包含End<br><strong>2.二维情况</strong><br>{% asset_img 20181101011506918.png 在这里插入图片描述 %}</p>
+<p>一维应该都知道吧 跟list差不多 [Start:End:Step] 注意是不包含End<br><strong>2.二维情况</strong><br><img src="/2018/11/02/python-numpy%E7%9A%84%E6%95%B0%E7%BB%84%E5%88%87%E7%89%87%E5%92%8C%E5%85%B6%E4%B8%ADNone%E7%9A%84%E6%84%8F%E6%80%9D/20181101011506918.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述"></p>
 <pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> np
 a=np.array([[<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>],[<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>],[<span class="hljs-number">31</span>,<span class="hljs-number">32</span>,<span class="hljs-number">33</span>,<span class="hljs-number">34</span>],[<span class="hljs-number">41</span>,<span class="hljs-number">42</span>,<span class="hljs-number">43</span>,<span class="hljs-number">44</span>]])
-print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>])</code></pre>
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<span class="hljs-number">2</span>])</code></pre>
 <p>输出</p>
 <pre><code class="hljs python">[[<span class="hljs-number">11</span> <span class="hljs-number">13</span>]
  [<span class="hljs-number">31</span> <span class="hljs-number">33</span>]]</code></pre>
@@ -214,10 +214,11 @@ print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>:<s
 
 <pre><code class="hljs python"><span class="hljs-keyword">import</span>  numpy <span class="hljs-keyword">as</span> np
 a=np.array([[<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>],[<span class="hljs-number">21</span>,<span class="hljs-number">22</span>,<span class="hljs-number">23</span>,<span class="hljs-number">24</span>],[<span class="hljs-number">31</span>,<span class="hljs-number">32</span>,<span class="hljs-number">33</span>,<span class="hljs-number">34</span>],[<span class="hljs-number">41</span>,<span class="hljs-number">42</span>,<span class="hljs-number">43</span>,<span class="hljs-number">44</span>]])
-print(<span class="hljs-string">'0维为None:'</span>)
-print(a[<span class="hljs-literal">None</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>])
-print(<span class="hljs-string">'1维为None:'</span>)
-print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>,<span class="hljs-literal">None</span>])</code></pre>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;0维为None:&#x27;</span>)
+<span class="hljs-built_in">print</span>(a[<span class="hljs-literal">None</span>,<span class="hljs-number">0</span>:<span class="hljs-number">4</span>])
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;1维为None:&#x27;</span>)
+<span class="hljs-built_in">print</span>(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>,<span class="hljs-literal">None</span>])
+</code></pre>
 输出
 
 <pre><code class="hljs python"><span class="hljs-number">0</span>维为<span class="hljs-literal">None</span>:
@@ -235,17 +236,17 @@ print(a[<span class="hljs-number">0</span>:<span class="hljs-number">4</span>,<s
  [[<span class="hljs-number">41</span> <span class="hljs-number">42</span> <span class="hljs-number">43</span> <span class="hljs-number">44</span>]]]</code></pre>
 看下官方文档,[链接](https://www.numpy.org/devdocs/reference/arrays.indexing.html)
 <pre><code class="hljs python">Note:
-Remember that a slicing tuple can always be constructed <span class="hljs-keyword">as</span> obj <span class="hljs-keyword">and</span> used <span class="hljs-keyword">in</span> the x[obj] notation. 
+Remember that a slicing <span class="hljs-built_in">tuple</span> can always be constructed <span class="hljs-keyword">as</span> obj <span class="hljs-keyword">and</span> used <span class="hljs-keyword">in</span> the x[obj] notation. 
 Slice objects can be used <span class="hljs-keyword">in</span> the construction <span class="hljs-keyword">in</span> place of the [start:stop:step] notation.
-For example, x[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>:<span class="hljs-number">5</span>,::<span class="hljs-number">-1</span>] can also be implemented <span class="hljs-keyword">as</span> obj = (slice(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">5</span>), slice(<span class="hljs-literal">None</span>,<span class="hljs-literal">None</span>,<span class="hljs-number">-1</span>)); 
+For example, x[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>:<span class="hljs-number">5</span>,::-<span class="hljs-number">1</span>] can also be implemented <span class="hljs-keyword">as</span> obj = (<span class="hljs-built_in">slice</span>(<span class="hljs-number">1</span>,<span class="hljs-number">10</span>,<span class="hljs-number">5</span>), <span class="hljs-built_in">slice</span>(<span class="hljs-literal">None</span>,<span class="hljs-literal">None</span>,-<span class="hljs-number">1</span>)); 
 x[obj].This can be useful <span class="hljs-keyword">for</span> constructing generic code that works on arrays of arbitrary dimension.</code></pre>
 
 <pre><code class="hljs python">numpy.newaxis
-The newaxis object can be used <span class="hljs-keyword">in</span> all slicing operations to create an axis of length one.
+The newaxis <span class="hljs-built_in">object</span> can be used <span class="hljs-keyword">in</span> <span class="hljs-built_in">all</span> slicing operations to create an axis of length one.
 newaxis <span class="hljs-keyword">is</span> an alias <span class="hljs-keyword">for</span> ‘<span class="hljs-literal">None</span>’, <span class="hljs-keyword">and</span> ‘<span class="hljs-literal">None</span>’ can be used <span class="hljs-keyword">in</span> place of this <span class="hljs-keyword">with</span> the same result.</code></pre>
 它巴拉巴拉的意思就是<font color=red size=5>numpy.newaxis效果和None是一样的，None是它的别名</font>
 
-<pre><code class="hljs python">print(<span class="hljs-literal">None</span> <span class="hljs-keyword">is</span> np.newaxis)
+<pre><code class="hljs python"><span class="hljs-built_in">print</span>(<span class="hljs-literal">None</span> <span class="hljs-keyword">is</span> np.newaxis)
 <span class="hljs-literal">True</span></code></pre>
 <p>(话说为了少打点字（len(None)&lt;len(numpy.newaxis)）,可能就会让初学者看不懂- -，但是告诉他们答案我想他们肯定想暴打写代码的人♂（呼应前文滑稽）)<br>想更详细的知道numpy.newaxis的可以自己去搜搜啦</p>
 
@@ -271,7 +272,7 @@ newaxis <span class="hljs-keyword">is</span> an alias <span class="hljs-keyword"
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

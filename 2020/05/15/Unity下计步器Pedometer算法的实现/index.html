@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    576 字
+                    490 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    9
+                    7
                      分钟
                   </span>
                 
@@ -195,125 +195,126 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="Unity下计步器Pedometer的实现"><a href="#Unity下计步器Pedometer的实现" class="headerlink" title="Unity下计步器Pedometer的实现"></a>Unity下计步器Pedometer的实现</h2><p><strong>1.环境</strong><br>unity2018,Android(小米5)<br><strong>2.原理</strong><br><a href="https://blog.csdn.net/qq_36490364/article/details/104522980" target="_blank" rel="noopener">加速度传感器的计步算法Pedometer</a><br><strong>3.实现</strong><br>注释写的很清楚了应该<br><pre><code class="hljs c#">using UnityEngine;
-using UnityEngine.Networking;
-using UnityEngine.UI;
-#pragma warning disable CS0618
+              <h2 id="Unity下计步器Pedometer的实现"><a href="#Unity下计步器Pedometer的实现" class="headerlink" title="Unity下计步器Pedometer的实现"></a>Unity下计步器Pedometer的实现</h2><p><strong>1.环境</strong><br>unity2018,Android(小米5)<br><strong>2.原理</strong><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36490364/article/details/104522980">加速度传感器的计步算法Pedometer</a><br><strong>3.实现</strong><br>注释写的很清楚了应该<br><pre><code class="hljs c#"><span class="hljs-keyword">using</span> UnityEngine;
+<span class="hljs-keyword">using</span> UnityEngine.Networking;
+<span class="hljs-keyword">using</span> UnityEngine.UI;
+<span class="hljs-meta">#<span class="hljs-keyword">pragma</span> <span class="hljs-keyword">warning</span> disable CS0618</span>
 
-public class pedometer : MonoBehaviour
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">pedometer</span> : <span class="hljs-title">MonoBehaviour</span>
 &#123;
 
-    public Text statusText,stepsText;
-    public float lowLimit &#x3D; 0.005f; &#x2F;&#x2F;平缓
-    public float highLimit &#x3D; 0.1f; &#x2F;&#x2F; 走路时的波峰波谷
-    public float vertHighLimit &#x3D; 0.25f;&#x2F;&#x2F;跳跃时的波峰波谷
-    private bool isHigh &#x3D; false; &#x2F;&#x2F; 状态
-    private float filterCurrent &#x3D; 10.0f; &#x2F;&#x2F; 滤波参数 得到拟合值
-    private float filterAverage &#x3D; 0.1f; &#x2F;&#x2F;   滤波参数  得到均值
-    private float accelerationCurrent &#x3D; 0f; &#x2F;&#x2F;拟合值
-    private float accelerationAverage &#x3D; 0f;&#x2F;&#x2F;均值
-    private int steps &#x3D; 0; &#x2F;&#x2F; 步数
-    private int oldSteps;
-    private float deltaTime &#x3D; 0f;&#x2F;&#x2F;计时器
-    private int jumpCount &#x3D; 0;&#x2F;&#x2F;跳跃数
-    private int oldjumpCount &#x3D; 0;
+    <span class="hljs-keyword">public</span> Text statusText,stepsText;
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> lowLimit = <span class="hljs-number">0.005f</span>; <span class="hljs-comment">//平缓</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> highLimit = <span class="hljs-number">0.1f</span>; <span class="hljs-comment">// 走路时的波峰波谷</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-built_in">float</span> vertHighLimit = <span class="hljs-number">0.25f</span>;<span class="hljs-comment">//跳跃时的波峰波谷</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> isHigh = <span class="hljs-literal">false</span>; <span class="hljs-comment">// 状态</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> filterCurrent = <span class="hljs-number">10.0f</span>; <span class="hljs-comment">// 滤波参数 得到拟合值</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> filterAverage = <span class="hljs-number">0.1f</span>; <span class="hljs-comment">//   滤波参数  得到均值</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> accelerationCurrent = <span class="hljs-number">0f</span>; <span class="hljs-comment">//拟合值</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> accelerationAverage = <span class="hljs-number">0f</span>;<span class="hljs-comment">//均值</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> steps = <span class="hljs-number">0</span>; <span class="hljs-comment">// 步数</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> oldSteps;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">float</span> deltaTime = <span class="hljs-number">0f</span>;<span class="hljs-comment">//计时器</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> jumpCount = <span class="hljs-number">0</span>;<span class="hljs-comment">//跳跃数</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">int</span> oldjumpCount = <span class="hljs-number">0</span>;
     
-    private bool startTimer &#x3D; false;&#x2F;&#x2F;开始计时
-    private bool isWalking &#x3D; false;
-    private bool isJumping &#x3D; false;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> startTimer = <span class="hljs-literal">false</span>;<span class="hljs-comment">//开始计时</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> isWalking = <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">private</span> <span class="hljs-built_in">bool</span> isJumping = <span class="hljs-literal">false</span>;
 
-    void Awake()
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Awake</span>()</span>
     &#123;
-        accelerationAverage &#x3D; Input.acceleration.magnitude; 
-        oldSteps &#x3D; steps;
-        oldjumpCount &#x3D;jumpCount ;
+        accelerationAverage = Input.acceleration.magnitude; 
+        oldSteps = steps;
+        oldjumpCount =jumpCount ;
     &#125;
 
-    void Update()
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Update</span>()</span>
     &#123;
-        checkWalkingAndJumping(); &#x2F;&#x2F; 检测是否行走
-        if (isWalking)
+        checkWalkingAndJumping(); <span class="hljs-comment">// 检测是否行走</span>
+        <span class="hljs-keyword">if</span> (isWalking)
         &#123;
-            statusText.text &#x3D; (&quot;状态:行走&quot;);
+            statusText.text = (<span class="hljs-string">&quot;状态:行走&quot;</span>);
             
         &#125;
-        else if (!isWalking)
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isWalking)
         &#123;
-            statusText.text &#x3D; (&quot;状态:不动&quot;);
+            statusText.text = (<span class="hljs-string">&quot;状态:不动&quot;</span>);
         &#125;
 
-        if (isJumping)
+        <span class="hljs-keyword">if</span> (isJumping)
         &#123;
-            statusText.text &#x3D; (&quot;状态:跳跃&quot;);
+            statusText.text = (<span class="hljs-string">&quot;状态:跳跃&quot;</span>);
         &#125;
     &#125;
 
-    void FixedUpdate()
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">FixedUpdate</span>()</span>
     &#123;
 
-        &#x2F;&#x2F;通过Lerp对Input.acceleration.magnitude(加速度标量和)滤波
-        &#x2F;&#x2F;这里使用线性插值的公式正好为EMA一次指数滤波 y[i]&#x3D;y[i-1]+(x[i]-y[i])*k&#x3D;(1-k)*y[i]+kx[i]
-        accelerationCurrent &#x3D; Mathf.Lerp(accelerationCurrent, Input.acceleration.magnitude, Time.deltaTime * filterCurrent);
-        accelerationAverage &#x3D; Mathf.Lerp(accelerationAverage, Input.acceleration.magnitude, Time.deltaTime * filterAverage);
-        float delta &#x3D; accelerationCurrent - accelerationAverage; &#x2F;&#x2F; 获取差值，即坡度
+        <span class="hljs-comment">//通过Lerp对Input.acceleration.magnitude(加速度标量和)滤波</span>
+        <span class="hljs-comment">//这里使用线性插值的公式正好为EMA一次指数滤波 y[i]=y[i-1]+(x[i]-y[i])*k=(1-k)*y[i]+kx[i]</span>
+        accelerationCurrent = Mathf.Lerp(accelerationCurrent, Input.acceleration.magnitude, Time.deltaTime * filterCurrent);
+        accelerationAverage = Mathf.Lerp(accelerationAverage, Input.acceleration.magnitude, Time.deltaTime * filterAverage);
+        <span class="hljs-built_in">float</span> delta = accelerationCurrent - accelerationAverage; <span class="hljs-comment">// 获取差值，即坡度</span>
 
-        if (!isHigh)
+        <span class="hljs-keyword">if</span> (!isHigh)
         &#123;   
-            if (delta &gt; highLimit)&#x2F;&#x2F;往高
+            <span class="hljs-keyword">if</span> (delta &gt; highLimit)<span class="hljs-comment">//往高</span>
             &#123;
-                isHigh &#x3D; true;
+                isHigh = <span class="hljs-literal">true</span>;
                 steps++;
-                stepsText.text &#x3D; &quot;步数: &quot; + steps+&quot;\n跳跃数：&quot;+jumpCount;
+                stepsText.text = <span class="hljs-string">&quot;步数: &quot;</span> + steps+<span class="hljs-string">&quot;\n跳跃数：&quot;</span>+jumpCount;
             &#125;
-            if(delta&gt;vertHighLimit)
+            <span class="hljs-keyword">if</span>(delta&gt;vertHighLimit)
             &#123;
-                isHigh &#x3D; true;
+                isHigh = <span class="hljs-literal">true</span>;
                 jumpCount++;
-                stepsText.text &#x3D; &quot;步数: &quot; + steps + &quot;\n跳跃数：&quot; + jumpCount;
+                stepsText.text = <span class="hljs-string">&quot;步数: &quot;</span> + steps + <span class="hljs-string">&quot;\n跳跃数：&quot;</span> + jumpCount;
             &#125;
         &#125;
-        else
+        <span class="hljs-keyword">else</span>
         &#123;
-            if (delta &lt; lowLimit)&#x2F;&#x2F;往低
+            <span class="hljs-keyword">if</span> (delta &lt; lowLimit)<span class="hljs-comment">//往低</span>
             &#123;                
-                isHigh &#x3D; false;
+                isHigh = <span class="hljs-literal">false</span>;
             &#125;
         &#125;
     &#125;
 
    
-    private void checkWalkingAndJumping()
+    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">checkWalkingAndJumping</span>()</span>
     &#123;
-        if ((steps !&#x3D; oldSteps)||(oldjumpCount !&#x3D; jumpCount))
+        <span class="hljs-keyword">if</span> ((steps != oldSteps)||(oldjumpCount != jumpCount))
         &#123;
-            startTimer &#x3D; true;
-            deltaTime &#x3D; 0f;
+            startTimer = <span class="hljs-literal">true</span>;
+            deltaTime = <span class="hljs-number">0f</span>;
         &#125;
-        if (startTimer)&#x2F;&#x2F;计时器，让更新UI的慢一点，因为你不可能走路只用一帧的时间QAQ
+        <span class="hljs-keyword">if</span> (startTimer)<span class="hljs-comment">//计时器，让更新UI的慢一点，因为你不可能走路只用一帧的时间QAQ</span>
         &#123;
-            deltaTime +&#x3D; Time.deltaTime;
-            if (deltaTime !&#x3D; 0)
+            deltaTime += Time.deltaTime;
+            <span class="hljs-keyword">if</span> (deltaTime != <span class="hljs-number">0</span>)
            &#123;
-                if (oldjumpCount !&#x3D; jumpCount)&#x2F;&#x2F;检测是否是跳跃
-                    isJumping &#x3D; true;
-                else
-                    isWalking &#x3D; true;           
+                <span class="hljs-keyword">if</span> (oldjumpCount != jumpCount)<span class="hljs-comment">//检测是否是跳跃</span>
+                    isJumping = <span class="hljs-literal">true</span>;
+                <span class="hljs-keyword">else</span>
+                    isWalking = <span class="hljs-literal">true</span>;           
            &#125;
-            if (deltaTime &gt; 2)
+            <span class="hljs-keyword">if</span> (deltaTime &gt; <span class="hljs-number">2</span>)
            &#123;
-                deltaTime &#x3D; 0F;
-                startTimer &#x3D; false;
+                deltaTime = <span class="hljs-number">0F</span>;
+                startTimer = <span class="hljs-literal">false</span>;
            &#125;
         &#125;
-        else if (!startTimer)
+        <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!startTimer)
         &#123;
-            isWalking &#x3D; false;
-            isJumping &#x3D; false;
+            isWalking = <span class="hljs-literal">false</span>;
+            isJumping = <span class="hljs-literal">false</span>;
         &#125;
-        oldSteps &#x3D; steps;
-        oldjumpCount &#x3D; jumpCount;
+        oldSteps = steps;
+        oldjumpCount = jumpCount;
     &#125;
-&#125;</code></pre></p>
+&#125;
+</code></pre></p>
 
             </article>
             <hr>
@@ -341,7 +342,7 @@ public class pedometer : MonoBehaviour
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

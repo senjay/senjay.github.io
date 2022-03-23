@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    365 字
+                    373 字
                   </span>
                 
 
@@ -196,14 +196,14 @@
             
             <article class="markdown-body">
               <h2 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h2><p>1．i =left; j =right; 找一个基准数（随意，这里不妨找a[left]=a[i]），将其挖出。<br>2．j—由后向前找比它小的数，找到后挖出此数填前一个坑a[i]中。<br>3．i++由前向后找比它大的数，找到后也挖出此数填到前一个坑a[j]中。<br>4．重复2，3步，直到i==j，将基准数填入a[i]中。</p>
-<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;iostream&gt;</span></span>
-<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;stdlib.h&gt;</span></span>
-<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">quick</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a[],<span class="hljs-keyword">int</span> left,<span class="hljs-keyword">int</span> right)</span></span>
+<pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;stdlib.h&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">quick</span><span class="hljs-params">(<span class="hljs-type">int</span> a[],<span class="hljs-type">int</span> left,<span class="hljs-type">int</span> right)</span></span>
 <span class="hljs-function"></span>&#123;
 	<span class="hljs-keyword">if</span>(left&gt;=right)
 		<span class="hljs-keyword">return</span>;
-	<span class="hljs-keyword">int</span> i=left,j=right,key=a[left];
+	<span class="hljs-type">int</span> i=left,j=right,key=a[left];
 	<span class="hljs-keyword">while</span>(i&lt;j)
 	&#123;
 		<span class="hljs-keyword">while</span>((i&lt;j)&amp;&amp;a[j]&gt;=key)
@@ -216,31 +216,31 @@
 			a[j--]=a[i];
 	&#125;
 	a[i]=key;
-	quick(a,left,j<span class="hljs-number">-1</span>);
-	quick(a,j+<span class="hljs-number">1</span>,right);
+	<span class="hljs-built_in">quick</span>(a,left,j<span class="hljs-number">-1</span>);
+	<span class="hljs-built_in">quick</span>(a,j+<span class="hljs-number">1</span>,right);
 
 &#125;
-<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
+<span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>
 <span class="hljs-function"></span>&#123;
-	<span class="hljs-keyword">int</span> a[]=&#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-9</span>,<span class="hljs-number">4</span>,<span class="hljs-number">66</span>,<span class="hljs-number">123</span>,<span class="hljs-number">452</span>,<span class="hljs-number">665</span>,<span class="hljs-number">1</span>,<span class="hljs-number">34</span>&#125;;
-	<span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> len=<span class="hljs-keyword">sizeof</span>(a)/<span class="hljs-keyword">sizeof</span>(<span class="hljs-keyword">int</span>);<span class="hljs-comment">//不用static len会变</span>
+	<span class="hljs-type">int</span> a[]=&#123;<span class="hljs-number">-1</span>,<span class="hljs-number">-9</span>,<span class="hljs-number">4</span>,<span class="hljs-number">66</span>,<span class="hljs-number">123</span>,<span class="hljs-number">452</span>,<span class="hljs-number">665</span>,<span class="hljs-number">1</span>,<span class="hljs-number">34</span>&#125;;
+	<span class="hljs-type">static</span> <span class="hljs-type">int</span> len=<span class="hljs-built_in">sizeof</span>(a)/<span class="hljs-built_in">sizeof</span>(<span class="hljs-type">int</span>);<span class="hljs-comment">//不用static len会变</span>
 	
-	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)
-	<span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">" "</span>;
-	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)
+	cout&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
+	cout&lt;&lt;endl;
 
-	quick(a,<span class="hljs-number">0</span>,len<span class="hljs-number">-1</span>);
+	<span class="hljs-built_in">quick</span>(a,<span class="hljs-number">0</span>,len<span class="hljs-number">-1</span>);
 
-	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)
-	<span class="hljs-built_in">cout</span>&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">" "</span>;
-	<span class="hljs-built_in">cout</span>&lt;&lt;<span class="hljs-built_in">endl</span>;
-	system(<span class="hljs-string">"pause"</span>);
+	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;len;i++)
+	cout&lt;&lt;a[i]&lt;&lt;<span class="hljs-string">&quot; &quot;</span>;
+	cout&lt;&lt;endl;
+	<span class="hljs-built_in">system</span>(<span class="hljs-string">&quot;pause&quot;</span>);
 	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
 &#125;</code></pre>
-<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>1.记位于列表中间的数为mid<br>2.大于mid的放入greater列表<br>3.小于mid的放入less列表<br>4.递归greater和less列表<br><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">quick</span><span class="hljs-params">(arr)</span>:</span>
-    <span class="hljs-keyword">if</span>(len(arr)&lt;<span class="hljs-number">2</span>):
+<h2 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h2><p>1.记位于列表中间的数为mid<br>2.大于mid的放入greater列表<br>3.小于mid的放入less列表<br>4.递归greater和less列表<br><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">quick</span>(<span class="hljs-params">arr</span>):
+    <span class="hljs-keyword">if</span>(<span class="hljs-built_in">len</span>(arr)&lt;<span class="hljs-number">2</span>):
         <span class="hljs-keyword">return</span> arr
-    mid=arr[len(arr)//<span class="hljs-number">2</span>]
+    mid=arr[<span class="hljs-built_in">len</span>(arr)//<span class="hljs-number">2</span>]
     less,greater=[],[]
     arr.remove(mid)
     <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> arr:
@@ -252,7 +252,7 @@
     
 arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">5</span>,<span class="hljs-number">31</span>,<span class="hljs-number">4</span>]
 arr=quick(arr)
-print(<span class="hljs-string">' '</span>.join([str(i)<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr]))</code></pre></p>
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27; &#x27;</span>.join([<span class="hljs-built_in">str</span>(i)<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> arr]))</code></pre></p>
 
             </article>
             <hr>
@@ -280,7 +280,7 @@ print(<span class="hljs-string">' '</span>.join([str(i)<span class="hljs-keyword
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

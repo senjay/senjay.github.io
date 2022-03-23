@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -165,6 +165,46 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/02/22/Unity-fog%E9%9B%BE%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/">Unity fog雾的三种模式</a>
+
+      <a href="/2020/02/22/Unity-fog%E9%9B%BE%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F/" class="index-excerpt">
+        
+        
+          
+        
+        <div>unity fog雾的三种模式1.Linear线性模式，有fogStartDistance和fogEndDistance两个参数，雾从Start开始到End越来越浓，End之后也为最大浓度，计算方法为$\frac{end-|z|}{end-start}$，z为相机距离2.Exponential指数模式，有参数fogDensity（取值范围0-1），表示雾的浓度，浓度越大雾越大，计算方法为$e^{-</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-02-22
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Unity/">Unity</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/Unity/">Unity</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
 
   <div class="row mx-auto index-card">
     
@@ -364,11 +404,11 @@ while((--k)&gt;0)
         
         <div>KMP算法详解找来找去感觉还是这两篇解释的很好KMP算法（1）：如何理解KMPKMP算法（2）：其细微之处
 笔记
-next[i]=j,即模式串p[1-i]的最长的相同真前后缀的长度#include "stdafx.h"
-#include "string"
-#include "iostream"
+next[i]=j,即模式串p[1-i]的最长的相同真前后缀的长度#include &quot;stdafx.h&quot;
+#include &quot;string&quot;
+#include &quot;iostream&quot;
 using namespace std;
-void getNext(string p, int next</div>
+v</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -409,7 +449,7 @@ void getNext(string p, int next</div>
           
         
         <div>环境Ubuntu16.04Mysql5.71.背景Err 1055 报错 sql_moede为ONLY_FULL_GROUP_BY,具体错误原因不介绍了.按提示改变sql_mode后存储过程中仍报改错.2.解决方法修改/etc/mysql/my.cnf 可以在最后加上如下[mysqld]
-sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DAT</div>
+sql_mode =&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -498,12 +538,11 @@ print(a[0:3:2])
           
         
         <div>在密码学中，恺撒密码是一种最简单且最广为人知的加密技术。它是一种替换加密的技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。
-n=input("请输入移位：")
+n=input(&quot;请输入移位：&quot;)
 n=int(n)
-str_mi=input("请输入需要加密的字符串：")
+str_mi=input(&quot;请输入需要加密的字符串：&quot;)
 
-def jiami(str_1,n):
-    an</div>
+def ji</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -550,8 +589,8 @@ import time
 import pymysql
 from bs4 import BeautifulSoup
 import random
-hottime=''#时间
-sql = "insert into hottop(</div>
+hottime=&#x27;&#x27;#时间
+sql = &quot;inse</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -573,55 +612,6 @@ sql = "insert into hottop(</div>
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E7%88%AC%E8%99%AB/">爬虫</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/">使用阿里云ECS安装mysql及远程登录的一些小问题</a>
-
-      <a href="/2018/10/15/%E4%BD%BF%E7%94%A8%E9%98%BF%E9%87%8C%E4%BA%91ECS%E5%AE%89%E8%A3%85mysql%E5%8F%8A%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95%E7%9A%84%E4%B8%80%E4%BA%9B%E5%B0%8F%E9%97%AE%E9%A2%98/" class="index-excerpt">
-        
-        
-          
-        
-        <div>1.Unable to locate package xxx 
-
-解决方法:
-sudo apt-get update
-2.远程登录        选择创建一个用于远程登录的用户:
-GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
-生效:
-flush privileges</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2018-10-15
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">数据库</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/Mysql/">Mysql</a>
-            
-              <a href="/tags/Bug/">Bug</a>
             
           </div>
         

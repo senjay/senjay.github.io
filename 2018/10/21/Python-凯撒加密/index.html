@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    209 字
+                    219 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    2
+                    3
                      分钟
                   </span>
                 
@@ -196,26 +196,26 @@
             
             <article class="markdown-body">
               <p>在密码学中，恺撒密码是一种最简单且最广为人知的加密技术。它是一种替换加密的技术，明文中的所有字母都在字母表上向后（或向前）按照一个固定数目进行偏移后被替换成密文。例，当偏移量是3的时候，所有的字母A将被替换成D，B变成E，以此类推。</p>
-<pre><code class="hljs python">n=input(<span class="hljs-string">"请输入移位："</span>)
-n=int(n)
-str_mi=input(<span class="hljs-string">"请输入需要加密的字符串："</span>)
+<pre><code class="hljs python">n=<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入移位：&quot;</span>)
+n=<span class="hljs-built_in">int</span>(n)
+str_mi=<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;请输入需要加密的字符串：&quot;</span>)
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">jiami</span><span class="hljs-params">(str_1,n)</span>:</span>
-    ans=list(str_1)
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,len(ans)):
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">jiami</span>(<span class="hljs-params">str_1,n</span>):
+    ans=<span class="hljs-built_in">list</span>(str_1)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-built_in">len</span>(ans)):
         <span class="hljs-keyword">if</span> ans[i].islower():
-            num = ord(ans[i])
-            ans[i] = chr((num - <span class="hljs-number">97</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">97</span>)
+            num = <span class="hljs-built_in">ord</span>(ans[i])
+            ans[i] = <span class="hljs-built_in">chr</span>((num - <span class="hljs-number">97</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">97</span>)
         <span class="hljs-keyword">if</span> ans[i].isupper():
-            num = ord(ans[i])
-            ans[i] = chr((num - <span class="hljs-number">65</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">65</span>)
-    <span class="hljs-keyword">return</span> <span class="hljs-string">''</span>.join(ans)
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">jiemi</span><span class="hljs-params">(str_1)</span>:</span>
-    print(str_1+<span class="hljs-string">"的可能的明文为:"</span>)
-    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">0</span>,<span class="hljs-number">25</span>):
-        print(jiami(str_1,i))
+            num = <span class="hljs-built_in">ord</span>(ans[i])
+            ans[i] = <span class="hljs-built_in">chr</span>((num - <span class="hljs-number">65</span> + n) % <span class="hljs-number">26</span> + <span class="hljs-number">65</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;&#x27;</span>.join(ans)
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">jiemi</span>(<span class="hljs-params">str_1</span>):
+    <span class="hljs-built_in">print</span>(str_1+<span class="hljs-string">&quot;的可能的明文为:&quot;</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">25</span>):
+        <span class="hljs-built_in">print</span>(jiami(str_1,i))
 
-print(<span class="hljs-string">"加密后为："</span>+jiami(str_mi,n))
+<span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;加密后为：&quot;</span>+jiami(str_mi,n))
 jiemi(jiami(str_mi,n))</code></pre>
 <img src="/2018/10/21/Python-%E5%87%AF%E6%92%92%E5%8A%A0%E5%AF%86/20181021154702527.png" srcset="/img/loading.gif" class="" title="在这里插入图片描述">
             </article>
@@ -240,7 +240,7 @@ jiemi(jiami(str_mi,n))</code></pre>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

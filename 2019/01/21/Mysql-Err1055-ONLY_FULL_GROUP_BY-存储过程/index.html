@@ -46,7 +46,7 @@
 
 
 
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 6.0.0"></head>
 
 
 <body>
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    167 字
+                    166 字
                   </span>
                 
 
@@ -196,7 +196,7 @@
             
             <article class="markdown-body">
               <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Ubuntu16.04<br>Mysql5.7<br><strong>1.背景</strong><br>Err 1055 报错 sql_moede为ONLY_FULL_GROUP_BY,具体错误原因不介绍了.按提示改变sql_mode后存储过程中仍报改错.<br><strong>2.解决方法</strong><br>修改/etc/mysql/my.cnf 可以在最后加上如下<br><pre><code class="hljs mysql">[mysqld]
-sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</code></pre><br>然后 service mysql restart 重启服务<br>还有一些其他的设置sql_mode的方法,可自行了解<br>但是按照上面方法做完后在查询中不会再报1055,但是使用存储过程仍旧有问题,解决方法就是<br>…<br>…<br>…<br>复制,删除,新建,粘贴!!!<br>新建一个存储过程就OK,具体原因不了解,总之是个大坑</p>
+sql_mode =&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION&quot;</code></pre><br>然后 service mysql restart 重启服务<br>还有一些其他的设置sql_mode的方法,可自行了解<br>但是按照上面方法做完后在查询中不会再报1055,但是使用存储过程仍旧有问题,解决方法就是<br>…<br>…<br>…<br>复制,删除,新建,粘贴!!!<br>新建一个存储过程就OK,具体原因不了解,总之是个大坑</p>
 
             </article>
             <hr>
@@ -222,7 +222,7 @@ sql_mode &#x3D;&quot;STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
