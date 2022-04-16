@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="Senjay">
   <meta name="keywords" content="">
-  <title>Test - SenayのBlog</title>
+  <title>Prefect Forward 实现 - SenayのBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -145,8 +145,8 @@
               
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-                  <time datetime="2022-03-23 09:39">
-                    2022年3月23日 上午
+                  <time datetime="2022-04-15 19:39">
+                    2022年4月15日 晚上
                   </time>
                 </div>
               
@@ -156,7 +156,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    0 字
+                    1.2k 字
                   </span>
                 
 
@@ -166,7 +166,7 @@
                       <i class="iconfont icon-clock-fill"></i>
                     
                     
-                    1
+                    16
                      分钟
                   </span>
                 
@@ -195,7 +195,127 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              
+              <h2 id="Prefect-Forward-实现"><a href="#Prefect-Forward-实现" class="headerlink" title="Prefect Forward 实现"></a>Prefect Forward 实现</h2><p>   涉及到模板偏特化、万能引用、引用折叠、模板类型推导</p>
+<h3 id="1-Move-reference"><a href="#1-Move-reference" class="headerlink" title="1. Move reference"></a>1. Move reference</h3><p>​       利用模板偏特化，去除引用，保证返回一个不带引用的类型</p>
+<pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">RemoveReference</span>
+&#123;
+    <span class="hljs-keyword">using</span> type=T;
+    <span class="hljs-built_in">RemoveReference</span>()
+    &#123;
+        std::cout&lt;&lt;<span class="hljs-string">&quot;T&quot;</span>&lt;&lt;std::endl;
+    &#125;
+&#125;;
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">RemoveReference</span>&lt;T&amp;&gt;
+&#123;
+    <span class="hljs-keyword">using</span> type=T;
+    <span class="hljs-built_in">RemoveReference</span>()
+    &#123;
+        std::cout&lt;&lt;<span class="hljs-string">&quot;T&amp;&quot;</span>&lt;&lt;std::endl;
+    &#125;
+&#125;;
+<span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">RemoveReference</span>&lt;T&amp;&amp;&gt;
+&#123;
+    <span class="hljs-keyword">using</span> type=T;
+    <span class="hljs-built_in">RemoveReference</span>()
+    &#123;
+        std::cout&lt;&lt;<span class="hljs-string">&quot;T&amp;&amp;&quot;</span>&lt;&lt;std::endl;
+    &#125;
+&#125;;</code></pre>
+<h3 id="2-Universal-reference"><a href="#2-Universal-reference" class="headerlink" title="2. Universal reference"></a>2. Universal reference</h3><p>​       <code>&amp;</code>是左值引用，但<code>&amp;&amp;</code>一定是右值引用吗，答案是否定的！</p>
+<pre><code class="hljs c++">T&amp;&amp; t</code></pre>
+<p>出现以上声明时，<strong>如果<code>T</code>是需要被推导出来的，比如模板，<code>auto</code>,那么<code>t</code>就不一定是右值引用了！</strong>其判断方法为引用折叠的规则</p>
+<h3 id="3-Reference-Collapse"><a href="#3-Reference-Collapse" class="headerlink" title="3. Reference Collapse"></a>3. Reference Collapse</h3><p>​       声明引用的引用编译器不会通过，但可以间接声明，比如模板类型<code>T</code>本身可以隐含引用&amp;，再加上函数参数里的引用&amp;</p>
+<p>​       引用折叠发生的情况有template、auto、typedef、decltype</p>
+<pre><code class="hljs c++">x&amp; &amp; -- x&amp;<span class="hljs-comment">//左值引用的左值引用等价于左值引用</span>
+
+x&amp; &amp;&amp; -- x&amp;<span class="hljs-comment">//左值引用的右值引用等价于左值引用</span>
+
+x&amp;&amp; &amp; -- x&amp;<span class="hljs-comment">//右值引用的左值引用等价于左值引用</span>
+
+x&amp;&amp; &amp;&amp; -- x&amp;&amp;<span class="hljs-comment">//右值引用的右值引用等价于右值引用</span>
+</code></pre>
+<p>总之任一个为左值引用，最终都是左值引用，反之为右值引用。</p>
+<p>​       例子：</p>
+<pre><code class="hljs c++"><span class="hljs-type">int</span> a=<span class="hljs-number">10</span>;<span class="hljs-comment">//a 左值</span>
+<span class="hljs-type">int</span> &amp;b=a;<span class="hljs-comment">//b 左值引用</span>
+<span class="hljs-keyword">auto</span>&amp;&amp; c=b;<span class="hljs-comment">//然鹅，c是左值引用;</span>
+<span class="hljs-comment">//auto被推导为int(reference-ness),而又因为b是左值,故被推导为int&amp;，最终形式为int&amp; &amp;&amp;，根据引用折叠，即c为左值引用</span>
+
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun1</span><span class="hljs-params">(<span class="hljs-type">int</span>&amp;&amp;t)</span></span>&#123;...&#125;<span class="hljs-comment">//t一定为右值引用</span>
+
+<span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">class</span> T&gt;</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">fun2</span><span class="hljs-params">(T&amp;&amp;t)</span></span>&#123;...&#125;<span class="hljs-comment">//T被推导为何类型是不定的,因此t不一定为右值引用</span></code></pre>
+<h3 id="4-Template-type-deduction"><a href="#4-Template-type-deduction" class="headerlink" title="4 .Template type deduction"></a>4 .Template type deduction</h3><ol>
+<li><p>模板类型推导时，忽略引用类型参数的引用性（reference-ness）</p>
+</li>
+<li><p>给universal reference参数进行类型推导时，左值要特别对待(推导为<code>Type&amp;</code>)</p>
+</li>
+<li><p>传值参数的类型推导，入参的诸如所有const /volatile的特性都会忽略</p>
+</li>
+<li><p>模板板类型推导过程中，数组或函数做微参数时会退化成指针，除非模板函数的参数是引用类型</p>
+</li>
+</ol>
+<h3 id="5-move"><a href="#5-move" class="headerlink" title="5. move"></a>5. move</h3><p>move的实现主要有两点：</p>
+<ol>
+<li>接收万能引用，保证任何值都能传递</li>
+<li>去除引用，然后强制转换成右值引用</li>
+</ol>
+<pre><code class="hljs c++"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;
+<span class="hljs-keyword">typename</span> RemoveReference&lt;T&gt;::<span class="hljs-function">type &amp;&amp; <span class="hljs-title">myMove</span><span class="hljs-params">(T&amp;&amp; val)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">static_cast</span>&lt;<span class="hljs-keyword">typename</span> RemoveReference&lt;T&gt;::type&amp;&amp;&gt;(val);
+&#125;</code></pre>
+<h3 id="6-forward"><a href="#6-forward" class="headerlink" title="6. forward"></a>6. forward</h3><p>​       注意以下<code>foo</code>函数,如果传入的是左值，应该去调用<strong>左值引用</strong>类型的<code>check</code>函数，否则应该调用<strong>右值引用</strong>类型的<code>check</code>函数，这样便是完美转发</p>
+<pre><code class="hljs c++"><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp; val)</span></span>
+<span class="hljs-function"></span>&#123;
+    std::cout&lt;&lt;<span class="hljs-string">&quot;this is lval&quot;</span>&lt;&lt;std::endl;
+&#125;
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">check</span><span class="hljs-params">(<span class="hljs-type">int</span> &amp;&amp; val)</span></span>
+<span class="hljs-function"></span>&#123;
+    std::cout&lt;&lt;<span class="hljs-string">&quot;this is rval&quot;</span>&lt;&lt;std::endl;
+&#125;
+
+<span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;</span>
+<span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">foo</span><span class="hljs-params">(T&amp;&amp; val)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-comment">//val一定是左值</span>
+    std::cout&lt;&lt;<span class="hljs-string">&quot;after forward:\n&quot;</span>;
+    <span class="hljs-comment">//虽然val一定是左值,但T保存着val原本究竟是左值还是右值的信息,利用它实现完美转发</span>
+    <span class="hljs-built_in">check</span>(<span class="hljs-built_in">myForward</span>&lt;T&gt;(val));
+&#125;
+...
+<span class="hljs-built_in">foo</span>(<span class="hljs-number">1</span>);<span class="hljs-comment">//rval</span>
+<span class="hljs-built_in">foo</span>(<span class="hljs-built_in">myMove</span>(x));<span class="hljs-comment">//rval</span>
+<span class="hljs-built_in">foo</span>(x);<span class="hljs-comment">//lval</span></code></pre>
+<p>完美转发的实现依靠以下两点：</p>
+<p>​       1.注意到<code>foo</code>函数中的val本身一定是一个<strong>左值</strong>！它在完美转发中只起到传值的作用！</p>
+<p>​       2.<code>val</code>原本的类型信息:左值还是右值？它被保存在<code>T</code>中，需要利用它</p>
+<pre><code class="hljs c++"><span class="hljs-comment">//左值完美转发</span>
+<span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;</span>
+<span class="hljs-function">T&amp;&amp; <span class="hljs-title">myForward</span><span class="hljs-params">(<span class="hljs-keyword">typename</span> RemoveReference&lt;T&gt;::type&amp; lval)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">static_cast</span>&lt;T&amp;&amp;&gt;(lval);
+&#125;
+<span class="hljs-comment">//右值完美转发,注意到右值转发成一个左值是错误的</span>
+<span class="hljs-function"><span class="hljs-keyword">template</span>&lt;<span class="hljs-keyword">typename</span> T&gt;</span>
+<span class="hljs-function">T&amp;&amp; <span class="hljs-title">myForward</span><span class="hljs-params">(<span class="hljs-keyword">typename</span> RemoveReference&lt;T&gt;::type&amp;&amp; rval)</span></span>
+<span class="hljs-function"></span>&#123;
+    <span class="hljs-built_in">static_assert</span>(!std::is_lvalue_reference&lt;T&gt;::value,<span class="hljs-string">&quot;rval forward to lval!&quot;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-built_in">static_cast</span>&lt;T&amp;&amp;&gt;(rval);
+&#125;</code></pre>
+<p>​       以左值的完美转发为例，传入类型为自定义类型<code>Type</code>：</p>
+<ol>
+<li><p>如果外部函数<code>foo</code>传入的是一个右值，其形参<code>T&amp;&amp;</code>推导为<code>Type&amp;&amp;</code></p>
+<p>由于<code>T</code>被推导为<code>Type</code>，因此调用<code>forward&lt;Type&gt;</code>后传出右值引用</p>
+</li>
+<li><p>如果外部函数<code>foo</code>传入的是一个左值，则推导为<code>Type&amp; &amp;&amp;</code>，根据引用折叠原则，其形参<code>T&amp;&amp;</code>最终推导为<code>Type &amp;</code></p>
+<p>由于<code>T</code>被推导成<code>Type&amp;</code>，因此调用<code>forward&lt;Type&amp;&gt;</code>后传出左值引用</p>
+</li>
+</ol>
+
             </article>
             <hr>
             <div>
@@ -212,7 +332,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Test/">Test</a>
+                      <a class="hover-with-bg" href="/tags/Prefect-Forward/">Prefect Forward</a>
                     
                   </div>
                 
@@ -461,7 +581,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Test&nbsp;",
+        "Prefect Forward 实现&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
